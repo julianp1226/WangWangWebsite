@@ -1,16 +1,26 @@
-from flask import Flask
+from flask import Flask, render_template, request, jsonify
 from dbinit import Connection
-
 from uuid import uuid1
-from flask import request
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app)
 db = Connection("flask_mongo_crud")
 
 
+@app.route("/", methods=["GET"])
+def root():
+    users = db.user.find({})
+    return list(users)
+
+
 @app.route("/newuser", methods=["POST"])
-def insert_user(firstName, lastName, number):
+def insert_user():
     _id = str(uuid1().hex)
+
+    firstName = request.form["firstName"]
+    lastName = request.form["lastName"]
+    number = request.form["number"]
 
     content = {
         "_id": _id,
@@ -21,9 +31,9 @@ def insert_user(firstName, lastName, number):
 
     result = db.user.insert_one(content)
     if not result.inserted_id:
-        return {"message": "Failed to insert"}, 500
+        return jsonify("user not inserted")
 
-    return {"message": "Success", "data": {"id": result.inserted_id}}, 200
+    return jsonify("User has been inserted")
 
 
 @app.route("/user/<_id>", methods=["GET"])
