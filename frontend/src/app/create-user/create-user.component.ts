@@ -20,13 +20,17 @@ export class CreateUserComponent implements OnInit {
     this.userForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      number: ['', [Validators.required, Validators.minLength(10)]]
+      email: ['', Validators.required],
+      countryCode: ['', Validators.required],
+      accessToken: ['', Validators.required],
+      mobile: ['', [Validators.required, Validators.minLength(10)]],
+      interests: [[]],
     });
  }
 
  onSubmit() {
    console.log(this.userForm.value);
-   this.flaskapiservice.postUser(this.userForm.value.firstName, this.userForm.value.lastName, this.userForm.value.number)
+   this.flaskapiservice.postUser(this.userForm.value.firstName, this.userForm.value.lastName,  this.userForm.value.email, this.userForm.value.countryCode,this.userForm.value.accessToken, this.userForm.value.mobile, this.userForm.value.interests)
     .subscribe((response) => {
        if (response == "User has been inserted") {
          console.log("user inserted")
