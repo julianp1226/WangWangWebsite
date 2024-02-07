@@ -1,0 +1,503 @@
+/* nav bar */
+.nav {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: #333;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+body {
+  margin: 0 20%;
+  margin-top: 60px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.nav a {
+  float: none;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.nav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+}
+
+#registration-form label,
+#registration-form input,
+#registration-form select {
+  margin-bottom: 10px;
+}
+
+#registration-form {
+  display: flex;
+}
+
+.light-link {
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.div1,
+.div2 {
+  flex: 1;
+  padding: 10px;
+}
+
+/* #registration-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#registration-form input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+#registration-form select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+*/
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.row {
+  flex-direction: row;
+}
+
+li {
+  list-style: none;
+}
+
+.reg-parent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.reg-left {
+  width: 50%;
+  text-align: center;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-right: 100px;
+}
+
+.reg-right {
+  width: 50%;
+  text-align: center;
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+.extra-info {
+  color: #6d6d6d;
+  font-size: 12px;
+  text-align: center;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#login-form label,
+#login-form input {
+  margin-bottom: 10px;
+}
+
+.parent {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.child1 {
+  flex: 1;
+  width: 50%;
+}
+
+.w-100 {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.child2 {
+  width: 50%;
+  flex: 2;
+  height: fit-content;
+}
+
+.child3 {
+  width: 50%;
+  flex: 3;
+}
+
+#court-form input,
+#court-form label {
+  margin: 5px auto;
+}
+
+.court-card {
+  text-align: center;
+  border-radius: 5px;
+  border: #333 solid 1px;
+  padding: 10px 0;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+}
+
+.court-card h2 {
+  font-size: x-large;
+}
+
+.profile-page {
+  /* text-transform: capitalize; */
+  text-align: center;
+  align-items: center;
+}
+
+.profile-page img {
+  margin: 15px auto;
+  display: block;
+}
+
+.profile-page p {
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+}
+
+#p-username {
+  margin: 0 15px;
+  font-size: xx-large;
+}
+
+#p-age {
+  margin: 0 15px;
+  font-size: larger;
+}
+
+#p-experience {
+  text-transform: capitalize;
+  font-size: large;
+}
+
+#p-reviewhead {
+  margin: 20px 0;
+  font-size: x-large;
+}
+
+#home-ctn {
+  border: 3px solid black;
+  width: 60%;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#home-text {
+  padding: 0px 120px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#home-head {
+  padding: 0px 120px;
+  font-size: xx-large;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
+.block {
+  display: block;
+}
+
+.big-btn {
+  color: #000000;
+  padding: 6px;
+  width: 25%;
+  height: 10%;
+  font-size: x-large;
+  border-radius: 10px;
+  border: #333 3px solid;
+  background: white;
+}
+
+.button-text {
+  font-size: x-large;
+}
+
+.scroll-cards {
+  position: relative;
+  flex: 2;
+  overflow-y: scroll;
+  height: 500px;
+  /* margin-bottom: 40px; */
+}
+
+#map {
+  height: 500px;
+  width: 500px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.error {
+  color: rgb(187, 18, 18);
+  font-weight: bold;
+}
+
+#error-div {
+  color: rgb(187, 18, 18);
+}
+
+#editCourt,
+#editProfile,
+#create-court {
+  background-color: #333;
+  height: 45px;
+  max-width: 300px;
+  text-align: center;
+  color: white;
+  display: block;
+  margin: 0 0;
+  width: 60%;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.date {
+  color: rgb(3, 125, 60);
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+}
+
+.report-review {
+  color: rgb(187, 18, 18);
+  float: right;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.review {
+  border-radius: 5px;
+  border: #333 solid 1px;
+  margin: 10px 0;
+}
+
+.bigger {
+  font-size: larger;
+  font-weight: bold;
+  color: rgb(2, 99, 99);
+}
+
+.users {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.court-card2 {
+  text-align: center;
+  border-radius: 5px;
+  border: #333 solid 1px;
+  padding: 10px 0;
+  text-transform: capitalize;
+  width: 50%;
+  text-align: center;
+}
+
+.own-court {
+  font-weight: bolder;
+  color: rgb(23, 23, 217);
+}
+
+#errors {
+  color: rgb(187, 18, 18);
+}
+
+.errors {
+  color:rgb(187, 18, 18);
+}
+
+#filter-btn {
+  display: inline;
+}
+
+.btn,
+#filter-btn,
+#filter-modal button {
+  background-color: #333;
+  color: white;
+  padding: 10px 40px;
+  border: #6d6d6d solid 2px;
+  border-radius: 3px;
+}
+
+#avail-title {
+  margin-right: 60%;
+  display: inline;
+}
+
+#filter-modal {
+  position: fixed;
+  top: 15%;
+  right: 0;
+  left: 0;
+  margin: auto;
+  height: fit-content;
+  width: 30%;
+  background-color: #333;
+  padding: 20px;
+  border-radius: 20px;
+  z-index: 10;
+}
+
+#filter-modal label,
+#filter-modal button,
+#filter-modal p {
+  text-align: center;
+  color: white;
+  display: block;
+  margin: 10px auto;
+  width: 60%;
+}
+
+#filter-modal input {
+  text-align: center;
+  color: black;
+  display: block;
+  margin: 10px auto;
+  width: 50%;
+}
+
+#filter-modal select,
+#filter-modal option {
+  text-align: center;
+  color: white;
+  display: block;
+  margin: 10px auto;
+  width: fit-content;
+  background-color: #333;
+  border: white solid 2px;
+}
+
+#filter-modal button {
+  border: white solid 2px;
+}
+
+#filter-modal .inline {
+  display: inline;
+  margin: 0 0;
+  width: fit-content;
+}
+
+#filter-modal .filter-error {
+  background-color: rgb(187, 18, 18);
+  border-radius: 3px;
+  width: fit-content;
+  padding: 10px 5px;
+  display: none;
+}
+.expLvlPercent {
+  font-weight: bold;
+  color: darkgreen;
+}
+
+.schedule {
+  padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+}
+
+.caps {
+  text-transform: capitalize;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #222;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #999;
+}
+
+.court-scroll1 {
+  background-color: #333;
+  border-radius: 10px;
+  padding: 10px 10px;
+  margin: 5px;
+  height: fit-content;
+}
+
+.white-bg {
+  background-color: white;
+}
+
+#createCourtParent .child2 input {
+  margin-bottom: 25px;
+}

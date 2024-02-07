@@ -1,0 +1,25 @@
+{
+  "name": "wangwang",
+  "version": "1.0.0",
+  "description": "Website for wangwang",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
+    "express-session": "^1.17.3",
+    "moment": "^2.29.4",
+    "mongodb": "^5.3.0",
+    "multer": "^1.4.5-lts.1",
+    "xss": "^1.0.14",
+    "node-geocoder": "^4.2.0"
+  }
+}
