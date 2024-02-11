@@ -71,31 +71,17 @@ router.route("/register")
   .post(async (req, res) => {
     let firstName = xss(req.body.firstNameInput);
     let lastName = xss(req.body.lastNameInput);
-    let username = xss(req.body.usernameInput);
-    let password = xss(req.body.passwordInput);
-    let age = parseInt(xss(req.body.ageInput));
-    let city = xss(req.body.cityInput);
-    let state = xss(req.body.stateInput);
-    let zip = xss(req.body.zipInput);
+    let bio = xss(req.body.bio);
     let email = xss(req.body.emailAddressInput);
-    let experience_level = xss(req.body.levelInput);
-
-    let address;
-    
+    let password = xss(req.body.passwordInput);    
     let errors = "";
     // let hasErrors = false;
 
     if (
       !firstName ||
       !lastName ||
-      !username ||
       !password ||
-      !age ||
-      !city ||
-      !state ||
-      !zip ||
-      !email ||
-      !experience_level
+      !email
     ) 
     {
       errors += "All inputs must be provided";
@@ -104,19 +90,8 @@ router.route("/register")
     try {
       firstName = validStr(firstName, "First name");
       lastName = validStr(lastName, "Last name");
-      username = validUsername(username, "Username");
-      city = validStr(city, "City");
-      state = validState(state);
-      zip = validZip(zip);
-      address = await validAddress("", city, state, zip);
       // console.log(address)
-      if (address === false) {
-        // console.log("false")
-        errors += ' - ' + "Invalid address";
-      }
-      age = validNumber(age, "Age", true, 13, 122);
       email = validEmail(email);
-      experience_level = validExpLevel(experience_level);
       password = checkPassword(password);
     }
     catch (e) {
@@ -125,13 +100,6 @@ router.route("/register")
 
 
     const usersCollection = await users();
-    // check if username already exists
-    const checkUsername = await usersCollection.findOne({
-      username: new RegExp("^" + username, "i"),
-    });
-    if (checkUsername !== null) {
-      errors += "- another user has this username.";
-    }
     //check email doesn't exist
     const checkEmail = await usersCollection.findOne({
       email: new RegExp("^" + email.toLowerCase(), "i"),
@@ -149,14 +117,13 @@ router.route("/register")
       const newUser = await createUser(
         firstName,
         lastName,
-        username,
-        password,
-        age,
-        city,
-        state,
-        zip,
+        "",
+        [],
         email,
-        experience_level
+        "",
+        "",
+        password,
+        true
         // owner
       );
       if (newUser) {

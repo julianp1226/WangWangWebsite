@@ -2,13 +2,7 @@ let registerForm = document.getElementById('registration-form');
 
 let firstName = document.getElementById('firstNameInput');
 let lastName = document.getElementById('lastNameInput');
-let username = document.getElementById('usernameInput');
 let emailAddress = document.getElementById('emailAddressInput');
-let age = document.getElementById('ageInput');
-let state = document.getElementById('stateInput');
-let city = document.getElementById('cityInput');
-let zip = document.getElementById('zipInput');
-let level = document.getElementById('levelInput');
 let password = document.getElementById('passwordInput');
 let confirmPassword = document.getElementById('confirmPasswordInput');
 let errorDiv = document.getElementById('error-div');
@@ -152,38 +146,11 @@ if (registerForm) {
     errorDiv.innerHTML = "";
     let emptyFirst = false;
     let emptyLast = false;
-    let emptyUsername = false;
     let emptyEmail = false;
-    let emptyAge = false;
-    let emptyState = false;
-    let emptyCity = false;
-    let emptyZip = false;
-    let emptyLevel = false;
     let emptyPassword = false;
     let emptyConfirmPassword = false;
     let goodPass = false;
     let goodConfirmPass = false;
-    
-    //check username
-    if (username.value.trim() === "") {
-        event.preventDefault();
-        emptyUsername = true;
-        let message = document.createElement('p');
-        message.innerHTML = "Username is required"
-        errorDiv.appendChild(message);
-    }
-    if (!emptyUsername) {
-        try {
-            username.value = validUsername(username.value, "Username");
-        }
-        catch (e) {
-            event.preventDefault();
-            let message = document.createElement('p');
-            message.innerHTML = "Username is not valid"
-            console.log(e)
-            errorDiv.appendChild(message);
-        }
-    }
 
     //check first name
     if (firstName.value.trim() === "") {
@@ -246,96 +213,6 @@ if (registerForm) {
         }
     }
 
-    //check age
-    if (age.value.trim() === "") {
-        event.preventDefault();
-        emptyAge = true;
-        let message = document.createElement('p');
-        message.innerHTML = "Age is required"
-        errorDiv.appendChild(message);
-    }
-    if (!emptyAge) {
-        try {
-            age.value = validNumber(parseInt(age.value), "Age", true, 13, 122);
-        }
-        catch (e) {
-            console.log(e)
-            event.preventDefault();
-            let message = document.createElement('p');
-            message.innerHTML = e
-            errorDiv.appendChild(message);        
-        }
-    }
-
-    //check state
-    if (state.value.trim() === "" || state.value.toLowerCase().trim()==="select state") {
-        event.preventDefault();
-        emptyState = true;
-        let message = document.createElement('p');
-        message.innerHTML = "State is required"
-        errorDiv.appendChild(message);
-    }
-    if (!emptyState) {
-        try {
-            state.value = validState(state.value);
-        }
-        catch (e) {
-            event.preventDefault();
-            let message = document.createElement('p');
-            message.innerHTML = "State is not valid"
-            errorDiv.appendChild(message);        
-        }
-    }
-
-    //check city
-    if (city.value.trim() === "") {
-        event.preventDefault();
-        emptyCity = true;
-        let message = document.createElement('p');
-        message.innerHTML = "City is required"
-        errorDiv.appendChild(message);
-    }
-    if (!emptyCity) {
-        try {
-            // city.value = validCity(city.value);
-        }
-        catch (e) {
-            event.preventDefault();
-            let message = document.createElement('p');
-            message.innerHTML = "City is not valid"
-            errorDiv.appendChild(message);        
-        }
-    }
-
-    //check zip
-    if (emailAddress.value.trim() === "") {
-        event.preventDefault();
-        emptyZip = true;
-        let message = document.createElement('p');
-        message.innerHTML = "ZIP Code is required"
-        errorDiv.appendChild(message);
-    }
-    if (!emptyZip) {
-        try {
-            zip.value = validZip(zip.value);
-        }
-        catch (e) {
-            event.preventDefault();
-            let message = document.createElement('p');
-            message.innerHTML = "ZIP Code is not valid"
-            errorDiv.appendChild(message);        
-        }
-    }
-
-     //check level
-     if (level.value.trim() === "" || level.value.toLowerCase().trim()==="select level") {
-        console.log("LEVEL")
-        event.preventDefault();
-        emptyLevel = true;
-        let message = document.createElement('p');
-        message.innerHTML = "Level is required"
-        errorDiv.appendChild(message);
-    }
     // if (!emptyLevel) {
     //     try {
     //         level.value = validLevel(level.value);

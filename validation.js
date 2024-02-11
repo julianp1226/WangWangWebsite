@@ -542,6 +542,13 @@ const militaryToStandard = (militaryTime) => {
   return standard;
 }
 
+const validBool = (bool, boolName) => {
+  if(typeof bool !== "boolean"){
+    throw `Error: ${boolName} must be a boolean.`;
+  }
+  return bool
+}
+
 export {
   isAuth,
   validId,
@@ -561,7 +568,8 @@ export {
   checkPassword,
   validSport,
   validUsername,
-  militaryToStandard
+  militaryToStandard, 
+  validBool
 };
 // console.log(await validAddress("not existing 15 Drive", "do not care", "MOO", "10309", 'AIzaSyA4UJGUMNxXEATNsR9D7tBQspRyLwTdHBY'));
 // console.log(validAddressLine("kdjfn   washINGton   street"))

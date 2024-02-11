@@ -9,9 +9,7 @@ import {
   createUser,
   getUserById,
   getUserByName,
-  getUserByUsername,
-  updateUser,
-  addReportedByUser
+  updateUser
 } from "../data/users.js";
 import {
   validAddress,
