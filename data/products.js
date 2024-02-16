@@ -33,7 +33,7 @@ const createProduct = async (
   status,
 ) => {
   if (
-    !name || !description || !actualPrice || !discountedPrice || !categoryId || !quantity
+    !name || !description || !actualPrice || !discountedPrice || !categoryId || !quantity || !couponId
   ) {
     throw "Error: Some necessary inputs not provided";
   };
@@ -41,11 +41,6 @@ const createProduct = async (
     image = "/public/images/No_Image_Available.jpg";
   } else {
     image = validImageUrl(image);
-  };
-    if (!couponId) {
-    couponId = "";
-  } else {
-    couponId = validStr(couponId, "Coupon ID");
   };
   //do more for optional args
   try {
