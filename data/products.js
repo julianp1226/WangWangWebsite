@@ -23,17 +23,17 @@ const createProduct = async (
   name,
   description,
   image,
-  couponId,
   images,
+  quantity,
   actualPrice,
   discountedPrice,
-  clinicId,
-  packageCategoryId,
+  categoryId,
+  vendorId,
+  couponId,
   status,
-  ratingCount, 
 ) => {
   if (
-    !name || !description || !actualPrice || !discountedPrice || !clinicId || !packageCategoryId
+    !name || !description || !actualPrice || !discountedPrice || !categoryId || !quantity
   ) {
     throw "Error: Some necessary inputs not provided";
   };
