@@ -4,6 +4,7 @@ let firstName = document.getElementById('firstNameInput');
 let lastName = document.getElementById('lastNameInput');
 let emailAddress = document.getElementById('emailAddressInput');
 let password = document.getElementById('passwordInput');
+let homeaddress = document.getElementById('homeaddressInput')
 let confirmPassword = document.getElementById('confirmPasswordInput');
 let errorDiv = document.getElementById('error-div');
 let serverErrors = document.getElementById('server-errors');
@@ -124,9 +125,9 @@ const checkPassword = (password) => {
     return password;
   }
 
-const validLevel = (level) => {
-    if (level.toLowerCase().trim() != "beginner" && level.toLowerCase().trim() != "intermediate" && level.toLowerCase().trim() != "advanced") {
-        throw 'Invalid level';
+const validGender = (gender) => {
+    if (gender.toLowerCase().trim() != "male" && gender.toLowerCase().trim() != "female" && gender.toLowerCase().trim() != "transgender" && gender.toLowerCase().trim() != "non-binary") {
+        throw 'Invalid gender';
     }
 }
 

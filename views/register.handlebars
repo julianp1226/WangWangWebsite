@@ -1,4 +1,7 @@
 <main>
+    <head>
+        <link rel="stylesheet" href="/public/css/register-styles.css"/>
+    </head>
     <form action="/register" method="POST" id="registration-form" class="centered">
 
     <h1>Register</h1>
@@ -17,15 +20,25 @@
                 <input type="text" name="lastNameInput" id="lastNameInput" placeholder="Enter last name">
             </label>
             
-            <label for="emailAddressInput">
-                Email
-                <input type="email" name="emailAddressInput" id="emailAddressInput" placeholder="Enter email address">
+            <label for="genderInput">
+                Gender
+                <select name="genderInput" id="genderInput">
+                    <option value="n/a">Select Gender</option>
+                    <option value="beginner">Male</option>
+                    <option value="beginner">Female</option>
+                    <option value="intermediate">Transgender</option>
+                    <option value="advanced">Non-Binary</option>
+                </select>
             </label>
         </div>
     </div>
 
         <div class="row">
-             <label for="passwordInput">
+            <label for="emailAddressInput">
+                Email
+                <input type="email" name="emailAddressInput" id="emailAddressInput" placeholder="Enter email address">
+            </label>
+            <label for="passwordInput">
                 Password
                 <input type="password" name="passwordInput" id="passwordInput" placeholder="Create password">
             </label>
