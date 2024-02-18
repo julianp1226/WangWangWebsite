@@ -8,8 +8,9 @@ let age = document.getElementById('ageInput');
 let state = document.getElementById('stateInput');
 let city = document.getElementById('cityInput');
 let zip = document.getElementById('zipInput');
-let level = document.getElementById('levelInput');
+let gender = document.getElementById('genderInput');
 let password = document.getElementById('passwordInput');
+let homeaddress = document.getElementById('homeaddressInput')
 let confirmPassword = document.getElementById('confirmPasswordInput');
 let errorDiv = document.getElementById('error-div');
 let serverErrors = document.getElementById('server-errors');
@@ -130,9 +131,9 @@ const checkPassword = (password) => {
     return password;
   }
 
-const validLevel = (level) => {
-    if (level.toLowerCase().trim() != "beginner" && level.toLowerCase().trim() != "intermediate" && level.toLowerCase().trim() != "advanced") {
-        throw 'Invalid level';
+const validGender = (gender) => {
+    if (gender.toLowerCase().trim() != "male" && gender.toLowerCase().trim() != "female" && gender.toLowerCase().trim() != "transgender" && gender.toLowerCase().trim() != "non-binary") {
+        throw 'Invalid gender';
     }
 }
 
@@ -155,10 +156,11 @@ if (registerForm) {
     let emptyUsername = false;
     let emptyEmail = false;
     let emptyAge = false;
+    let emptyGender = false;
+    let emptyHome = false;
     let emptyState = false;
     let emptyCity = false;
     let emptyZip = false;
-    let emptyLevel = false;
     let emptyPassword = false;
     let emptyConfirmPassword = false;
     let goodPass = false;
@@ -267,6 +269,16 @@ if (registerForm) {
         }
     }
 
+    //check Home Address
+    if (homeaddress.value.trim() === "") {
+        event.preventDefault();
+        emptyHome = true;
+        let message = document.createElement('p');
+        message.innerHTML = "Home address is required"
+        errorDiv.appendChild(message);
+    }
+    // TODO: Address Validation
+
     //check state
     if (state.value.trim() === "" || state.value.toLowerCase().trim()==="select state") {
         event.preventDefault();
@@ -327,27 +339,26 @@ if (registerForm) {
         }
     }
 
-     //check level
-     if (level.value.trim() === "" || level.value.toLowerCase().trim()==="select level") {
-        console.log("LEVEL")
+    //check gender
+    if (gender.value.trim() === "" || gender.value.toLowerCase().trim()==="select gender") {
         event.preventDefault();
-        emptyLevel = true;
+        emptyGender = true;
         let message = document.createElement('p');
-        message.innerHTML = "Level is required"
+        message.innerHTML = "Gender is required"
         errorDiv.appendChild(message);
     }
-    // if (!emptyLevel) {
-    //     try {
-    //         level.value = validLevel(level.value);
-    //     }
-    //     catch (e) {
-    //         event.preventDefault();
-    //         let message = document.createElement('p');
-    //         message.innerHTML = "Level is not valid"
-    //         errorDiv.appendChild(message);        
-    //     }
-    // }
-
+    if (!emptyGender) {
+        try {
+            gender.value = validGender(gender.value);
+        }
+        catch (e) {
+            event.preventDefault();
+            let message = document.createElement('p');
+            message.innerHTML = "Gender is not valid"
+            errorDiv.appendChild(message);        
+        }
+    }
+    
     // check password
     if (password.value.trim() === "") {
         event.preventDefault();
