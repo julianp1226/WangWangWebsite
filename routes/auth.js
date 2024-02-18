@@ -80,8 +80,8 @@ router.route("/register")
     if (
       !firstName ||
       !lastName ||
-      !password ||
-      !email
+      !mobile ||
+      !password
     ) 
     {
       errors += "All inputs must be provided";
@@ -91,7 +91,10 @@ router.route("/register")
       firstName = validStr(firstName, "First name");
       lastName = validStr(lastName, "Last name");
       // console.log(address)
-      email = validEmail(email);
+      email = email.trim();
+      if(email !== ""){
+        email = validEmail(email);
+      }
       password = checkPassword(password);
     }
     catch (e) {

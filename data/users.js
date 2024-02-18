@@ -29,10 +29,10 @@ const createUser = async (
   if (
     !firstName ||
     !lastName ||
-    !password ||
-    !email
+    !mobile ||
+    !password
   ) {
-    throw "Error: All inputs must be providedSKEI";
+    throw "Error: Missing required input";
   }
   // if (owner === null) {
   //   throw "Error: owner must be provided";
