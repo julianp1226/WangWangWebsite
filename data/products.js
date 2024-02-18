@@ -90,4 +90,19 @@ const createProduct = async (
   const newId = insertInfo.insertedId.toString();
   return newId;
 }
+const getProductById = async (id) => {
+  try {
+    id = validId(id, "productId");
+  } catch (e) {
+    throw "Error (data/product.js :: getProductById(id)):" + e;
+  }
+
+  const productCollection = await products();
+  const product = await productCollection.findOne({ _id: new ObjectId(id) });
+
+  if (product === null)
+    throw "Error (data/products.js :: getProductById(id)): No user found";
+
+  product._id = product._id.toString();
+  return product;
   //mongoshit
