@@ -22,8 +22,7 @@ const createUser = async (
   email,
   mobile,
   profilePic,
-  password,
-  isNotification
+  password
   //owner,
 ) => {
   if (
@@ -45,8 +44,10 @@ const createUser = async (
   try {
     firstName = validStr(firstName, "First name");
     lastName = validStr(lastName, "Last name");
-    isNotification = validBool(isNotification, "Notifications");
-    email = validEmail(email);
+    email = email.trim();
+    if(email !== ""){
+      email = validEmail(email);
+    }
     password = checkPassword(password);
   } catch (e) {
     throw e;
@@ -72,20 +73,22 @@ const createUser = async (
    // owner: false,
     deviceType: "ios",
     authType: "app",
-    isNotification: isNotification,
+    isNotification: true,
     stripeCustomerId: "", //TODO: Figure out how to generate customers with StripeAPI & store resulting id here
     creationDate: new Date(),
     insertDate: Math.round(new Date()/1000),
     lastUpdatedAt: Math.round(new Date()/1000),
-    password: bcrypt.hashSync(password, 10),
+    password: bcrypt.hashSync(password, 10)
   };
   const usersCollection = await users();
-  //check email doesn't exist
-  const checkEmail = await usersCollection.findOne({
-    email: new RegExp("^" + email.toLowerCase(), "i"),
-  });
-  if (checkEmail !== null) {
-    throw "Error: this email is already associated with an account.";
+  //check email doesn't exist (only run if email is provided)
+  if(email!==""){
+    const checkEmail = await usersCollection.findOne({
+      email: new RegExp("^" + email.toLowerCase(), "i"),
+    });
+    if (checkEmail !== null) {
+      throw "Error: this email is already associated with an account.";
+    }
   }
   const insertInfo = await usersCollection.insertOne(addUser);
   if (!insertInfo.acknowledged || !insertInfo.insertedId)

@@ -4,7 +4,8 @@ let firstName = document.getElementById('firstNameInput');
 let lastName = document.getElementById('lastNameInput');
 let emailAddress = document.getElementById('emailAddressInput');
 let password = document.getElementById('passwordInput');
-let homeaddress = document.getElementById('homeaddressInput')
+//let homeaddress = document.getElementById('homeaddressInput')
+let mobile = document.getElementById('mobileInput')
 let confirmPassword = document.getElementById('confirmPasswordInput');
 let errorDiv = document.getElementById('error-div');
 let serverErrors = document.getElementById('server-errors');
@@ -125,11 +126,11 @@ const checkPassword = (password) => {
     return password;
   }
 
-const validGender = (gender) => {
+/*const validGender = (gender) => {
     if (gender.toLowerCase().trim() != "male" && gender.toLowerCase().trim() != "female" && gender.toLowerCase().trim() != "transgender" && gender.toLowerCase().trim() != "non-binary") {
         throw 'Invalid gender';
     }
-}
+}*/
 
 const validUsername = (username) => {
     username = validStr(username, "Username");
@@ -196,11 +197,11 @@ if (registerForm) {
 
      //check email
      if (emailAddress.value.trim() === "") {
-        event.preventDefault();
+        //event.preventDefault();
         emptyEmail = true;
-        let message = document.createElement('p');
+        /*let message = document.createElement('p');
         message.innerHTML = "Email is required"
-        errorDiv.appendChild(message);
+        errorDiv.appendChild(message);*/
     }
     if (!emptyEmail) {
         try {

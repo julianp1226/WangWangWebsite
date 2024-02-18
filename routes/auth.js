@@ -71,8 +71,9 @@ router.route("/register")
   .post(async (req, res) => {
     let firstName = xss(req.body.firstNameInput);
     let lastName = xss(req.body.lastNameInput);
-    let bio = xss(req.body.bio);
+    //let bio = xss(req.body.bio);
     let email = xss(req.body.emailAddressInput);
+    let mobile = xss(req.body.mobileInput)
     let password = xss(req.body.passwordInput);    
     let errors = "";
     // let hasErrors = false;
@@ -103,12 +104,15 @@ router.route("/register")
 
 
     const usersCollection = await users();
-    //check email doesn't exist
-    const checkEmail = await usersCollection.findOne({
-      email: new RegExp("^" + email.toLowerCase(), "i"),
-    });
-    if (checkEmail !== null) {
-      errors += " - this email is already associated with an account";
+    //check email doesn't exist if one is provided
+    email = email.trim()
+    if(email !== ""){
+      const checkEmail = await usersCollection.findOne({
+        email: new RegExp("^" + email.toLowerCase(), "i"),
+      });
+      if (checkEmail !== null) {
+        errors += " - this email is already associated with an account";
+      }
     }
 
     if (errors != "") {
@@ -123,11 +127,9 @@ router.route("/register")
         "",
         [],
         email,
+        mobile,
         "",
-        "",
-        password,
-        true
-        // owner
+        password
       );
       if (newUser) {
         return res.redirect('login');      
