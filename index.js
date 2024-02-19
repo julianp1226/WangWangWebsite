@@ -5,7 +5,7 @@ import configRoutes from "./routes/index.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import exphbs from "express-handlebars";
-const passport = require('passport')
+import passport from 'passport';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -37,7 +37,12 @@ app.use("/public", staticDir);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(rewriteUnsupportedBrowserMethods);
-
+passport.serializeUser(function (user,cb) {
+  cb(null,user);
+});
+passport.deserializeUser(function (obj,cb) {
+  cb(null,obj);
+});
 app.use("/login", (req, res, next) => {
   if (!req.session || !req.session.user) return next();
   return res.redirect("/");
@@ -53,6 +58,7 @@ app.use("/", (req, res, next) => {
   if (
     req.originalUrl.substring(0, 6) != "/login" &&
     req.originalUrl.substring(0, 9) != "/register" &&
+    req.originalUrl.substring(0, 9) != "/auth/google" &&
     req.originalUrl.substring(0, 9) != "/" &&
     (!req.session || !req.session.user)
   )

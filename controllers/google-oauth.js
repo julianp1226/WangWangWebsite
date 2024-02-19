@@ -1,5 +1,5 @@
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+import passport from 'passport';
+import { OAuth2Strategy as GoogleStrategy}  from 'passport-google-oauth';
 const express = require('express');
 const router = express.Router();
 const googleAuth = 1;

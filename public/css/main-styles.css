@@ -274,6 +274,17 @@ li {
   background: white;
 }
 
+.google-btn {
+  color: #ffffff;
+  padding: 6px;
+  width: 25%;
+  height: 10%;
+  font-size: x-large;
+  border-radius: 10px;
+  border: #ff0000 3px solid;
+  background: #ff0000;
+}
+
 .button-text {
   font-size: x-large;
 }
