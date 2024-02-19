@@ -4,6 +4,8 @@ const router = Router();
 import { users } from "../config/mongoCollections.js";
 import { isAuth, validId, validStr, validStrArr, validNumber, validAddress, validState, validZip, validTime, validTimeInRange, validEmail, validExpLevel, validDate, validImageUrl, checkPassword, validUsername} from "../validation.js";
 import xss from 'xss';
+import passport from 'passport';
+import { OAuth2Strategy as GoogleStrategy}  from 'passport-google-oauth';
 
 router
   .route("/login")
@@ -177,5 +179,48 @@ router.route("/logout").get(async (req, res) => {
   req.session.destroy();
   return res.render("logout", { auth: false });
 });
+var userProfile;
+passport.use(
+  new GoogleStrategy(
+      {
+          //TODO: Put in Env when presenting
+          clientID: "888866903134-rnb72ql2t05mgnpdp9gs9u7bc752h05n.apps.googleusercontent.com",
+          clientSecret: "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",
+          callbackURL: "/auth/google"
+      },
+      function (accessToken, refreshToken, profile, done) {
+          userProfile = profile;
+          return done(null,userProfile);
+      }
+  )
+);
+
+router.get(
+  '/google',
+  passport.authenticate('google', {scope: ['profile', 'email', 'https://www.googleapis.com/auth/user.birthday.read' , 'https://www.googleapis.com/auth/user.addresses.read']})
+);
+
+router.get(
+  '/auth/google',
+  passport.authenticate('google', {failureRedirect: '/auth/error' }),
+  (req,res) => {
+      res.redirect('/auth/success');
+  }
+);
+router.get('/auth/success', async (req, res) => {
+  //TODO: Login/Register user w/ database
+  console.log(userProfile.displayName);
+  const email = userProfile.emails[0].value;
+  const nameArr = userProfile.displayName.split(" ");
+  const firstName = nameArr[0];
+  const lastName = nameArr[nameArr.length-1];
+  
+  console.log(lastName)
+  res.render("homepage", {
+      auth: true,
+      title: "Home",
+      id: userProfile.id
+    });
+})
 
 export default router;

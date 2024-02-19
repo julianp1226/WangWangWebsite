@@ -58,7 +58,9 @@ app.use("/", (req, res, next) => {
   if (
     req.originalUrl.substring(0, 6) != "/login" &&
     req.originalUrl.substring(0, 9) != "/register" &&
-    req.originalUrl.substring(0, 9) != "/auth/google" &&
+    req.originalUrl.substring(0, 7) != "/google" &&
+    req.originalUrl.substring(0, 12) != "/auth/google" &&
+    req.originalUrl.substring(0, 13) != "/auth/success" &&
     req.originalUrl.substring(0, 9) != "/" &&
     (!req.session || !req.session.user)
   )
