@@ -93,7 +93,7 @@ router.route("/register")
       lastName = validStr(lastName, "Last name");
       // console.log(address)
       email = email.trim();
-      if(email !== ""){
+      if(typeof email !== "string" || email !== ""){
         email = validEmail(email);
       }
       password = checkPassword(password);

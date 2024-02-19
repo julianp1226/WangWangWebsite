@@ -15,6 +15,7 @@ import {
   validAddress,
   validExpLevel,
   validId,
+  validImageUrl,
   validState,
   validStr,
   validZip,
@@ -71,14 +72,21 @@ router
       //owner: req.session.user.owner,
       id: req.session.user.id,
       email: thisUser.email,
-      state: thisUser.state,
+      firstName: thisUser.firstName,
+      lastName: thisUser.lastName,
+      bio: thisUser.bio,
+      interests: thisUser.interests,
+      profilePic: thisUser.profilePic,
+      mobile: thisUser.mobile
+      /*state: thisUser.state,
       city: thisUser.city,
       zip: thisUser.zip,
-      level: thisUser.experience_level,
+      level: thisUser.experience_level,*/
     });
   })
   .post(upload.single("userImage"), async (req, res) => {
     let updatedUser = req.body;
+    //console.log(req.body)
     let fileData = req.file;
     let currentUser = await getUserById(req.params.userId);
     if (fileData) {
@@ -103,85 +111,54 @@ router
     } else {
       isAuth = false;
     }
+    //let newCity, newState, newZip, newLevel, newOwner;
+    let firstName, lastName, bio, interests, mobile, isNotification, email, profilePic
 
     try {
       thisUser = await getUserById(req.params.userId);
-    } catch (e) {
-      return res.render("editProfile", {
-        auth: isAuth,
-       // owner: req.session.user.owner,
-        id: req.session.user.id,
-        email: thisUser.email,
-        state: thisUser.state,
-        city: thisUser.city,
-        zip: thisUser.zip,
-        level: thisUser.experience_level,
-        bad: e,
-      });
-    }
-    let newCity, newState, newZip, newLevel, newOwner;
-    try {
-      newCity = validStr(xss(updatedUser.cityInput));
-    } catch (e) {
-      return res.render("editProfile", {
-        auth: isAuth,
-        //owner: req.session.user.owner,
-        id: req.session.user.id,
-        email: thisUser.email,
-        state: thisUser.state,
-        city: thisUser.city,
-        zip: thisUser.zip,
-        level: thisUser.experience_level,
-        bad: e,
-      });
-    }
-    try {
+      console.log(thisUser.authType)
+      firstName = validStr(xss(updatedUser.firstNameInput), "firstName")
+      lastName = validStr(xss(updatedUser.lastNameInput), "lastName")
+      bio = xss(updatedUser.bioInput)
+      if(typeof bio !== "string" || bio.trim() !== ""){
+        bio = validStr(bio, "bio")
+      }
+      email = xss(updatedUser.emailAddressInput)
+      if(typeof email !== "string" || email.trim() !== ""){
+        email = validStr(email, "email")
+      }
+      mobile = xss(updatedUser.mobileInput)
+      if(typeof mobile !== "string" || mobile.trim() !== "" || thisUser.authType === "app"){
+        mobile = validStr(mobile, "mobile")
+      }
+      /*if(profilePic !== "string" || profilePic.trim()!== ""){
+        profilePic = validImageUrl(xss(updatedUser.userImage))
+      }*/
+      /*newCity = validStr(xss(updatedUser.cityInput));
       newState = validState(xss(updatedUser.stateInput));
-    } catch (e) {
-      return res.render("editProfile", {
-        auth: isAuth,
-       // owner: req.session.user.owner,
-        id: req.session.user.id,
-        email: thisUser.email,
-        state: thisUser.state,
-        city: thisUser.city,
-        zip: thisUser.zip,
-        level: thisUser.experience_level,
-        bad: e,
-      });
-    }
-    try {
       newZip = validZip(xss(updatedUser.zipInput));
+      newLevel = validExpLevel(xss(updatedUser.levelInput));*/
     } catch (e) {
       return res.render("editProfile", {
         auth: isAuth,
        // owner: req.session.user.owner,
         id: req.session.user.id,
         email: thisUser.email,
-        state: thisUser.state,
+        firstName: thisUser.firstName,
+        lastName: thisUser.lastName,
+        bio: thisUser.bio,
+        interests: thisUser.interests,
+        profilePic: thisUser.profilePic,
+        mobile: thisUser.mobile,
+        /*state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
-        bad: e,
-      });
-    }
-    try {
-      newLevel = validExpLevel(xss(updatedUser.levelInput));
-    } catch (e) {
-      return res.render("editProfile", {
-        auth: isAuth,
-       // owner: req.session.user.owner,
-        id: req.session.user.id,
-        email: thisUser.email,
-        state: thisUser.state,
-        city: thisUser.city,
-        zip: thisUser.zip,
-        level: thisUser.experience_level,
+        level: thisUser.experience_level,*/
         bad: e,
       });
     }
 
-    let address = await validAddress("", newCity, newState, newZip);
+    /*let address = await validAddress("", newCity, newState, newZip);
     if (address === false) {
       return res.render("editProfile", {
         auth: isAuth,
@@ -193,10 +170,10 @@ router
         level: thisUser.experience_level,
         bad: "Invalid address",
       });
-    }
+    }*/
 
     try {
-      let finalUser = await updateUser(
+      /*let finalUser = await updateUser(
         req.params.userId,
         thisUser.firstName,
         thisUser.lastName,
@@ -209,7 +186,18 @@ router
         newLevel,
         //thisUser.owner,
         xss(updatedUser.userImage)
-      );
+      );*/
+      let finalUser = await updateUser(
+        req.params.userId,
+        firstName,
+        lastName,
+        bio,
+        interests,
+        email,
+        mobile,
+        profilePic,
+        true
+      )
       if (finalUser) {
         res.redirect(`/user/id/${req.params.userId}`);
       }
@@ -219,10 +207,16 @@ router
         //owner: req.session.user.owner,
         id: req.session.user.id,
         email: thisUser.email,
-        state: thisUser.state,
+        firstName: thisUser.firstName,
+        lastName: thisUser.lastName,
+        bio: thisUser.bio,
+        interests: thisUser.interests,
+        profilePic: thisUser.profilePic,
+        mobile: thisUser.mobile,
+        /*state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
+        level: thisUser.experience_level,*/
         bad: e,
       });
     }

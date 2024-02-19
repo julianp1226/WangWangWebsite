@@ -45,7 +45,7 @@ const createUser = async (
     firstName = validStr(firstName, "First name");
     lastName = validStr(lastName, "Last name");
     email = email.trim();
-    if(email !== ""){
+    if(typeof email !== "string" || email.trim() !== ""){
       email = validEmail(email);
     }
     password = checkPassword(password);
@@ -157,16 +157,29 @@ const updateUser = async (
   id,
   firstName,
   lastName,
+  bio,
+  interests,
   email,
-  //owner,
-  profilePic
+  mobile,
+  profilePic,
+  isNotification
 ) => {
+  try{
+    id = validId(id)
+  }
+  catch(e){
+    throw e
+  }
+  let user = await getUserById(id);
+  let authType = user.authType;
   if (
     !firstName ||
     !lastName ||
-    !email
+    //Mobile required if authenticated using app.
+    (!mobile && authType === "app") /*||
+    !isNotification*/
   ) {
-    throw "Error: All inputs must be provided";
+    throw "Error: Missing required input";
   }
   /*if (owner === null) {
     throw "Error: owner must be provided";
@@ -179,17 +192,13 @@ const updateUser = async (
   try {
     firstName = validStr(firstName);
     lastName = validStr(lastName);
-    city = validStr(city);
-  } catch (e) {
-    throw e;
-  }
-  try {
-    email = validEmail(email);
-  } catch (e) {
-    throw e;
-  }
-  try {
-    id = validId(id);
+    if(typeof email !== "string" || email.trim()!== ""){
+      email = validEmail(email, "Email");
+    }
+    if(typeof bio !== "string" || bio.trim()!== ""){
+      bio = validStr(bio, "Bio")
+    }
+    isNotification = validBool(isNotification, "isNotification")
   } catch (e) {
     throw e;
   }
@@ -211,7 +220,11 @@ const updateUser = async (
     firstName: firstName,
     lastName: lastName,
     email: email,
-    profilePic: profilePic
+    bio: bio,
+    interests: interests,
+    mobile: mobile,
+    profilePic: profilePic,
+    isNotification: isNotification
   };
   const usersCollection = await users();
   const updateInfo = await usersCollection.findOneAndUpdate(
