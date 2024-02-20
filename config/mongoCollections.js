@@ -14,4 +14,5 @@ const getCollectionFn = (collection) => {
 };
 
 export const users = getCollectionFn("users");
+export const googleUsers = getCollectionFn("googleUsers");
 export const products = getCollectionFn("products");
