@@ -1,6 +1,7 @@
 import { users } from "../config/mongoCollections.js";
 import { ObjectId } from "mongodb";
 import bcrypt from "bcryptjs";
+import 'dotenv/config'
 
 import {
   validId,
@@ -12,6 +13,10 @@ import {
   checkPassword,
   validBool
 } from "../validation.js";
+
+import Stripe from 'stripe';
+//TODO: Put secret key in .env (test key from personal stripe account, so doesn't matter too much rn)
+let stripe = new Stripe(process.env.STRIPE_SECRET);
 
 //TODO: Remove password from schema once proper authentication method is sorted
 const createUser = async (
@@ -41,6 +46,7 @@ const createUser = async (
   } else {
     profilePic = validImageUrl(profilePic);
   }
+  let stripeCustomer;
   try {
     firstName = validStr(firstName, "First name");
     lastName = validStr(lastName, "Last name");
@@ -49,6 +55,11 @@ const createUser = async (
       email = validEmail(email);
     }
     password = checkPassword(password);
+    stripeCustomer = await stripe.customers.create({
+      name: firstName + " " + lastName,
+      email: email,
+      phone: mobile
+    })
   } catch (e) {
     throw e;
   }
@@ -74,7 +85,7 @@ const createUser = async (
     deviceType: "ios",
     authType: "app",
     isNotification: true,
-    stripeCustomerId: "", //TODO: Figure out how to generate customers with StripeAPI & store resulting id here
+    stripeCustomerId: stripeCustomer.id, //TODO: Figure out how to generate customers with StripeAPI & store resulting id here
     creationDate: new Date(),
     insertDate: Math.round(new Date()/1000),
     lastUpdatedAt: Math.round(new Date()/1000),
@@ -189,6 +200,7 @@ const updateUser = async (
   } else {
     profilePic = validImageUrl(profilePic);
   }
+  let stripeCustomer
   try {
     firstName = validStr(firstName);
     lastName = validStr(lastName);
@@ -199,6 +211,11 @@ const updateUser = async (
       bio = validStr(bio, "Bio")
     }
     isNotification = validBool(isNotification, "isNotification")
+    stripeCustomer = await stripe.customers.update(user.stripeCustomerId, {
+      name: firstName + " " + lastName,
+      email: email,
+      phone: mobile
+    })
   } catch (e) {
     throw e;
   }

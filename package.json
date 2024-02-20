@@ -19,7 +19,8 @@
     "moment": "^2.29.4",
     "mongodb": "^5.3.0",
     "multer": "^1.4.5-lts.1",
-    "xss": "^1.0.14",
-    "node-geocoder": "^4.2.0"
+    "node-geocoder": "^4.2.0",
+    "stripe": "^14.17.0",
+    "xss": "^1.0.14"
   }
 }
