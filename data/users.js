@@ -224,7 +224,8 @@ const updateUser = async (
     interests: interests,
     mobile: mobile,
     profilePic: profilePic,
-    isNotification: isNotification
+    isNotification: isNotification,
+    lastUpdatedAt: Math.round(new Date()/1000)
   };
   const usersCollection = await users();
   const updateInfo = await usersCollection.findOneAndUpdate(
