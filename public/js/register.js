@@ -103,7 +103,7 @@ const validEmail = (email) => {
     if (!isValid) {
       throw "Error: Invalid email address";
     }
-    return email;
+    return email.toLowerCase();
 }
 
 const checkPassword = (password) => {
@@ -146,13 +146,13 @@ const validEmailOptional = (email) => {
       return validEmail(email)
     }
     else{
-      return email.trim()
+      return email.trim().toLowerCase()
     }
   }
   
   const validStrOptional = (str, name) => {
     if(typeof str !== "string" || str.trim()!== ""){
-      return validEmail(str, name)
+      return validStr(str, name)
     }
     else{
       return str.trim()

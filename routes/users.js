@@ -122,22 +122,25 @@ router
 
     try {
       thisUser = await getUserById(req.params.userId);
-      console.log(thisUser.authType)
       firstName = validStr(xss(updatedUser.firstNameInput), "firstName")
       lastName = validStr(xss(updatedUser.lastNameInput), "lastName")
       bio = xss(updatedUser.bioInput)
       bio = validStrOptional(bio, "Bio")
       email = xss(updatedUser.emailAddressInput)
-      if(email !== thisUser.email){
+      //if(email !== thisUser.email){
         email = validEmailOptional(email)
-      }
+      //}
       mobile = xss(updatedUser.mobileInput)
+      //Check if valid phone number if not blank or if authType is "app" (phone number required)
       if(typeof mobile !== "string" || mobile.trim() !== "" || thisUser.authType === "app"){
-        mobile = validMobile(mobile, "mobile")
+        mobile = validMobile(mobile)
       }
       countryCode = xss(updatedUser.countryCodeInput)
       if(typeof countryCode !== "string" || countryCode.trim() !== "" || thisUser.authType === "app"){
-        countryCode = validCountryCode(countryCode, "countryCode")
+        countryCode = validCountryCode(countryCode)
+      }
+      if((countryCode !== "" && mobile === "") || (countryCode === "" && mobile !== "")){
+        throw "Error: Country code & phone number must both be provided or both be blank"
       }
       /*if(profilePic !== "string" || profilePic.trim()!== ""){
         profilePic = validImageUrl(xss(updatedUser.userImage))

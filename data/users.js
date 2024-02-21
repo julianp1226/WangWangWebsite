@@ -208,15 +208,41 @@ const updateUser = async (
     profilePic = validImageUrl(profilePic);
   }
   let stripeCustomer
+  const usersCollection = await users();
   try {
     firstName = validStr(firstName);
     lastName = validStr(lastName);
     email = validEmailOptional(email);
+    //check email doesn't exist (only run if email is provided)
+    if(email!==""){
+      let checkEmail = await usersCollection.findOne({
+        email: email,
+      });
+      console.log(checkEmail._id)
+      if (checkEmail !== null && (!checkEmail._id || checkEmail._id.toString() !== id)) {
+        throw "Error: this email is already associated with an account.";
+      }
+    }
     bio = validStrOptional(bio, "Bio")
     isNotification = validBool(isNotification, "isNotification")
+    
     if(authType === "app"){
       mobile = validMobile(mobile);
       countryCode = validCountryCode(countryCode)
+    }
+    if(mobile!=="" || countryCode!==""){
+      if(mobile!== "" && countryCode !== ""){
+        let checkPhone = await usersCollection.findOne({
+          countryCode: countryCode,
+          mobile: mobile
+        });
+        if (checkPhone !== null && (!checkPhone._id || checkPhone._id.toString() !== id)) {
+          throw "Error: this phone number is already associated with an account.";
+        }
+      }
+      else{
+        throw "Error: country code & mobile must both be provided or blank"
+      }
     }
     stripeCustomer = await stripe.customers.update(user.stripeCustomerId, {
       name: firstName + " " + lastName,
@@ -252,7 +278,6 @@ const updateUser = async (
     isNotification: isNotification,
     lastUpdatedAt: Math.round(new Date()/1000)
   };
-  const usersCollection = await users();
   const updateInfo = await usersCollection.findOneAndUpdate(
     { _id: new ObjectId(id) },
     { $set: updatedUser },
