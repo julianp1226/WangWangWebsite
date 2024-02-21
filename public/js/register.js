@@ -6,6 +6,7 @@ let emailAddress = document.getElementById('emailAddressInput');
 let password = document.getElementById('passwordInput');
 //let homeaddress = document.getElementById('homeaddressInput')
 let mobile = document.getElementById('mobileInput')
+let countryCode = document.getElementById("countryCodeInput")
 let confirmPassword = document.getElementById('confirmPasswordInput');
 let errorDiv = document.getElementById('error-div');
 let serverErrors = document.getElementById('server-errors');
@@ -171,6 +172,19 @@ const validEmailOptional = (email) => {
     return validMobile
   }
 
+const validCountryCode = (countryCode) => {
+    let validCountryCode;
+    try {
+      validCountryCode = validStr(countryCode, "Country Code")
+    } catch (e) {
+      throw e
+    }
+    if(isNaN(validCountryCode)){
+      throw "Error: Not a valid country code (non-numerical string)"
+    }
+    return validCountryCode
+  }
+
 if (registerForm) {
   registerForm.addEventListener('submit', (event) => {   
     serverErrors.hidden = true;
@@ -181,6 +195,7 @@ if (registerForm) {
     let emptyLast = false;
     let emptyEmail = false;
     let emptyMobile = false;
+    let emptyCountryCode = false;
     let emptyPassword = false;
     let emptyConfirmPassword = false;
     let goodPass = false;
@@ -246,6 +261,27 @@ if (registerForm) {
             errorDiv.appendChild(message);        
         }
     }
+
+    //check country code
+    if (countryCode.value.trim() === "") {
+        event.preventDefault();
+        emptyCountryCode = true;
+        let message = document.createElement('p');
+        message.innerHTML = "Country Code is required"
+        errorDiv.appendChild(message);
+    }
+    if (!emptyCountryCode) {
+        try {
+            countryCode.value = validCountryCode(countryCode.value);
+        }
+        catch (e) {
+            event.preventDefault();
+            let message = document.createElement('p');
+            message.innerHTML = "Country Code is not valid"
+            errorDiv.appendChild(message);        
+        }
+    }
+
      //check email
      if (emailAddress.value.trim() === "") {
         //event.preventDefault();

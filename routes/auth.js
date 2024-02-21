@@ -3,7 +3,7 @@ import { createUser, checkUser } from "../data/users.js";
 const router = Router();
 import { users } from "../config/mongoCollections.js";
 import { isAuth, validId, validStr, validStrArr, validNumber, validAddress, validState, validZip, validTime, validTimeInRange, validEmail, 
-  validExpLevel, validDate, validImageUrl, checkPassword, validUsername, validEmailOptional, validStrOptional, validMobile} from "../validation.js";
+  validExpLevel, validDate, validImageUrl, checkPassword, validUsername, validEmailOptional, validStrOptional, validMobile, validCountryCode} from "../validation.js";
 import xss from 'xss';
 
 router
@@ -74,6 +74,7 @@ router.route("/register")
     let lastName = xss(req.body.lastNameInput);
     //let bio = xss(req.body.bio);
     let email = xss(req.body.emailAddressInput);
+    let countryCode = xss(req.body.countryCodeInput)
     let mobile = xss(req.body.mobileInput)
     let password = xss(req.body.passwordInput);    
     let errors = "";
@@ -82,11 +83,12 @@ router.route("/register")
     if (
       !firstName ||
       !lastName ||
+      !countryCode ||
       !mobile ||
       !password
     ) 
     {
-      errors += "All inputs must be provided";
+      errors += "All required inputs must be provided";
     }
 
     try {
@@ -94,6 +96,8 @@ router.route("/register")
       lastName = validStr(lastName, "Last name");
       // console.log(address)
       email = validEmailOptional(email);
+      mobile = validMobile(mobile)
+      countryCode = validCountryCode(countryCode);
       password = checkPassword(password);
     }
     catch (e) {
@@ -125,6 +129,7 @@ router.route("/register")
         "",
         [],
         email,
+        countryCode,
         mobile,
         "",
         password

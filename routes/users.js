@@ -18,7 +18,9 @@ import {
   validImageUrl,
   validState,
   validStr,
-  validZip
+  validZip,
+  validCountryCode,
+  validMobile
 } from "../validation.js";
 import { getAllUsers } from "../data/users.js";
 import xss from 'xss';
@@ -112,7 +114,7 @@ router
       isAuth = false;
     }
     //let newCity, newState, newZip, newLevel, newOwner;
-    let firstName, lastName, bio, interests, mobile, isNotification, email, profilePic
+    let firstName, lastName, bio, interests, countryCode, mobile, isNotification, email, profilePic
 
     try {
       thisUser = await getUserById(req.params.userId);
@@ -120,16 +122,16 @@ router
       firstName = validStr(xss(updatedUser.firstNameInput), "firstName")
       lastName = validStr(xss(updatedUser.lastNameInput), "lastName")
       bio = xss(updatedUser.bioInput)
-      if(typeof bio !== "string" || bio.trim() !== ""){
-        bio = validStr(bio, "bio")
-      }
+      bio = validStrOptional(bio, "Bio")
       email = xss(updatedUser.emailAddressInput)
-      if(typeof email !== "string" || email.trim() !== ""){
-        email = validStr(email, "email")
-      }
+      email = validEmailOptional(email)
       mobile = xss(updatedUser.mobileInput)
       if(typeof mobile !== "string" || mobile.trim() !== "" || thisUser.authType === "app"){
-        mobile = validStr(mobile, "mobile")
+        mobile = validMobile(mobile, "mobile")
+      }
+      countryCode = xss(updatedUser.countryCodeInput)
+      if(typeof countryCode !== "string" || countryCode.trim() !== "" || thisUser.authType === "app"){
+        countryCode = validCountryCode(countryCode, "countryCode")
       }
       /*if(profilePic !== "string" || profilePic.trim()!== ""){
         profilePic = validImageUrl(xss(updatedUser.userImage))
@@ -149,6 +151,7 @@ router
         bio: thisUser.bio,
         interests: thisUser.interests,
         profilePic: thisUser.profilePic,
+        countryCode: thisUser.countryCode,
         mobile: thisUser.mobile,
         /*state: thisUser.state,
         city: thisUser.city,
@@ -194,6 +197,7 @@ router
         bio,
         interests,
         email,
+        countryCode,
         mobile,
         profilePic,
         true
@@ -212,6 +216,7 @@ router
         bio: thisUser.bio,
         interests: thisUser.interests,
         profilePic: thisUser.profilePic,
+        countryCode: thisUser.countryCode,
         mobile: thisUser.mobile,
         /*state: thisUser.state,
         city: thisUser.city,

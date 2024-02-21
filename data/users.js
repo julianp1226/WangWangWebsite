@@ -14,7 +14,8 @@ import {
   validBool,
   validEmailOptional,
   validStrOptional,
-  validMobile
+  validMobile,
+  validCountryCode
 } from "../validation.js";
 
 import Stripe from 'stripe';
@@ -28,6 +29,7 @@ const createUser = async (
   bio,
   interests,
   email,
+  countryCode,
   mobile,
   profilePic,
   password
@@ -55,6 +57,7 @@ const createUser = async (
     lastName = validStr(lastName, "Last name");
     email = validEmailOptional(email);
     password = checkPassword(password);
+    countryCode = validCountryCode(countryCode);
     mobile = validMobile(mobile);
     stripeCustomer = await stripe.customers.create({
       name: firstName + " " + lastName,
@@ -75,7 +78,7 @@ const createUser = async (
     bio: bio,
     interests: interests,
     email: email.toLowerCase(),
-    countryCode: "",
+    countryCode: countryCode,
     mobile: mobile,
     deletedEmail: "",
     deletedMobile: "",
@@ -172,6 +175,7 @@ const updateUser = async (
   bio,
   interests,
   email,
+  countryCode,
   mobile,
   profilePic,
   isNotification
@@ -210,6 +214,7 @@ const updateUser = async (
     isNotification = validBool(isNotification, "isNotification")
     if(authType === "app"){
       mobile = validMobile(mobile);
+      countryCode = validCountryCode(countryCode)
     }
     stripeCustomer = await stripe.customers.update(user.stripeCustomerId, {
       name: firstName + " " + lastName,
@@ -239,6 +244,7 @@ const updateUser = async (
     email: email,
     bio: bio,
     interests: interests,
+    countryCode: countryCode,
     mobile: mobile,
     profilePic: profilePic,
     isNotification: isNotification,

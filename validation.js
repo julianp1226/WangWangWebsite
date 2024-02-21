@@ -580,6 +580,19 @@ const validMobile = (mobile) => {
   return validMobile
 }
 
+const validCountryCode = (countryCode) => {
+  let validCountryCode;
+  try {
+    validCountryCode = validStr(countryCode, "Country Code")
+  } catch (e) {
+    throw e
+  }
+  if(isNaN(validCountryCode)){
+    throw "Error: Not a valid country code (non-numerical string)"
+  }
+  return validCountryCode
+}
+
 export {
   isAuth,
   validId,
@@ -603,7 +616,8 @@ export {
   validBool, 
   validEmailOptional,
   validStrOptional,
-  validMobile
+  validMobile,
+  validCountryCode
 };
 // console.log(await validAddress("not existing 15 Drive", "do not care", "MOO", "10309", 'AIzaSyA4UJGUMNxXEATNsR9D7tBQspRyLwTdHBY'));
 // console.log(validAddressLine("kdjfn   washINGton   street"))
