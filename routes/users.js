@@ -76,7 +76,6 @@ router
       state: thisUser.state,
       city: thisUser.city,
       zip: thisUser.zip,
-      level: thisUser.experience_level,
     });
   })
   .post(upload.single("userImage"), async (req, res) => {
@@ -117,7 +116,6 @@ router
         state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
         bad: e,
       });
     }
@@ -133,7 +131,6 @@ router
         state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
         bad: e,
       });
     }
@@ -148,7 +145,6 @@ router
         state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
         bad: e,
       });
     }
@@ -163,22 +159,6 @@ router
         state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
-        bad: e,
-      });
-    }
-    try {
-      newLevel = validExpLevel(xss(updatedUser.levelInput));
-    } catch (e) {
-      return res.render("editProfile", {
-        auth: isAuth,
-       // owner: req.session.user.owner,
-        id: req.session.user.id,
-        email: thisUser.email,
-        state: thisUser.state,
-        city: thisUser.city,
-        zip: thisUser.zip,
-        level: thisUser.experience_level,
         bad: e,
       });
     }
@@ -192,7 +172,6 @@ router
         state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
         bad: "Invalid address",
       });
     }
@@ -208,7 +187,7 @@ router
         newState,
         newZip,
         xss(updatedUser.emailAddressInput),
-        newLevel,
+        "intermediate",
         //thisUser.owner,
         xss(updatedUser.userImage)
       );
@@ -224,7 +203,6 @@ router
         state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
         bad: e,
       });
     }
