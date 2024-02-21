@@ -2,7 +2,8 @@ import { Router } from "express";
 import { createUser, checkUser } from "../data/users.js";
 const router = Router();
 import { users } from "../config/mongoCollections.js";
-import { isAuth, validId, validStr, validStrArr, validNumber, validAddress, validState, validZip, validTime, validTimeInRange, validEmail, validExpLevel, validDate, validImageUrl, checkPassword, validUsername} from "../validation.js";
+import { isAuth, validId, validStr, validStrArr, validNumber, validAddress, validState, validZip, validTime, validTimeInRange, validEmail, 
+  validExpLevel, validDate, validImageUrl, checkPassword, validUsername, validEmailOptional, validStrOptional, validMobile} from "../validation.js";
 import xss from 'xss';
 
 router
@@ -92,10 +93,7 @@ router.route("/register")
       firstName = validStr(firstName, "First name");
       lastName = validStr(lastName, "Last name");
       // console.log(address)
-      email = email.trim();
-      if(typeof email !== "string" || email !== ""){
-        email = validEmail(email);
-      }
+      email = validEmailOptional(email);
       password = checkPassword(password);
     }
     catch (e) {

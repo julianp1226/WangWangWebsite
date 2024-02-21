@@ -11,7 +11,10 @@ import {
   validEmail,
   validImageUrl,
   checkPassword,
-  validBool
+  validBool,
+  validEmailOptional,
+  validStrOptional,
+  validMobile
 } from "../validation.js";
 
 import Stripe from 'stripe';
@@ -50,11 +53,9 @@ const createUser = async (
   try {
     firstName = validStr(firstName, "First name");
     lastName = validStr(lastName, "Last name");
-    email = email.trim();
-    if(typeof email !== "string" || email.trim() !== ""){
-      email = validEmail(email);
-    }
+    email = validEmailOptional(email);
     password = checkPassword(password);
+    mobile = validMobile(mobile);
     stripeCustomer = await stripe.customers.create({
       name: firstName + " " + lastName,
       email: email,
@@ -204,13 +205,12 @@ const updateUser = async (
   try {
     firstName = validStr(firstName);
     lastName = validStr(lastName);
-    if(typeof email !== "string" || email.trim()!== ""){
-      email = validEmail(email, "Email");
-    }
-    if(typeof bio !== "string" || bio.trim()!== ""){
-      bio = validStr(bio, "Bio")
-    }
+    email = validEmailOptional(email);
+    bio = validStrOptional(bio, "Bio")
     isNotification = validBool(isNotification, "isNotification")
+    if(authType === "app"){
+      mobile = validMobile(mobile);
+    }
     stripeCustomer = await stripe.customers.update(user.stripeCustomerId, {
       name: firstName + " " + lastName,
       email: email,

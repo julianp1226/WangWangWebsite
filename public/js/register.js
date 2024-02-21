@@ -140,6 +140,37 @@ const validUsername = (username) => {
     return username;
 };
 
+const validEmailOptional = (email) => {
+    if(typeof email !== "string" || email.trim()!== ""){
+      return validEmail(email)
+    }
+    else{
+      return email
+    }
+  }
+  
+  const validStrOptional = (str, name) => {
+    if(typeof str !== "string" || str.trim()!== ""){
+      return validEmail(str, name)
+    }
+    else{
+      return str
+    }
+  }
+  
+  const validMobile = (mobile) => {
+    let validMobile;
+    try {
+      validMobile = validStr(mobile, "Phone number")
+    } catch (e) {
+      throw e
+    }
+    if(isNaN(validMobile)){
+      throw "Error: Not a valid phone number (non-numerical string)"
+    }
+    return validMobile
+  }
+
 if (registerForm) {
   registerForm.addEventListener('submit', (event) => {   
     serverErrors.hidden = true;
@@ -149,6 +180,7 @@ if (registerForm) {
     let emptyFirst = false;
     let emptyLast = false;
     let emptyEmail = false;
+    let emptyMobile = false;
     let emptyPassword = false;
     let emptyConfirmPassword = false;
     let goodPass = false;
@@ -195,6 +227,25 @@ if (registerForm) {
         }
     }
 
+    //check phone
+    if (mobile.value.trim() === "") {
+        event.preventDefault();
+        emptyMobile = true;
+        let message = document.createElement('p');
+        message.innerHTML = "Phone Number is required"
+        errorDiv.appendChild(message);
+    }
+    if (!emptyMobile) {
+        try {
+            mobile.value = validMobile(mobile.value);
+        }
+        catch (e) {
+            event.preventDefault();
+            let message = document.createElement('p');
+            message.innerHTML = "Phone number is not valid"
+            errorDiv.appendChild(message);        
+        }
+    }
      //check email
      if (emailAddress.value.trim() === "") {
         //event.preventDefault();

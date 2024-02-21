@@ -549,6 +549,37 @@ const validBool = (bool, boolName) => {
   return bool
 }
 
+const validEmailOptional = (email) => {
+  if(typeof email !== "string" || email.trim()!== ""){
+    return validEmail(email)
+  }
+  else{
+    return email
+  }
+}
+
+const validStrOptional = (str, name) => {
+  if(typeof str !== "string" || str.trim()!== ""){
+    return validEmail(str, name)
+  }
+  else{
+    return str
+  }
+}
+
+const validMobile = (mobile) => {
+  let validMobile;
+  try {
+    validMobile = validStr(mobile, "Phone number")
+  } catch (e) {
+    throw e
+  }
+  if(isNaN(validMobile)){
+    throw "Error: Not a valid phone number (non-numerical string)"
+  }
+  return validMobile
+}
+
 export {
   isAuth,
   validId,
@@ -569,7 +600,10 @@ export {
   validSport,
   validUsername,
   militaryToStandard, 
-  validBool
+  validBool, 
+  validEmailOptional,
+  validStrOptional,
+  validMobile
 };
 // console.log(await validAddress("not existing 15 Drive", "do not care", "MOO", "10309", 'AIzaSyA4UJGUMNxXEATNsR9D7tBQspRyLwTdHBY'));
 // console.log(validAddressLine("kdjfn   washINGton   street"))

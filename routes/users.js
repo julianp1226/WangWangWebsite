@@ -18,7 +18,7 @@ import {
   validImageUrl,
   validState,
   validStr,
-  validZip,
+  validZip
 } from "../validation.js";
 import { getAllUsers } from "../data/users.js";
 import xss from 'xss';
