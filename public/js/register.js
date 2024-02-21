@@ -146,7 +146,7 @@ const validEmailOptional = (email) => {
       return validEmail(email)
     }
     else{
-      return email
+      return email.trim()
     }
   }
   
@@ -155,7 +155,7 @@ const validEmailOptional = (email) => {
       return validEmail(str, name)
     }
     else{
-      return str
+      return str.trim()
     }
   }
   
@@ -171,6 +171,20 @@ const validEmailOptional = (email) => {
     }
     return validMobile
   }
+
+const validInterests = (interests) => {
+  if(!Array.isArray(interests)){
+    throw "Error: Interests is not an array"
+  }
+  try{
+    for(let i = 0; i<interests.length; i++){
+      interests[i] = validStr(interests);
+    }
+  }catch(e){
+    throw "Error: Interests contains non-string elements"
+  }
+  return interests;
+}
 
 const validCountryCode = (countryCode) => {
     let validCountryCode;

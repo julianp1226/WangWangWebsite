@@ -15,7 +15,8 @@ import {
   validEmailOptional,
   validStrOptional,
   validMobile,
-  validCountryCode
+  validCountryCode,
+  validInterests
 } from "../validation.js";
 
 import Stripe from 'stripe';
@@ -57,6 +58,7 @@ const createUser = async (
     lastName = validStr(lastName, "Last name");
     email = validEmailOptional(email);
     password = checkPassword(password);
+    interests = validInterests(interests);
     countryCode = validCountryCode(countryCode);
     mobile = validMobile(mobile);
     stripeCustomer = await stripe.customers.create({

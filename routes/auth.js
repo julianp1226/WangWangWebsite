@@ -3,7 +3,7 @@ import { createUser, checkUser } from "../data/users.js";
 const router = Router();
 import { users } from "../config/mongoCollections.js";
 import { isAuth, validId, validStr, validStrArr, validNumber, validAddress, validState, validZip, validTime, validTimeInRange, validEmail, 
-  validExpLevel, validDate, validImageUrl, checkPassword, validUsername, validEmailOptional, validStrOptional, validMobile, validCountryCode} from "../validation.js";
+  validExpLevel, validDate, validImageUrl, checkPassword, validUsername, validEmailOptional, validStrOptional, validMobile, validCountryCode, validInterests} from "../validation.js";
 import xss from 'xss';
 
 router

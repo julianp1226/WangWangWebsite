@@ -22,7 +22,8 @@ import {
   validCountryCode,
   validMobile,
   validStrOptional,
-  validEmailOptional
+  validEmailOptional,
+  validInterests
 } from "../validation.js";
 import { getAllUsers } from "../data/users.js";
 import xss from 'xss';
@@ -81,6 +82,7 @@ router
       bio: thisUser.bio,
       interests: thisUser.interests,
       profilePic: thisUser.profilePic,
+      countryCode: thisUser.countryCode,
       mobile: thisUser.mobile
       /*state: thisUser.state,
       city: thisUser.city,
@@ -126,7 +128,9 @@ router
       bio = xss(updatedUser.bioInput)
       bio = validStrOptional(bio, "Bio")
       email = xss(updatedUser.emailAddressInput)
-      email = validEmailOptional(email)
+      if(email !== thisUser.email){
+        email = validEmailOptional(email)
+      }
       mobile = xss(updatedUser.mobileInput)
       if(typeof mobile !== "string" || mobile.trim() !== "" || thisUser.authType === "app"){
         mobile = validMobile(mobile, "mobile")
