@@ -23,7 +23,8 @@ import Stripe from 'stripe';
 //TODO: Put secret key in .env (test key from personal stripe account, so doesn't matter too much rn)
 let stripe = new Stripe(process.env.STRIPE_SECRET);
 
-//TODO: Remove password from schema once proper authentication method is sorted
+//TODO: Remove password from schema once proper authentication method is sortedt
+//Creating User via app
 const createUser = async (
   firstName,
   lastName,
@@ -225,7 +226,7 @@ const updateUser = async (
     }
     bio = validStrOptional(bio, "Bio")
     isNotification = validBool(isNotification, "isNotification")
-    
+
     if(authType === "app"){
       mobile = validMobile(mobile);
       countryCode = validCountryCode(countryCode)
