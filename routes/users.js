@@ -20,7 +20,9 @@ import {
   validStr,
   validZip,
   validCountryCode,
-  validMobile
+  validMobile,
+  validStrOptional,
+  validEmailOptional
 } from "../validation.js";
 import { getAllUsers } from "../data/users.js";
 import xss from 'xss';
