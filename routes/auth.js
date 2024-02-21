@@ -6,7 +6,8 @@ import { isAuth, validId, validStr, validStrArr, validNumber, validAddress, vali
 import xss from 'xss';
 import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy}  from 'passport-google-oauth';
-
+import dotenv from 'dotenv'
+dotenv.config();
 router
   .route("/login")
   .get(async (req, res) => {
@@ -184,9 +185,9 @@ passport.use(
   new GoogleStrategy(
       {
           //TODO: Put in Env when presenting
-          clientID: "888866903134-rnb72ql2t05mgnpdp9gs9u7bc752h05n.apps.googleusercontent.com",
-          clientSecret: "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",
-          callbackURL: "/auth/google"
+          clientID: process.env.GOOGLEID,
+          clientSecret: process.env.SECRET,
+          callbackURL: process.env.CALLBACKURL
       },
       function (accessToken, refreshToken, profile, done) {
           userProfile = profile;
@@ -197,7 +198,7 @@ passport.use(
 
 router.get(
   '/google',
-  passport.authenticate('google', {scope: ['profile', 'email', 'https://www.googleapis.com/auth/user.birthday.read' , 'https://www.googleapis.com/auth/user.addresses.read']})
+  passport.authenticate('google', {scope: ['profile', 'email']})
 );
 
 router.get(
