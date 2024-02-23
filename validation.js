@@ -392,7 +392,7 @@ const validEmail = (email) => {
   if (!isValid) {
     throw "Error: Invalid email address";
   }
-  return email;
+  return email.toLowerCase();
 };
 
 const validExpLevel = (level) => {
@@ -542,6 +542,71 @@ const militaryToStandard = (militaryTime) => {
   return standard;
 }
 
+const validBool = (bool, boolName) => {
+  if(typeof bool !== "boolean"){
+    throw `Error: ${boolName} must be a boolean.`;
+  }
+  return bool
+}
+
+const validEmailOptional = (email) => {
+  if(typeof email !== "string" || email.trim()!== ""){
+    return validEmail(email)
+  }
+  else{
+    return email.trim().toLowerCase()
+  }
+}
+
+const validStrOptional = (str, name) => {
+  if(typeof str !== "string" || str.trim()!== ""){
+    return validStr(str, name)
+  }
+  else{
+    return str.trim()
+  }
+}
+
+const validMobile = (mobile) => {
+  let validMobile;
+  try {
+    validMobile = validStr(mobile, "Phone number")
+  } catch (e) {
+    throw e
+  }
+  if(isNaN(validMobile)){
+    throw "Error: Not a valid phone number (non-numerical string)"
+  }
+  return validMobile
+}
+
+const validCountryCode = (countryCode) => {
+  let validCountryCode;
+  try {
+    validCountryCode = validStr(countryCode, "Country Code")
+  } catch (e) {
+    throw e
+  }
+  if(isNaN(validCountryCode)){
+    throw "Error: Not a valid country code (non-numerical string)"
+  }
+  return validCountryCode
+}
+
+const validInterests = (interests) => {
+  if(!Array.isArray(interests)){
+    throw "Error: Interests is not an array"
+  }
+  try{
+    for(let i = 0; i<interests.length; i++){
+      interests[i] = validStr(interests);
+    }
+  }catch(e){
+    throw "Error: Interests contains non-string elements"
+  }
+  return interests;
+}
+
 export {
   isAuth,
   validId,
@@ -561,7 +626,13 @@ export {
   checkPassword,
   validSport,
   validUsername,
-  militaryToStandard
+  militaryToStandard, 
+  validBool, 
+  validEmailOptional,
+  validStrOptional,
+  validMobile,
+  validCountryCode,
+  validInterests
 };
 // console.log(await validAddress("not existing 15 Drive", "do not care", "MOO", "10309", 'AIzaSyA4UJGUMNxXEATNsR9D7tBQspRyLwTdHBY'));
 // console.log(validAddressLine("kdjfn   washINGton   street"))

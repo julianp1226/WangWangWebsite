@@ -54,27 +54,35 @@
         <p style="color: white">Login to Continue</p>
       </div>
 
-      <label for="emailAddressInput" class="login-label">
-        <b>Username</b>
-        <input
-          type="email"
-          name="emailAddressInput"
-          id="emailAddressInput"
-          class="login-input"
-        >
-      </label>
+       <label for="countryCodeInput">
+      Country Code (+_)
+      <input
+        type="countryCode"
+        name="countryCodeInput"
+        id="countryCodeInput"
+        placeholder="Enter country code"
+      >
+    </label>
 
-      <br>
+    <label for="mobileInput">
+      Phone Number
+      <input
+        type="mobile"
+        name="mobileInput"
+        id="mobileInput"
+        placeholder="Enter phone number"
+      >
+    </label>
 
-      <label for="passwordInput" class="login-label">
-        <b>Password</b>
-        <input
-          type="password"
-          name="passwordInput"
-          id="passwordInput"
-          class="login-input"
-        >
-      </label>
+    <label for="passwordInput">
+      Password
+      <input
+        type="password"
+        name="passwordInput"
+        id="passwordInput"
+        placeholder="Enter password"
+      >
+    </label>
 
       <div id="error-div"></div>
       {{!-- <div id="errors">{{bad}}</div> --}}

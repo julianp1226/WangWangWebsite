@@ -2,7 +2,8 @@ import { Router } from "express";
 import { createUser, checkUser } from "../data/users.js";
 const router = Router();
 import { users } from "../config/mongoCollections.js";
-import { isAuth, validId, validStr, validStrArr, validNumber, validAddress, validState, validZip, validTime, validTimeInRange, validEmail, validExpLevel, validDate, validImageUrl, checkPassword, validUsername} from "../validation.js";
+import { isAuth, validId, validStr, validStrArr, validNumber, validAddress, validState, validZip, validTime, validTimeInRange, validEmail, 
+  validExpLevel, validDate, validImageUrl, checkPassword, validUsername, validEmailOptional, validStrOptional, validMobile, validCountryCode, validInterests} from "../validation.js";
 import xss from 'xss';
 
 router
@@ -11,14 +12,12 @@ router
     return res.render("login", {error: false, message: ""});
   })
   .post(async (req, res) => {
-    let emailAddress, password;
+    let countryCode, mobile, password;
     try {
-      emailAddress = validStr(
-        xss(req.body.emailAddressInput),
-        "Email"
-      ).toLowerCase();
-      password = validStr(xss(req.body.passwordInput), "Password");
-      if (password.length != xss(req.body.passwordInput.length))
+      countryCode = validCountryCode(xss(req.body.countryCodeInput)).toLowerCase();
+      mobile = validMobile(xss(req.body.mobileInput));
+      password = checkPassword(xss(req.body.passwordInput));
+      /*if (password.length != xss(req.body.passwordInput.length))
         throw "Password must not contain whitespace.";
       if (password.length < 8)
         throw "Password must be at least 8 characters long";
@@ -41,15 +40,8 @@ router
         else if (!/[a-z]/.test(i)) throw "Password contains invalid characters";
       }
       if (!passUpper || !passNumber || !passSpecial)
-        throw "Password must contain an uppercase character, number, and special character";
-    } catch (e) {
-      return res
-        .status(400)
-        .render("login", { auth: false, message: e, error: true });
-    }
-
-    try {
-      let user = await checkUser(emailAddress, password);
+        throw "Password must contain an uppercase character, number, and special character";*/
+      let user = await checkUser(countryCode, mobile, password);
       req.session.user = user;
 
       if (req.session.user.owner === true) {
@@ -57,10 +49,11 @@ router
       } else {
         return res.redirect("/");
       }
+      
     } catch (e) {
       return res
         .status(400)
-        .render("login", { message: e, error: true, auth: false });
+        .render("login", { auth: false, message: e, error: true });
     }
   });
 
@@ -71,52 +64,32 @@ router.route("/register")
   .post(async (req, res) => {
     let firstName = xss(req.body.firstNameInput);
     let lastName = xss(req.body.lastNameInput);
-    let username = xss(req.body.usernameInput);
-    let password = xss(req.body.passwordInput);
-    let age = parseInt(xss(req.body.ageInput));
-    let city = xss(req.body.cityInput);
-    let state = xss(req.body.stateInput);
-    let zip = xss(req.body.zipInput);
+    //let bio = xss(req.body.bio);
     let email = xss(req.body.emailAddressInput);
-    let experience_level = xss(req.body.levelInput);
-
-    let address;
-    
+    let countryCode = xss(req.body.countryCodeInput)
+    let mobile = xss(req.body.mobileInput)
+    let password = xss(req.body.passwordInput);    
     let errors = "";
     // let hasErrors = false;
 
     if (
       !firstName ||
       !lastName ||
-      !username ||
-      !password ||
-      !age ||
-      !city ||
-      !state ||
-      !zip ||
-      !email ||
-      !experience_level
+      !countryCode ||
+      !mobile ||
+      !password
     ) 
     {
-      errors += "All inputs must be provided";
+      errors += "All required inputs must be provided";
     }
 
     try {
       firstName = validStr(firstName, "First name");
       lastName = validStr(lastName, "Last name");
-      username = validUsername(username, "Username");
-      city = validStr(city, "City");
-      state = validState(state);
-      zip = validZip(zip);
-      address = await validAddress("", city, state, zip);
       // console.log(address)
-      if (address === false) {
-        // console.log("false")
-        errors += ' - ' + "Invalid address";
-      }
-      age = validNumber(age, "Age", true, 13, 122);
-      email = validEmail(email);
-      experience_level = validExpLevel(experience_level);
+      email = validEmailOptional(email);
+      mobile = validMobile(mobile)
+      countryCode = validCountryCode(countryCode);
       password = checkPassword(password);
     }
     catch (e) {
@@ -125,19 +98,15 @@ router.route("/register")
 
 
     const usersCollection = await users();
-    // check if username already exists
-    const checkUsername = await usersCollection.findOne({
-      username: new RegExp("^" + username, "i"),
-    });
-    if (checkUsername !== null) {
-      errors += "- another user has this username.";
-    }
-    //check email doesn't exist
-    const checkEmail = await usersCollection.findOne({
-      email: new RegExp("^" + email.toLowerCase(), "i"),
-    });
-    if (checkEmail !== null) {
-      errors += " - this email is already associated with an account";
+    //check email doesn't exist if one is provided
+    email = email.trim()
+    if(email !== ""){
+      const checkEmail = await usersCollection.findOne({
+        email: new RegExp("^" + email.toLowerCase(), "i"),
+      });
+      if (checkEmail !== null) {
+        errors += " - this email is already associated with an account";
+      }
     }
 
     if (errors != "") {
@@ -149,15 +118,13 @@ router.route("/register")
       const newUser = await createUser(
         firstName,
         lastName,
-        username,
-        password,
-        age,
-        city,
-        state,
-        zip,
+        "",
+        [],
         email,
-        experience_level
-        // owner
+        countryCode,
+        mobile,
+        "",
+        password
       );
       if (newUser) {
         return res.redirect('login');      
