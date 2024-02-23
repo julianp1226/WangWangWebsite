@@ -300,7 +300,7 @@ const updateUser = async (
   return finalUser;
 };
 
-const checkUser = async (email, password) => {
+/*const checkUser = async (email, password) => {
   try {
     email = validStr(email, "email").toLowerCase();
     validStr(password, "password", 8);
@@ -346,6 +346,51 @@ const checkUser = async (email, password) => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    //owner: user.owner,
+    id: user._id.toString(),
+  };
+};*/
+
+const checkUser = async (countryCode, mobile, password) => {
+  try{
+    countryCode = validCountryCode(countryCode)
+    mobile = validMobile(mobile)
+    password = checkPassword(password)
+  }
+  catch(e){
+    throw e
+  }
+
+  /*let passUpper = false;
+  let passNumber = false;
+  let passSpecial = false;
+  for (let i of password) {
+    if (i == " ") throw "Error: password must not contain spaces";
+    if (/[A-Z]/.test(i)) passUpper = true;
+    else if (/[0-9]/.test(i)) passNumber = true;
+    else if (/[!@#$%^&*\(\)-_+=\[\]\{\}\\\|;:'",<.>\/?]/.test(i))
+      passSpecial = true;
+    else if (!/[a-z]/.test(i))
+      throw "Error: password contains invalid characters";
+  }
+  if (!passUpper || !passNumber || !passSpecial)
+    throw "Error: password must contain an uppercase character, number, and special character";*/
+
+  const usersCollection = await users();
+  let user;
+  try {
+    user = await usersCollection.findOne({ countryCode: countryCode, mobile: mobile });
+  } catch (e) {
+    throw "Error: " + e;
+  }
+  if (user === null) throw "Either the phone number or password is invalid";
+
+  let match = await bcrypt.compareSync(password, user.password);
+  if (!match) throw "Either the phone number or password is invalid";
+
+  return {
+    firstName: user.firstName,
+    lastName: user.lastName,
     //owner: user.owner,
     id: user._id.toString(),
   };

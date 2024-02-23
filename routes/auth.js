@@ -12,14 +12,12 @@ router
     return res.render("login", {error: false, message: ""});
   })
   .post(async (req, res) => {
-    let emailAddress, password;
+    let countryCode, mobile, password;
     try {
-      emailAddress = validStr(
-        xss(req.body.emailAddressInput),
-        "Email"
-      ).toLowerCase();
-      password = validStr(xss(req.body.passwordInput), "Password");
-      if (password.length != xss(req.body.passwordInput.length))
+      countryCode = validCountryCode(xss(req.body.countryCodeInput)).toLowerCase();
+      mobile = validMobile(xss(req.body.mobileInput));
+      password = checkPassword(xss(req.body.passwordInput));
+      /*if (password.length != xss(req.body.passwordInput.length))
         throw "Password must not contain whitespace.";
       if (password.length < 8)
         throw "Password must be at least 8 characters long";
@@ -42,15 +40,8 @@ router
         else if (!/[a-z]/.test(i)) throw "Password contains invalid characters";
       }
       if (!passUpper || !passNumber || !passSpecial)
-        throw "Password must contain an uppercase character, number, and special character";
-    } catch (e) {
-      return res
-        .status(400)
-        .render("login", { auth: false, message: e, error: true });
-    }
-
-    try {
-      let user = await checkUser(emailAddress, password);
+        throw "Password must contain an uppercase character, number, and special character";*/
+      let user = await checkUser(countryCode, mobile, password);
       req.session.user = user;
 
       if (req.session.user.owner === true) {
@@ -58,10 +49,11 @@ router
       } else {
         return res.redirect("/");
       }
+      
     } catch (e) {
       return res
         .status(400)
-        .render("login", { message: e, error: true, auth: false });
+        .render("login", { auth: false, message: e, error: true });
     }
   });
 
