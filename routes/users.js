@@ -179,7 +179,6 @@ router
         state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
         bad: "Invalid address",
       });
     }*/
@@ -195,7 +194,7 @@ router
         newState,
         newZip,
         xss(updatedUser.emailAddressInput),
-        newLevel,
+        "intermediate",
         //thisUser.owner,
         xss(updatedUser.userImage)
       );*/
