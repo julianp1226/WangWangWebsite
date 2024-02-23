@@ -65,7 +65,7 @@ const createUser = async (
     stripeCustomer = await stripe.customers.create({
       name: firstName + " " + lastName,
       email: email,
-      phone: mobile
+      phone: "+" + countryCode + mobile
     })
   } catch (e) {
     throw e;
@@ -107,6 +107,13 @@ const createUser = async (
     if (checkEmail !== null) {
       throw "Error: this email is already associated with an account.";
     }
+  }
+  let checkPhone = await usersCollection.findOne({
+    countryCode: countryCode,
+    mobile: mobile
+  });
+  if (checkPhone !== null /*&& (!checkPhone._id || checkPhone._id.toString() !== id)*/) {
+    throw "Error: this phone number is already associated with an account.";
   }
   const insertInfo = await usersCollection.insertOne(addUser);
   if (!insertInfo.acknowledged || !insertInfo.insertedId)
@@ -217,10 +224,11 @@ const updateUser = async (
     //check email doesn't exist (only run if email is provided)
     if(email!==""){
       let checkEmail = await usersCollection.findOne({
+        _id: {$ne: new ObjectId(id)},
         email: email,
       });
-      console.log(checkEmail._id)
-      if (checkEmail !== null && (!checkEmail._id || checkEmail._id.toString() !== id)) {
+      //console.log(checkEmail._id)
+      if (checkEmail !== null /*&& (!checkEmail._id || checkEmail._id.toString() !== id)*/) {
         throw "Error: this email is already associated with an account.";
       }
     }
@@ -234,10 +242,11 @@ const updateUser = async (
     if(mobile!=="" || countryCode!==""){
       if(mobile!== "" && countryCode !== ""){
         let checkPhone = await usersCollection.findOne({
+          _id: {$ne: new ObjectId(id)},
           countryCode: countryCode,
           mobile: mobile
         });
-        if (checkPhone !== null && (!checkPhone._id || checkPhone._id.toString() !== id)) {
+        if (checkPhone !== null /*&& (!checkPhone._id || checkPhone._id.toString() !== id)*/) {
           throw "Error: this phone number is already associated with an account.";
         }
       }
@@ -248,7 +257,7 @@ const updateUser = async (
     stripeCustomer = await stripe.customers.update(user.stripeCustomerId, {
       name: firstName + " " + lastName,
       email: email,
-      phone: mobile
+      phone: "+" + countryCode + mobile
     })
   } catch (e) {
     throw e;
