@@ -1,105 +1,72 @@
 import { users } from "../config/mongoCollections.js";
 import { ObjectId } from "mongodb";
 import bcrypt from "bcryptjs";
+import 'dotenv/config'
 
 import {
   validId,
   validStr,
-  validUsername,
-  validNumber,
-  validState,
-  validZip,
   validTime,
   validTimeInRange,
   validEmail,
-  validExpLevel,
   validImageUrl,
-  checkPassword
+  checkPassword,
+  validBool,
+  validEmailOptional,
+  validStrOptional,
+  validMobile,
+  validCountryCode,
+  validInterests
 } from "../validation.js";
 
-//HASH PASSWORD
+import Stripe from 'stripe';
+//TODO: Put secret key in .env (test key from personal stripe account, so doesn't matter too much rn)
+let stripe = new Stripe(process.env.STRIPE_SECRET);
+
+//TODO: Remove password from schema once proper authentication method is sortedt
+//Creating User via app
 const createUser = async (
   firstName,
   lastName,
-  username,
-  password,
-  age,
-  city,
-  state,
-  zip,
+  bio,
+  interests,
   email,
-  experience_level,
+  countryCode,
+  mobile,
+  profilePic,
+  password
   //owner,
-  image
 ) => {
   if (
     !firstName ||
     !lastName ||
-    !username ||
-    !password ||
-    !age ||
-    !city ||
-    !state ||
-    !zip ||
-    !email
-    // !experience_level
+    !mobile ||
+    !password
   ) {
-    throw "Error: All inputs must be provided";
+    throw "Error: Missing required input";
   }
   // if (owner === null) {
   //   throw "Error: owner must be provided";
   // }
-  if (!image) {
-    image = "/public/images/No_Image_Available.jpg";
+  if (!profilePic) {
+    profilePic = "/public/images/No_Image_Available.jpg";
   } else {
-    image = validImageUrl(image);
+    profilePic = validImageUrl(profilePic);
   }
+  let stripeCustomer;
   try {
     firstName = validStr(firstName, "First name");
     lastName = validStr(lastName, "Last name");
-    username = validStr(username, "Username");
-    city = validStr(city, "City");
-  } catch (e) {
-    throw e;
-  }
-  try {
-    username = validUsername(username);
-  }
-  catch (e) {
-    throw e;
-  }
-  try {
-    age = validNumber(age, "Age");
-  } catch (e) {
-    throw e;
-  }
-  // age must be above 13
-  if (age < 13) {
-    throw "Error: user must be 13 or older to join";
-  }
-  // CHECK CITY SOMEHOW
-  try {
-    state = validState(state);
-  } catch (e) {
-    throw e;
-  }
-  try {
-    zip = validZip(zip);
-  } catch (e) {
-    throw e;
-  }
-  try {
-    email = validEmail(email);
-  } catch (e) {
-    throw e;
-  }
-  try {
-    experience_level = validExpLevel(experience_level);
-  } catch (e) {
-    throw e;
-  }
-  try {
+    email = validEmailOptional(email);
     password = checkPassword(password);
+    interests = validInterests(interests);
+    countryCode = validCountryCode(countryCode);
+    mobile = validMobile(mobile);
+    stripeCustomer = await stripe.customers.create({
+      name: firstName + " " + lastName,
+      email: email,
+      phone: "+" + countryCode + mobile
+    })
   } catch (e) {
     throw e;
   }
@@ -107,37 +74,46 @@ const createUser = async (
   //   throw "Error: owner must be of type boolean";
   // }
   let addUser = {
+    accessToken: "",
+    deviceToken: "",
     firstName: firstName,
     lastName: lastName,
-    username: username.toLowerCase(),
-    password: bcrypt.hashSync(password, 10),
-    age: age,
-    city: city,
-    state: state,
-    zip: zip,
+    bio: bio,
+    interests: interests,
     email: email.toLowerCase(),
-    image: image,
-    experience_level: experience_level,
+    countryCode: countryCode,
+    mobile: mobile,
+    deletedEmail: "",
+    deletedMobile: "",
+    status: "active",
+    role: "user",
+    profilePic: profilePic,
    // owner: false,
-    reviews: [],
-    history: [],
-    overallRating: 0,
-    report: []
+    deviceType: "ios",
+    authType: "app",
+    isNotification: true,
+    stripeCustomerId: stripeCustomer.id, //TODO: Figure out how to generate customers with StripeAPI & store resulting id here
+    creationDate: new Date(),
+    insertDate: Math.round(new Date()/1000),
+    lastUpdatedAt: Math.round(new Date()/1000),
+    password: bcrypt.hashSync(password, 10)
   };
   const usersCollection = await users();
-  // check if username already exists
-  const checkUsername = await usersCollection.findOne({
-    username: new RegExp("^" + username, "i"),
-  });
-  if (checkUsername !== null) {
-    throw "Error: this username is taken.";
+  //check email doesn't exist (only run if email is provided)
+  if(email!==""){
+    const checkEmail = await usersCollection.findOne({
+      email: new RegExp("^" + email.toLowerCase(), "i"),
+    });
+    if (checkEmail !== null) {
+      throw "Error: this email is already associated with an account.";
+    }
   }
-  //check email doesn't exist
-  const checkEmail = await usersCollection.findOne({
-    email: new RegExp("^" + email.toLowerCase(), "i"),
+  let checkPhone = await usersCollection.findOne({
+    countryCode: countryCode,
+    mobile: mobile
   });
-  if (checkEmail !== null) {
-    throw "Error: this email is already associated with an account.";
+  if (checkPhone !== null /*&& (!checkPhone._id || checkPhone._id.toString() !== id)*/) {
+    throw "Error: this phone number is already associated with an account.";
   }
   const insertInfo = await usersCollection.insertOne(addUser);
   if (!insertInfo.acknowledged || !insertInfo.insertedId)
@@ -163,12 +139,6 @@ const getUserById = async (id) => {
     throw "Error (data/users.js :: getUserById(id)): No user found";
 
   user._id = user._id.toString();
-  for (let i of user.reviews) {
-    i._id = i._id.toString();
-  }
-  for (let i of user.history) {
-    i._id = i._id.toString();
-  }
   return user;
 };
 
@@ -191,33 +161,6 @@ const getUserByName = async (firstname, lastname) => {
   if (user.length === 0) throw "No user with that name";
   for (let i = 0; i < user.length; i++) {
     user[i]._id = user[i]._id.toString();
-    for (let i of user[i].reviews) {
-      i._id = i._id.toString();
-    }
-    for (let i of user[i].history) {
-      i._id = i._id.toString();
-    }
-  }
-  return user;
-};
-
-const getUserByUsername = async (username) => {
-  try {
-    username = validStr(username);
-  } catch (e) {
-    throw e;
-  }
-  const usersCollection = await users();
-  const user = await usersCollection.findOne({
-    username: { $regex: new RegExp("^" + username, "i") },
-  });
-  if (user === null) throw "No user with that username";
-  user._id = user._id.toString();
-  for (let i of user.reviews) {
-    i._id = i._id.toString();
-  }
-  for (let i of user.history) {
-    i._id = i._id.toString();
   }
   return user;
 };
@@ -239,77 +182,83 @@ const updateUser = async (
   id,
   firstName,
   lastName,
-  username,
-  age,
-  city,
-  state,
-  zip,
+  bio,
+  interests,
   email,
-  experience_level,
-  //owner,
-  image
+  countryCode,
+  mobile,
+  profilePic,
+  isNotification
 ) => {
+  try{
+    id = validId(id)
+  }
+  catch(e){
+    throw e
+  }
+  let user = await getUserById(id);
+  let authType = user.authType;
   if (
     !firstName ||
     !lastName ||
-    !username ||
-    !age ||
-    !city ||
-    !state ||
-    !zip ||
-    !email ||
-    !experience_level
+    //Mobile required if authenticated using app.
+    (!mobile && authType === "app") /*||
+    !isNotification*/
   ) {
-    throw "Error: All inputs must be provided";
+    throw "Error: Missing required input";
   }
   /*if (owner === null) {
     throw "Error: owner must be provided";
   }*/
-  if (!image) {
-    image = "/public/images/No_Image_Available.jpg";
+  if (!profilePic) {
+    profilePic = "/public/images/No_Image_Available.jpg";
   } else {
-    image = validImageUrl(image);
+    profilePic = validImageUrl(profilePic);
   }
+  let stripeCustomer
+  const usersCollection = await users();
   try {
     firstName = validStr(firstName);
     lastName = validStr(lastName);
-    username = validStr(username);
-    city = validStr(city);
-  } catch (e) {
-    throw e;
-  }
-  try {
-    age = validNumber(age);
-  } catch (e) {
-    throw e;
-  }
-  // age must be above 13
-  if (age < 13) {
-    throw "Error: user must be 13 or older to join";
-  }
-  // CHECK CITY SOMEHOW
-  try {
-    state = validState(state);
-  } catch (e) {
-    throw e;
-  }
-  try {
-    zip = validZip(zip);
-  } catch (e) {
-    throw e;
-  }
-  try {
-    email = validEmail(email);
-  } catch (e) {
-    throw e;
-  }
-  try {
-    experience_level = validExpLevel(experience_level);
-  } catch (e) {
-    throw e;
-  }
-  try {
-    id = validId(id);
+    email = validEmailOptional(email);
+    //check email doesn't exist (only run if email is provided)
+    if(email!==""){
+      let checkEmail = await usersCollection.findOne({
+        _id: {$ne: new ObjectId(id)},
+        email: email,
+      });
+      //console.log(checkEmail._id)
+      if (checkEmail !== null /*&& (!checkEmail._id || checkEmail._id.toString() !== id)*/) {
+        throw "Error: this email is already associated with an account.";
+      }
+    }
+    bio = validStrOptional(bio, "Bio")
+    isNotification = validBool(isNotification, "isNotification")
+
+    if(authType === "app"){
+      mobile = validMobile(mobile);
+      countryCode = validCountryCode(countryCode)
+    }
+    if(mobile!=="" || countryCode!==""){
+      if(mobile!== "" && countryCode !== ""){
+        let checkPhone = await usersCollection.findOne({
+          _id: {$ne: new ObjectId(id)},
+          countryCode: countryCode,
+          mobile: mobile
+        });
+        if (checkPhone !== null /*&& (!checkPhone._id || checkPhone._id.toString() !== id)*/) {
+          throw "Error: this phone number is already associated with an account.";
+        }
+      }
+      else{
+        throw "Error: country code & mobile must both be provided or blank"
+      }
+    }
+    stripeCustomer = await stripe.customers.update(user.stripeCustomerId, {
+      name: firstName + " " + lastName,
+      email: email,
+      phone: "+" + countryCode + mobile
+    })
   } catch (e) {
     throw e;
   }
@@ -330,42 +279,28 @@ const updateUser = async (
   let updatedUser = {
     firstName: firstName,
     lastName: lastName,
-    username: username,
-    age: age,
-    city: city,
-    state: state,
-    zip: zip,
     email: email,
-    image: image,
-    experience_level: experience_level
+    bio: bio,
+    interests: interests,
+    countryCode: countryCode,
+    mobile: mobile,
+    profilePic: profilePic,
+    isNotification: isNotification,
+    lastUpdatedAt: Math.round(new Date()/1000)
   };
-  const usersCollection = await users();
   const updateInfo = await usersCollection.findOneAndUpdate(
     { _id: new ObjectId(id) },
     { $set: updatedUser },
     { returnDocument: "after" }
   );
   if (updateInfo.lastErrorObject.n === 0) throw "Error: Update failed";
-  // check if username already exists
+
   let finalUser = await updateInfo.value;
   finalUser._id = finalUser._id.toString();
-  for (let i = 0; i < finalUser.reviews.length; i++) {
-    finalUser.reviews[i]._id = finalUser.reviews[i]._id.toString();
-  }
-  for (let i = 0; i < finalUser.history.length; i++) {
-    finalUser.history[i]._id = finalUser.history[i]._id.toString();
-  }
-  // check if username already exists
-  const checkUsername = await usersCollection
-    .find({ username: finalUser.username })
-    .toArray();
-  if (checkUsername.length > 1) {
-    throw "Error: another user has this username.";
-  }
   return finalUser;
 };
 
-const checkUser = async (email, password) => {
+/*const checkUser = async (email, password) => {
   try {
     email = validStr(email, "email").toLowerCase();
     validStr(password, "password", 8);
@@ -411,14 +346,57 @@ const checkUser = async (email, password) => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    username: user.username,
     //owner: user.owner,
     id: user._id.toString(),
-    zip: user.zip,
+  };
+};*/
+
+const checkUser = async (countryCode, mobile, password) => {
+  try{
+    countryCode = validCountryCode(countryCode)
+    mobile = validMobile(mobile)
+    password = checkPassword(password)
+  }
+  catch(e){
+    throw e
+  }
+
+  /*let passUpper = false;
+  let passNumber = false;
+  let passSpecial = false;
+  for (let i of password) {
+    if (i == " ") throw "Error: password must not contain spaces";
+    if (/[A-Z]/.test(i)) passUpper = true;
+    else if (/[0-9]/.test(i)) passNumber = true;
+    else if (/[!@#$%^&*\(\)-_+=\[\]\{\}\\\|;:'",<.>\/?]/.test(i))
+      passSpecial = true;
+    else if (!/[a-z]/.test(i))
+      throw "Error: password contains invalid characters";
+  }
+  if (!passUpper || !passNumber || !passSpecial)
+    throw "Error: password must contain an uppercase character, number, and special character";*/
+
+  const usersCollection = await users();
+  let user;
+  try {
+    user = await usersCollection.findOne({ countryCode: countryCode, mobile: mobile });
+  } catch (e) {
+    throw "Error: " + e;
+  }
+  if (user === null) throw "Either the phone number or password is invalid";
+
+  let match = await bcrypt.compareSync(password, user.password);
+  if (!match) throw "Either the phone number or password is invalid";
+
+  return {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    //owner: user.owner,
+    id: user._id.toString(),
   };
 };
 
-const addReportedByUser = async (userId, writtenByUsername, writtenAboutId, reason) => {
+/*const addReportedByUser = async (userId, writtenByUsername, writtenAboutId, reason) => {
   //userId reported it
   console.log("DATA REPORTING");
   let user, by, about;
@@ -465,15 +443,13 @@ const addReportedByUser = async (userId, writtenByUsername, writtenAboutId, reas
   if (updateInfo.lastErrorObject.n === 0) throw "Error: Update failed";
 
   return buildReportedArray;
-};
+};*/
 
 export {
   createUser,
   getUserById,
   getAllUsers,
   getUserByName,
-  getUserByUsername,
   updateUser,
   checkUser,
-  addReportedByUser
 };

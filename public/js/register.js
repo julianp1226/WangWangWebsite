@@ -2,15 +2,11 @@ let registerForm = document.getElementById('registration-form');
 
 let firstName = document.getElementById('firstNameInput');
 let lastName = document.getElementById('lastNameInput');
-let username = document.getElementById('usernameInput');
 let emailAddress = document.getElementById('emailAddressInput');
-let age = document.getElementById('ageInput');
-let state = document.getElementById('stateInput');
-let city = document.getElementById('cityInput');
-let zip = document.getElementById('zipInput');
-let gender = document.getElementById('genderInput');
 let password = document.getElementById('passwordInput');
-let homeaddress = document.getElementById('homeaddressInput')
+//let homeaddress = document.getElementById('homeaddressInput')
+let mobile = document.getElementById('mobileInput')
+let countryCode = document.getElementById("countryCodeInput")
 let confirmPassword = document.getElementById('confirmPasswordInput');
 let errorDiv = document.getElementById('error-div');
 let serverErrors = document.getElementById('server-errors');
@@ -107,7 +103,7 @@ const validEmail = (email) => {
     if (!isValid) {
       throw "Error: Invalid email address";
     }
-    return email;
+    return email.toLowerCase();
 }
 
 const checkPassword = (password) => {
@@ -131,11 +127,11 @@ const checkPassword = (password) => {
     return password;
   }
 
-const validGender = (gender) => {
+/*const validGender = (gender) => {
     if (gender.toLowerCase().trim() != "male" && gender.toLowerCase().trim() != "female" && gender.toLowerCase().trim() != "transgender" && gender.toLowerCase().trim() != "non-binary") {
         throw 'Invalid gender';
     }
-}
+}*/
 
 const validUsername = (username) => {
     username = validStr(username, "Username");
@@ -145,6 +141,64 @@ const validUsername = (username) => {
     return username;
 };
 
+const validEmailOptional = (email) => {
+    if(typeof email !== "string" || email.trim()!== ""){
+      return validEmail(email)
+    }
+    else{
+      return email.trim().toLowerCase()
+    }
+  }
+  
+  const validStrOptional = (str, name) => {
+    if(typeof str !== "string" || str.trim()!== ""){
+      return validStr(str, name)
+    }
+    else{
+      return str.trim()
+    }
+  }
+  
+  const validMobile = (mobile) => {
+    let validMobile;
+    try {
+      validMobile = validStr(mobile, "Phone number")
+    } catch (e) {
+      throw e
+    }
+    if(isNaN(validMobile)){
+      throw "Error: Not a valid phone number (non-numerical string)"
+    }
+    return validMobile
+  }
+
+const validInterests = (interests) => {
+  if(!Array.isArray(interests)){
+    throw "Error: Interests is not an array"
+  }
+  try{
+    for(let i = 0; i<interests.length; i++){
+      interests[i] = validStr(interests);
+    }
+  }catch(e){
+    throw "Error: Interests contains non-string elements"
+  }
+  return interests;
+}
+
+const validCountryCode = (countryCode) => {
+    let validCountryCode;
+    try {
+      validCountryCode = validStr(countryCode, "Country Code")
+    } catch (e) {
+      throw e
+    }
+    if(isNaN(validCountryCode)){
+      throw "Error: Not a valid country code (non-numerical string)"
+    }
+    return validCountryCode
+  }
+
 if (registerForm) {
   registerForm.addEventListener('submit', (event) => {   
     serverErrors.hidden = true;
@@ -153,39 +207,13 @@ if (registerForm) {
     errorDiv.innerHTML = "";
     let emptyFirst = false;
     let emptyLast = false;
-    let emptyUsername = false;
     let emptyEmail = false;
-    let emptyAge = false;
-    let emptyGender = false;
-    let emptyHome = false;
-    let emptyState = false;
-    let emptyCity = false;
-    let emptyZip = false;
+    let emptyMobile = false;
+    let emptyCountryCode = false;
     let emptyPassword = false;
     let emptyConfirmPassword = false;
     let goodPass = false;
     let goodConfirmPass = false;
-    
-    //check username
-    if (username.value.trim() === "") {
-        event.preventDefault();
-        emptyUsername = true;
-        let message = document.createElement('p');
-        message.innerHTML = "Username is required"
-        errorDiv.appendChild(message);
-    }
-    if (!emptyUsername) {
-        try {
-            username.value = validUsername(username.value, "Username");
-        }
-        catch (e) {
-            event.preventDefault();
-            let message = document.createElement('p');
-            message.innerHTML = "Username is not valid"
-            console.log(e)
-            errorDiv.appendChild(message);
-        }
-    }
 
     //check first name
     if (firstName.value.trim() === "") {
@@ -228,13 +256,53 @@ if (registerForm) {
         }
     }
 
+    //check phone
+    if (mobile.value.trim() === "") {
+        event.preventDefault();
+        emptyMobile = true;
+        let message = document.createElement('p');
+        message.innerHTML = "Phone Number is required"
+        errorDiv.appendChild(message);
+    }
+    if (!emptyMobile) {
+        try {
+            mobile.value = validMobile(mobile.value);
+        }
+        catch (e) {
+            event.preventDefault();
+            let message = document.createElement('p');
+            message.innerHTML = "Phone number is not valid"
+            errorDiv.appendChild(message);        
+        }
+    }
+
+    //check country code
+    if (countryCode.value.trim() === "") {
+        event.preventDefault();
+        emptyCountryCode = true;
+        let message = document.createElement('p');
+        message.innerHTML = "Country Code is required"
+        errorDiv.appendChild(message);
+    }
+    if (!emptyCountryCode) {
+        try {
+            countryCode.value = validCountryCode(countryCode.value);
+        }
+        catch (e) {
+            event.preventDefault();
+            let message = document.createElement('p');
+            message.innerHTML = "Country Code is not valid"
+            errorDiv.appendChild(message);        
+        }
+    }
+
      //check email
      if (emailAddress.value.trim() === "") {
-        event.preventDefault();
+        //event.preventDefault();
         emptyEmail = true;
-        let message = document.createElement('p');
+        /*let message = document.createElement('p');
         message.innerHTML = "Email is required"
-        errorDiv.appendChild(message);
+        errorDiv.appendChild(message);*/
     }
     if (!emptyEmail) {
         try {
@@ -248,117 +316,18 @@ if (registerForm) {
         }
     }
 
-    //check age
-    if (age.value.trim() === "") {
-        event.preventDefault();
-        emptyAge = true;
-        let message = document.createElement('p');
-        message.innerHTML = "Age is required"
-        errorDiv.appendChild(message);
-    }
-    if (!emptyAge) {
-        try {
-            age.value = validNumber(parseInt(age.value), "Age", true, 13, 122);
-        }
-        catch (e) {
-            console.log(e)
-            event.preventDefault();
-            let message = document.createElement('p');
-            message.innerHTML = e
-            errorDiv.appendChild(message);        
-        }
-    }
+    // if (!emptyLevel) {
+    //     try {
+    //         level.value = validLevel(level.value);
+    //     }
+    //     catch (e) {
+    //         event.preventDefault();
+    //         let message = document.createElement('p');
+    //         message.innerHTML = "Level is not valid"
+    //         errorDiv.appendChild(message);        
+    //     }
+    // }
 
-    //check Home Address
-    if (homeaddress.value.trim() === "") {
-        event.preventDefault();
-        emptyHome = true;
-        let message = document.createElement('p');
-        message.innerHTML = "Home address is required"
-        errorDiv.appendChild(message);
-    }
-    // TODO: Address Validation
-
-    //check state
-    if (state.value.trim() === "" || state.value.toLowerCase().trim()==="select state") {
-        event.preventDefault();
-        emptyState = true;
-        let message = document.createElement('p');
-        message.innerHTML = "State is required"
-        errorDiv.appendChild(message);
-    }
-    if (!emptyState) {
-        try {
-            state.value = validState(state.value);
-        }
-        catch (e) {
-            event.preventDefault();
-            let message = document.createElement('p');
-            message.innerHTML = "State is not valid"
-            errorDiv.appendChild(message);        
-        }
-    }
-
-    //check city
-    if (city.value.trim() === "") {
-        event.preventDefault();
-        emptyCity = true;
-        let message = document.createElement('p');
-        message.innerHTML = "City is required"
-        errorDiv.appendChild(message);
-    }
-    if (!emptyCity) {
-        try {
-            // city.value = validCity(city.value);
-        }
-        catch (e) {
-            event.preventDefault();
-            let message = document.createElement('p');
-            message.innerHTML = "City is not valid"
-            errorDiv.appendChild(message);        
-        }
-    }
-
-    //check zip
-    if (emailAddress.value.trim() === "") {
-        event.preventDefault();
-        emptyZip = true;
-        let message = document.createElement('p');
-        message.innerHTML = "ZIP Code is required"
-        errorDiv.appendChild(message);
-    }
-    if (!emptyZip) {
-        try {
-            zip.value = validZip(zip.value);
-        }
-        catch (e) {
-            event.preventDefault();
-            let message = document.createElement('p');
-            message.innerHTML = "ZIP Code is not valid"
-            errorDiv.appendChild(message);        
-        }
-    }
-
-    //check gender
-    if (gender.value.trim() === "" || gender.value.toLowerCase().trim()==="select gender") {
-        event.preventDefault();
-        emptyGender = true;
-        let message = document.createElement('p');
-        message.innerHTML = "Gender is required"
-        errorDiv.appendChild(message);
-    }
-    if (!emptyGender) {
-        try {
-            gender.value = validGender(gender.value);
-        }
-        catch (e) {
-            event.preventDefault();
-            let message = document.createElement('p');
-            message.innerHTML = "Gender is not valid"
-            errorDiv.appendChild(message);        
-        }
-    }
-    
     // check password
     if (password.value.trim() === "") {
         event.preventDefault();

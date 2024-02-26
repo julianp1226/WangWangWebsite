@@ -9,17 +9,21 @@ import {
   createUser,
   getUserById,
   getUserByName,
-  getUserByUsername,
-  updateUser,
-  addReportedByUser
+  updateUser
 } from "../data/users.js";
 import {
   validAddress,
   validExpLevel,
   validId,
+  validImageUrl,
   validState,
   validStr,
   validZip,
+  validCountryCode,
+  validMobile,
+  validStrOptional,
+  validEmailOptional,
+  validInterests
 } from "../validation.js";
 import { getAllUsers } from "../data/users.js";
 import xss from 'xss';
@@ -73,14 +77,22 @@ router
       //owner: req.session.user.owner,
       id: req.session.user.id,
       email: thisUser.email,
-      state: thisUser.state,
+      firstName: thisUser.firstName,
+      lastName: thisUser.lastName,
+      bio: thisUser.bio,
+      interests: thisUser.interests,
+      profilePic: thisUser.profilePic,
+      countryCode: thisUser.countryCode,
+      mobile: thisUser.mobile
+      /*state: thisUser.state,
       city: thisUser.city,
       zip: thisUser.zip,
-      level: thisUser.experience_level,
+      level: thisUser.experience_level,*/
     });
   })
   .post(upload.single("userImage"), async (req, res) => {
     let updatedUser = req.body;
+    //console.log(req.body)
     let fileData = req.file;
     let currentUser = await getUserById(req.params.userId);
     if (fileData) {
@@ -105,85 +117,60 @@ router
     } else {
       isAuth = false;
     }
+    //let newCity, newState, newZip, newLevel, newOwner;
+    let firstName, lastName, bio, interests, countryCode, mobile, isNotification, email, profilePic
 
     try {
       thisUser = await getUserById(req.params.userId);
-    } catch (e) {
-      return res.render("editProfile", {
-        auth: isAuth,
-       // owner: req.session.user.owner,
-        id: req.session.user.id,
-        email: thisUser.email,
-        state: thisUser.state,
-        city: thisUser.city,
-        zip: thisUser.zip,
-        level: thisUser.experience_level,
-        bad: e,
-      });
-    }
-    let newCity, newState, newZip, newLevel, newOwner;
-    try {
-      newCity = validStr(xss(updatedUser.cityInput));
-    } catch (e) {
-      return res.render("editProfile", {
-        auth: isAuth,
-        //owner: req.session.user.owner,
-        id: req.session.user.id,
-        email: thisUser.email,
-        state: thisUser.state,
-        city: thisUser.city,
-        zip: thisUser.zip,
-        level: thisUser.experience_level,
-        bad: e,
-      });
-    }
-    try {
+      firstName = validStr(xss(updatedUser.firstNameInput), "firstName")
+      lastName = validStr(xss(updatedUser.lastNameInput), "lastName")
+      bio = xss(updatedUser.bioInput)
+      bio = validStrOptional(bio, "Bio")
+      email = xss(updatedUser.emailAddressInput)
+      //if(email !== thisUser.email){
+        email = validEmailOptional(email)
+      //}
+      mobile = xss(updatedUser.mobileInput)
+      //Check if valid phone number if not blank or if authType is "app" (phone number required)
+      if(typeof mobile !== "string" || mobile.trim() !== "" || thisUser.authType === "app"){
+        mobile = validMobile(mobile)
+      }
+      countryCode = xss(updatedUser.countryCodeInput)
+      if(typeof countryCode !== "string" || countryCode.trim() !== "" || thisUser.authType === "app"){
+        countryCode = validCountryCode(countryCode)
+      }
+      if((countryCode !== "" && mobile === "") || (countryCode === "" && mobile !== "")){
+        throw "Error: Country code & phone number must both be provided or both be blank"
+      }
+      /*if(profilePic !== "string" || profilePic.trim()!== ""){
+        profilePic = validImageUrl(xss(updatedUser.userImage))
+      }*/
+      /*newCity = validStr(xss(updatedUser.cityInput));
       newState = validState(xss(updatedUser.stateInput));
-    } catch (e) {
-      return res.render("editProfile", {
-        auth: isAuth,
-       // owner: req.session.user.owner,
-        id: req.session.user.id,
-        email: thisUser.email,
-        state: thisUser.state,
-        city: thisUser.city,
-        zip: thisUser.zip,
-        level: thisUser.experience_level,
-        bad: e,
-      });
-    }
-    try {
       newZip = validZip(xss(updatedUser.zipInput));
+      newLevel = validExpLevel(xss(updatedUser.levelInput));*/
     } catch (e) {
       return res.render("editProfile", {
         auth: isAuth,
        // owner: req.session.user.owner,
         id: req.session.user.id,
         email: thisUser.email,
-        state: thisUser.state,
+        firstName: thisUser.firstName,
+        lastName: thisUser.lastName,
+        bio: thisUser.bio,
+        interests: thisUser.interests,
+        profilePic: thisUser.profilePic,
+        countryCode: thisUser.countryCode,
+        mobile: thisUser.mobile,
+        /*state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
-        bad: e,
-      });
-    }
-    try {
-      newLevel = validExpLevel(xss(updatedUser.levelInput));
-    } catch (e) {
-      return res.render("editProfile", {
-        auth: isAuth,
-       // owner: req.session.user.owner,
-        id: req.session.user.id,
-        email: thisUser.email,
-        state: thisUser.state,
-        city: thisUser.city,
-        zip: thisUser.zip,
-        level: thisUser.experience_level,
+        level: thisUser.experience_level,*/
         bad: e,
       });
     }
 
-    let address = await validAddress("", newCity, newState, newZip);
+    /*let address = await validAddress("", newCity, newState, newZip);
     if (address === false) {
       return res.render("editProfile", {
         auth: isAuth,
@@ -192,13 +179,12 @@ router
         state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
         bad: "Invalid address",
       });
-    }
+    }*/
 
     try {
-      let finalUser = await updateUser(
+      /*let finalUser = await updateUser(
         req.params.userId,
         thisUser.firstName,
         thisUser.lastName,
@@ -208,10 +194,22 @@ router
         newState,
         newZip,
         xss(updatedUser.emailAddressInput),
-        newLevel,
+        "intermediate",
         //thisUser.owner,
         xss(updatedUser.userImage)
-      );
+      );*/
+      let finalUser = await updateUser(
+        req.params.userId,
+        firstName,
+        lastName,
+        bio,
+        interests,
+        email,
+        countryCode,
+        mobile,
+        profilePic,
+        true
+      )
       if (finalUser) {
         res.redirect(`/user/id/${req.params.userId}`);
       }
@@ -221,10 +219,17 @@ router
         //owner: req.session.user.owner,
         id: req.session.user.id,
         email: thisUser.email,
-        state: thisUser.state,
+        firstName: thisUser.firstName,
+        lastName: thisUser.lastName,
+        bio: thisUser.bio,
+        interests: thisUser.interests,
+        profilePic: thisUser.profilePic,
+        countryCode: thisUser.countryCode,
+        mobile: thisUser.mobile,
+        /*state: thisUser.state,
         city: thisUser.city,
         zip: thisUser.zip,
-        level: thisUser.experience_level,
+        level: thisUser.experience_level,*/
         bad: e,
       });
     }

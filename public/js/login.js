@@ -1,5 +1,7 @@
 let loginForm = document.getElementById("login-form");
-let emailAddress = document.getElementById("emailAddressInput");
+//let emailAddress = document.getElementById("emailAddressInput");
+let countryCode = document.getElementById("countryCodeInput");
+let mobile = document.getElementById("mobileInput");
 let password = document.getElementById("passwordInput");
 let errorDiv = document.getElementById("error-div");
 let serverErrors = document.getElementById("server-errors");
@@ -22,6 +24,32 @@ const validEmail = (email) => {
   }
   return email;
 };
+
+const validMobile = (mobile) => {
+  let validMobile;
+  try {
+    validMobile = validStr(mobile, "Phone number")
+  } catch (e) {
+    throw e
+  }
+  if(isNaN(validMobile)){
+    throw "Error: Not a valid phone number (non-numerical string)"
+  }
+  return validMobile
+}
+
+const validCountryCode = (countryCode) => {
+  let validCountryCode;
+  try {
+    validCountryCode = validStr(countryCode, "Country Code")
+  } catch (e) {
+    throw e
+  }
+  if(isNaN(validCountryCode)){
+    throw "Error: Not a valid country code (non-numerical string)"
+  }
+  return validCountryCode
+}
 
 const checkPassword = (password) => {
   validStr(password, "Password");
@@ -52,10 +80,12 @@ if (loginForm) {
 
     errorDiv.hidden = false;
     errorDiv.innerHTML = "";
-    let emptyEmail = false;
+    //let emptyEmail = false;
+    let emptyCountryCode = false;
+    let emptyMobile = false;
     let emptyPassword = false;
 
-    if (emailAddress.value.trim() === "") {
+    /*if (emailAddress.value.trim() === "") {
       console.log("empty");
       event.preventDefault();
       emptyEmail = true;
@@ -71,6 +101,46 @@ if (loginForm) {
         event.preventDefault();
         let message = document.createElement("p");
         message.innerHTML = "Email is not valid";
+        errorDiv.appendChild(message);
+      }
+    }*/
+
+    if (countryCode.value.trim() === "") {
+      console.log("empty");
+      event.preventDefault();
+      emptyCountryCode = true;
+      let message = document.createElement("p");
+      message.innerHTML = "Country Code is required";
+      errorDiv.appendChild(message);
+    }
+
+    if (!emptyCountryCode) {
+      try {
+        countryCode.value = validCountryCode(countryCode.value);
+      } catch (e) {
+        event.preventDefault();
+        let message = document.createElement("p");
+        message.innerHTML = "Country Code is not valid";
+        errorDiv.appendChild(message);
+      }
+    }
+
+    if (mobile.value.trim() === "") {
+      console.log("empty");
+      event.preventDefault();
+      emptyMobile = true;
+      let message = document.createElement("p");
+      message.innerHTML = "Phone Number is required";
+      errorDiv.appendChild(message);
+    }
+
+    if (!emptyMobile) {
+      try {
+        mobile.value = validMobile(mobile.value);
+      } catch (e) {
+        event.preventDefault();
+        let message = document.createElement("p");
+        message.innerHTML = "Phone Number is not valid";
         errorDiv.appendChild(message);
       }
     }
