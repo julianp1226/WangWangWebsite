@@ -66,6 +66,17 @@ export const checkName = (name, stringName) => {
   return name;
 };
 
+export const checkCardName = (name) => {
+  name = validStr(name, "Name");
+  if (!/^[a-zA-Z]+/.test(name)) {
+    throw `Error: Name on Card cannot contain any spaces or numbers`;
+  }
+  if (name.length < 1 || name.length > 100) {
+    throw `Error: Name on Card cannot be less than 1 or greater than 100 characters`;
+  }
+  return name;
+};
+
 const validStrArr = (arr, varName) => {
   /* 
   Validates a string array and trims each element.
@@ -632,7 +643,8 @@ export {
   validStrOptional,
   validMobile,
   validCountryCode,
-  validInterests
+  validInterests,
+  checkCardName
 };
 // console.log(await validAddress("not existing 15 Drive", "do not care", "MOO", "10309", 'AIzaSyA4UJGUMNxXEATNsR9D7tBQspRyLwTdHBY'));
 // console.log(validAddressLine("kdjfn   washINGton   street"))
