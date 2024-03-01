@@ -84,7 +84,7 @@ const createPost = async (
     tags: tags,
     likeCount: likeCount,
     commentCount:commentCount,
-    insertDate: Math.round(new Date()/1000),
+    insertDate: new Date().toJSON().slice(0, 10)
   };
   const postsCollection = await posts();
  
@@ -129,8 +129,25 @@ const getAllPosts = async () => {
   return allPosts;
 };
 
+const deletePostById = async (id) => {
+  try {
+    id = validId(id, "postId");
+  } catch (e) {
+    throw "Error (data/posts.js :: deletePostById(id)):" + e;
+  }
+
+  const postsCollection = await posts();
+  const deletionInfo = await postsCollection.deleteOne({ _id: new ObjectId(id) });
+
+  if (deletionInfo.deletedCount === 0)
+    throw "Error (data/posts.js :: deletePostById(id)): No post found with the given ID";
+
+  return { deletedCount: deletionInfo.deletedCount };
+};
+
 export {
   createPost,
   getPostById,
-  getAllPosts
+  getAllPosts,
+  deletePostById
 }

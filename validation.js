@@ -55,7 +55,7 @@ const validStr = (str, varName) => {
   return str;
 };
 
-export const checkName = (name, stringName) => {
+const checkName = (name, stringName) => {
   name = validStr(name, "Name");
   if (!/^[a-zA-Z]+/.test(name)) {
     throw `Error: ${stringName} cannot contain any spaces or numbers`;
@@ -66,7 +66,7 @@ export const checkName = (name, stringName) => {
   return name;
 };
 
-export const checkCardName = (name) => {
+const checkCardName = (name) => {
   name = validStr(name, "Name");
   if (!/^[a-zA-Z]+/.test(name)) {
     throw `Error: Name on Card cannot contain any spaces or numbers`;
