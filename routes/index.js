@@ -7,6 +7,8 @@ const constructor = (app) => {
 
   app.get("/", async (req, res) => {
     if (!req.session || !req.session.user || !req.session.user.id) {
+      // To test mall without login
+      // return res.render("mall", { auth: true, title: "Home", layout: 'main' });
       return res.render("homepage", { auth: false, title: "Home" });
     }
     

@@ -4,11 +4,12 @@
   width: 100%;
   left: 0;
   top: 0;
-  background-color: #333;
+  background-color: #ffffff;
   overflow: hidden;
   display: flex;
   justify-content: center;
   z-index: 2;
+  align-items:center;
 }
 
 body {
@@ -16,14 +17,38 @@ body {
   margin-top: 60px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
+footer {
+  background-color:#CDAA89;
+  padding: 40px 20px;
+}
+.name {
+  font-weight: bold;
+}
+footer p {
+  font-size: 24px;
+}
+.bottomLogo {
+  padding-top: 40px;
+  height: 200px;
+  position: relative;
+  float: right;
+}
+.desc {
+  width: 50%;
+}
+.socials {
+  float: left
+}
 .nav a {
   float: none;
-  color: #f2f2f2;
+  color: #111111;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 20px;
+}
+.textnav {
+  vertical-align: bottom;
 }
 
 .nav a:hover {

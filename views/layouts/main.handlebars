@@ -8,12 +8,31 @@
   <body>
     {{#if auth}}
       <div class="nav">
+        <a  href="/"> <img src="/public/images/logo.png"/></a>
         <a href="/">Home</a>
-        <a href="/user/id/{{{id}}}/">Profile</a>
+        <a href="/clinic">Clinic</a>
+        <a href="/shop">shop</a>
+        <a href="/feed">Feed</a>
+        <a href="/chat">Chat</a>
         <a href="/logout">Logout</a>
+        <a href="/user/id/{{{id}}}/">Profile</a>
       </div>
     {{/if}}
     
     {{{body}}}
   </body>
+  <footer>
+    <img class="bottomLogo" src="/public/images/BottomLogo.png"/>
+    <p class="name">Wang Wang</p>
+    <p class="desc">US's #1 aesthetic treatment and healthcare marketplace</p>
+    <div>
+      <a class="socials"><img src="/public/images/FB.png"/></a>
+      <a class="socials"><img src="/public/images/IG.png"/></a>
+      <a class="socials"><img src="/public/images/TW.png"/></a>
+    </div>
+    <br>
+    <br>
+    <br>
+    <img src="/public/images/Secure.png">
+  </footer>
 </html>
