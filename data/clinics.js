@@ -1,4 +1,5 @@
 import { clinics } from "../config/mongoCollections.js";
+import {getClinicSpecialisationById} from "../data/clinicSpecialisations.js"
 import { ObjectId } from "mongodb";
 import bcrypt from "bcryptjs";
 
@@ -88,66 +89,51 @@ const createClinic = async (
 
   try {
     email = validEmail(email);
-  } catch (e) {
-    throw e;
-  }
-
-  try {
     password = checkPassword(password);
-  } catch (e) {
-    throw e;
-  }
 
-  try {
     name = validStr(name);
-  } catch (e) {
-    throw e;
-  }
-
-  try {
-     price = validNumber(price);
-  } catch (e) {
-    throw e;
-  }
-
-  try {
-        ratingCount = validNumber(ratingCount);
-        avgRating = validNumber(avgRating);
-        startDate = validNumber(startDate);
-        endDate = validNumber(endDate);
-        sessionBreak = validNumber(sessionBreak);
-        slotTime = validNumber(slotTime);
-        slotBreak = validNumber(slotBreak);
-    } catch (e) {
-        throw e;
-  }
-  
-  try {
+    price = validNumber(price);
+    ratingCount = validNumber(ratingCount);
+    avgRating = validNumber(avgRating);
+    
+    startDate = validNumber(startDate);
+    endDate = validNumber(endDate);
+    sessionBreak = validNumber(sessionBreak);
+    slotTime = validNumber(slotTime);
+    slotBreak = validNumber(slotBreak);
     timeZone = validStr(timeZone);
     openingTime = validStr(openingTime);
     closingTime = validStr(closingTime);
+
     address = validStr(address);
-    stripeConnAccId = validStr(address);
+    stripeConnAccId = validStr(stripeConnAccId);
+
+    if (!Array.isArray(clinicSpecialisationIds)) {
+      throw new Error("clinicSpecialisationIds must be an array!");
+    }
+    clinicSpecialisationIds.forEach(id => {
+      try{
+        id = validId(id);
+        //Make sure each provided Id is actually a clinicSpecialisation
+        getClinicSpecialisationById(id)
+      } catch(e){
+        throw e
+      }
+    });
+
+    if (!Array.isArray(scheduledTiming)) {
+        throw new Error("scheduledTiming must be an array!");
+    }
+    if (!Array.isArray(dayoff)) {
+        throw new Error("dayoff must be an array!");
+    }
+    if (!Array.isArray(timing)) {
+        throw new Error("timing must be an array!");
+    }
   } catch (e) {
     throw e;
   }
 
-   try {
-        if (!Array.isArray(clinicSpecialisationIds)) {
-            throw new Error("clinicSpecialisationIds must be an array!");
-        }
-        if (!Array.isArray(scheduledTiming)) {
-            throw new Error("scheduledTiming must be an array!");
-        }
-        if (!Array.isArray(dayoff)) {
-            throw new Error("dayoff must be an array!");
-        }
-        if (!Array.isArray(timing)) {
-            throw new Error("timing must be an array!");
-        }
-    } catch (e) {
-        throw e;
-    }
   
   const createClinic = {
   accessToken: accessToken,
@@ -235,7 +221,7 @@ const getAllClinics = async () => {
   return allClinics;
 };
 
-/*const clinic = await createClinic(
+const clinic = await createClinic(
   "sampleAccessToken",
   "example@example.com",
   "samplePassword1!",
@@ -271,7 +257,7 @@ const getAllClinics = async () => {
   false, // isApplyCancelled
   "sampleStripeAccountId" // stripeConnAccId
 );
-console.log(clinic)*/
+console.log(clinic)
 
 //write some kind of update fun
 
