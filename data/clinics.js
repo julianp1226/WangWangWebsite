@@ -221,7 +221,7 @@ const getAllClinics = async () => {
   return allClinics;
 };
 
-const clinic = await createClinic(
+/*const clinic = await createClinic(
   "sampleAccessToken",
   "example@example.com",
   "samplePassword1!",
@@ -257,7 +257,7 @@ const clinic = await createClinic(
   false, // isApplyCancelled
   "sampleStripeAccountId" // stripeConnAccId
 );
-console.log(clinic)
+console.log(clinic)*/
 
 //write some kind of update fun
 

@@ -8,10 +8,14 @@ import {
     validClinicStatus
   } from "../validation.js";
 
-const createSpecialisation = async (specialisation, imageUrl="", status="active") => {
+const createClinicSpecialisation = async (specialisation, imageUrl, status="active") => {
     try {
         specialisation = validStr(specialisation, "Specialization")
-        imageUrl = validImageUrl(imageUrl)
+        if (!imageUrl) {
+          imageUrl = "/public/images/No_Image_Available.jpg";
+        } else {
+          imageUrl = validImageUrl(imageUrl);
+        }
         status = validClinicStatus(status)
     } catch(e){
         throw e
@@ -69,8 +73,8 @@ const getClinicSpecialisation = async (specialisation) => {
       return clinicSpecialisation;
 }
 
-modules.export = {
-    createSpecialisation,
+export {
+    createClinicSpecialisation,
     getClinicSpecialisationById,
     getClinicSpecialisation
 };

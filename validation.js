@@ -620,7 +620,7 @@ const validInterests = (interests) => {
 
 const validClinicStatus = (status) => {
   status = validStr(status, "Clinic Status")
-  if(status !== "active" || status !== "inactive"){
+  if(status !== "active" && status !== "inactive"){
     throw "Error: Invalid Clinic Status [Can only be active/inactive]"
   }
   return status
