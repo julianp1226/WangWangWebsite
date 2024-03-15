@@ -16,7 +16,8 @@ import {
   validExpLevel,
   validImageUrl,
   checkPassword,
-  validAddress
+  validAddress,
+  validClinicStatus
 } from "../validation.js";
 
 const createClinic = async (
@@ -57,29 +58,34 @@ const createClinic = async (
   insertDate = Math.round(new Date() / 1000)
   ) => {
   if (email === undefined) {
-      console.error("Email is required!");
-      return;
+      /*console.error("Email is required!");
+      return;*/
+      throw "Error: Email is required! (data/clinics.js)";
   }
   if (password === undefined) {
-      console.error("Password is required!");
-      return;
+      /*console.error("Password is required!");
+      return;*/
+      throw "Error: Password is required! (data/clinics.js)";
   }
   if (name === undefined) {
-      console.error("Name is required!");
-      return;
+      /*console.error("Name is required!");
+      return;*/
+      throw "Error: Name is required! (data/clinics.js)";
   }
   if (price === undefined) {
-      console.error("Price is required!");
-      return;
+      /*console.error("Price is required!");
+      return;*/
+      throw "Error: Price is required! (data/clinics.js)";
   }
   if (locationPoint === undefined) {
-      console.error("LocationPoint is required!");
-      return;
+      /*console.error("LocationPoint is required!");
+      return;*/
+      throw "Error: Location Point is required! (data/clinics.js)";
   }
-  if (status != "active" && status != "inactive") {
+  /*if (status != "active" && status != "inactive") {
     console.error("Invalid status");
     return;
-  }
+  }*/
 
   if (!image) {
     image = "/public/images/No_Image_Available.jpg";
@@ -95,6 +101,7 @@ const createClinic = async (
     price = validNumber(price);
     ratingCount = validNumber(ratingCount);
     avgRating = validNumber(avgRating);
+    status = validClinicStatus(status);
     
     startDate = validNumber(startDate);
     endDate = validNumber(endDate);
