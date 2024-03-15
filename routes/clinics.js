@@ -6,7 +6,8 @@ import {
     createClinic
 } from "../data/clinics.js";
 import {
-    createClinicSpecialisation
+    createClinicSpecialisation,
+    updateClinicSpecialisation
 } from "../data/clinicSpecialisations.js";
 
 /*const clinic = await createClinic(
@@ -97,6 +98,19 @@ router.route("/testClinic").get(async (req, res) => {
 router.route("/testClinicSpecial").get(async (req, res) => {
     try{
         const special = await createClinicSpecialisation("Oral Care")
+        console.log(special)
+        return res.render("Error", {error: "No error, just don't want to make new HTML for a test page", auth:true, status:200})
+    } catch(e){
+        console.log(e)
+        return res
+        .status(400)
+        .render("error", { error: e, auth: true, status: 400 });
+    }
+})
+
+router.route("/testClinicSpecialU").get(async (req, res) => {
+    try{
+        const special = await updateClinicSpecialisation("65f364f093318a81d9e8b35a", "Skin Care", undefined, "inactive")
         console.log(special)
         return res.render("Error", {error: "No error, just don't want to make new HTML for a test page", auth:true, status:200})
     } catch(e){

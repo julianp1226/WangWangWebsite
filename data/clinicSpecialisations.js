@@ -73,8 +73,43 @@ const getClinicSpecialisation = async (specialisation) => {
       return clinicSpecialisation;
 }
 
+const updateClinicSpecialisation = async (id, specialisation, imageUrl, status="active") => {
+  try {
+    id = validId(id)
+    specialisation = validStr(specialisation, "Specialization")
+    if (!imageUrl) {
+      imageUrl = "/public/images/No_Image_Available.jpg";
+    } else {
+      imageUrl = validImageUrl(imageUrl);
+    }
+    status = validClinicStatus(status)
+  } catch(e){
+      throw "Error in data/clinicsSpecialisation.js; updateClinicSpecialisation()):" + e;
+
+  }
+
+  let updatedSpecialisation = {
+    specialisation: specialisation,
+    imageUrl: imageUrl,
+    status: status
+  }
+
+  const specialisationCollection = await clinicsSpecialisations();
+  const updateInfo = await specialisationCollection.findOneAndUpdate(
+    { _id: new ObjectId(id) },
+    { $set: updatedSpecialisation },
+    { returnDocument: "after" }
+  );
+  if (updateInfo.lastErrorObject.n === 0) throw "Error: Update failed";
+
+  let final = await updateInfo.value;
+  final._id = final._id.toString();
+  return final;
+}
+
 export {
     createClinicSpecialisation,
     getClinicSpecialisationById,
-    getClinicSpecialisation
+    getClinicSpecialisation,
+    updateClinicSpecialisation
 };
