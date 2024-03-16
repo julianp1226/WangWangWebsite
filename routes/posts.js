@@ -10,10 +10,24 @@ import {
   deletePostById,
   getPostById
 } from "../data/posts.js";
+import {
+  validId,
+  validImageUrl,
+} from "../validation.js";
 import xss from 'xss';
 
+router.route("/").get(async (req, res) => {
+  let allPosts;
+  try {
+    allPosts = await getAllPosts();
+  } catch (e) {
+    return res.status(500).render("error", { error: e, status: 500 });
+  }
+  return res.json(allPosts)
+});
 
-router.route("/:postId").get(async (req, res) => {
+
+router.route("/id/:postId").get(async (req, res) => {
   let sessionId;
   let postId;
   try {
@@ -24,16 +38,15 @@ router.route("/:postId").get(async (req, res) => {
       .status(400)
       .render("error", { error: e, auth: true, status: 400 });
   }
-  let thisCourt;
+  let thisPost;
   try {
-    thisCourt = await getPostById(postId);
+    thisPost = await getPostById(postId);
   } catch (e) {
     return res
     .status(404)
     .render("error", { error: "Current post not found", auth: true, status: 404 });
   }
-  return res.json({postId: postId})
-  //return res.json({ postId: req.params.postId, implementMe: "<-" });
+  return res.json(thisPost)
 });
 
 export default router;
