@@ -223,10 +223,37 @@ const getAllClinics = async () => {
     allClinics = await ClinicsCollection.find({}).toArray();
   } 
   catch (e) {
-    throw e;
+    throw "Error (data/clinics.js :: getAllClinics()):" + e;
   }
   return allClinics;
 };
+
+//TODO: Test function
+const addReview = async (id, rating) => {
+  try{
+    id = validId(id)
+    let clinic = await getClinicById(id)
+    let newCount = clinic.ratingCount + 1
+    let newReview = {
+      ratingCount: newCount,
+      avgRating: (clinic.avgRating * clinic.ratingCount + rating)/newCount
+    }
+
+    const clinicsCollection = await clinics();
+    const updateInfo = await clinicsCollection.findOneAndUpdate(
+      { _id: new ObjectId(id) },
+      { $set: newReview },
+      { returnDocument: "after" }
+    );
+    if (updateInfo.lastErrorObject.n === 0) throw "Error: Review unable to be added";
+  
+    let finalClinic = await updateInfo.value;
+    finalClinic._id = finalClinic._id.toString();
+    return finalClinic;
+  } catch(e){
+    throw "Error (data/clinics.js :: addReview()):" + e;
+  }
+}
 
 /*const clinic = await createClinic(
   "sampleAccessToken",
