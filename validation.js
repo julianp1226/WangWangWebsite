@@ -618,6 +618,14 @@ const validInterests = (interests) => {
   return interests;
 }
 
+const validClinicStatus = (status) => {
+  status = validStr(status, "Clinic Status")
+  if(status !== "active" && status !== "inactive"){
+    throw "Error: Invalid Clinic Status [Can only be active/inactive]"
+  }
+  return status
+}
+
 export {
   isAuth,
   validId,
@@ -644,7 +652,8 @@ export {
   validMobile,
   validCountryCode,
   validInterests,
-  checkCardName
+  checkCardName,
+  validClinicStatus
 };
 // console.log(await validAddress("not existing 15 Drive", "do not care", "MOO", "10309", 'AIzaSyA4UJGUMNxXEATNsR9D7tBQspRyLwTdHBY'));
 // console.log(validAddressLine("kdjfn   washINGton   street"))
