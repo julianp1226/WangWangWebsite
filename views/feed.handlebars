@@ -1,0 +1,15 @@
+<h1 id="avail-title">{{title}}</h1>
+<main>
+    <div class="parent">
+      <div class="child2" id="feed">
+        {{#each posts}}
+          <div class="post-card">
+            <h2>{{this.title}}</h2>
+            <img alt="{{this.title}}" width="100" height="100" src={{this.media}} >
+            <p>{{this.insertDate}}</p>
+            <a href="/feed/id/{{this._id}}">Click for Details</a>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+</main>

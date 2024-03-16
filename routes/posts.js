@@ -2,7 +2,7 @@ import { Router } from "express";
 const router = Router();
 import multer from "multer";
 import { ObjectId } from "mongodb";
-const upload = multer({ dest: "public/images" });
+const upload = multer({ dest: "public/media" });
 import fs from "fs";
 import {
   getAllPosts,
@@ -23,7 +23,13 @@ router.route("/").get(async (req, res) => {
   } catch (e) {
     return res.status(500).render("error", { error: e, status: 500 });
   }
-  return res.json(allPosts)
+  //return res.json(allPosts)
+  return res.render("feed", {
+      title: "Feed",
+      posts: allPosts,
+      auth: true,
+      id: req.session.user.id
+    });
 });
 
 
