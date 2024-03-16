@@ -489,6 +489,7 @@ const validDate = (date) => {
   return date;
 };
 
+// THROWS AN ERROR
 const validImageUrl = (url) => {
   const imageExtensions = /(jpg|png|gif)$/i;
   if (imageExtensions.test(url) === false) {
@@ -626,6 +627,30 @@ const validClinicStatus = (status) => {
   return status
 }
 
+// RETURNS TRUE/FALSE
+const validVideoUrl = (filename) => {
+  // Supported video file extensions
+    const validExtensions = ['.mp4', '.avi', '.mov', '.mkv', '.wmv', '.flv', '.webm'];
+
+    // Extract file extension
+    const fileExtension = filename.slice(filename.lastIndexOf('.'));
+
+    // Check if the file extension is in the list of valid extensions
+    return validExtensions.includes(fileExtension.toLowerCase());
+};
+
+// RETURNS TRUE/FALSE
+function isValidImage(filename) {
+    // Supported image file extensions
+    const validExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg'];
+
+    // Extract file extension
+    const fileExtension = filename.slice(filename.lastIndexOf('.'));
+
+    // Check if the file extension is in the list of valid extensions
+    return validExtensions.includes(fileExtension.toLowerCase());
+}
+
 export {
   isAuth,
   validId,
@@ -653,7 +678,9 @@ export {
   validCountryCode,
   validInterests,
   checkCardName,
-  validClinicStatus
+  validClinicStatus,
+  validVideoUrl,
+  isValidImage
 };
 // console.log(await validAddress("not existing 15 Drive", "do not care", "MOO", "10309", 'AIzaSyA4UJGUMNxXEATNsR9D7tBQspRyLwTdHBY'));
 // console.log(validAddressLine("kdjfn   washINGton   street"))

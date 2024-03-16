@@ -23,6 +23,13 @@ router.route("/").get(async (req, res) => {
   } catch (e) {
     return res.status(500).render("error", { error: e, status: 500 });
   }
+  allPosts.forEach(element => {
+    if (element.type === 'image') {
+      element.isImage = true;
+    } else {
+      element.isImage = false
+    }
+  });
   //return res.json(allPosts)
   return res.render("feed", {
       title: "Feed",
