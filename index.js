@@ -53,6 +53,7 @@ app.use("/", (req, res, next) => {
     req.originalUrl.substring(0, 6) != "/login" &&
     req.originalUrl.substring(0, 9) != "/register" &&
     req.originalUrl.substring(0, 9) != "/" &&
+    req.originalUrl.substring(0, 5) != "/feed" &&
     (!req.session || !req.session.user)
   )
     return res.redirect("/");
