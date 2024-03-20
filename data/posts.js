@@ -125,7 +125,7 @@ const getPostById = async (id) => {
   return post;
 };
 
-console.log(await createPost("65f4c23c772bb8ce19f612bb", "yayy post", "/public/media/boldandbrash.jpg", ["#fun", "#selfcare"], 100, 12));
+//console.log(await createPost("65f4c23c772bb8ce19f612bb", "yayy post", "/public/media/boldandbrash.jpg", ["#fun", "#selfcare"], 100, 12));
 const getAllPosts = async () => {
   let allPosts;
   try {
