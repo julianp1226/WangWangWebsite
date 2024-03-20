@@ -272,11 +272,16 @@ li {
   margin: 0 auto;
   border-radius: 10px;
   padding: 10px;
+  margin-top: 20px;
 }
 
 #home-text {
   padding: 0px 120px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#home-main {
+  padding-top: 20px;
 }
 
 #home-head {
