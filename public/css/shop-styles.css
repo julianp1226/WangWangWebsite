@@ -1,0 +1,12 @@
+
+main h1 {
+    float: left;
+}
+main a p {
+    text-decoration: underline;
+    float: right;
+    color: #FF3EA5
+}
+main div {
+    white-space: pre;
+  }
