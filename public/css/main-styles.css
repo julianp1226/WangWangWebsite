@@ -550,6 +550,7 @@ footer p {
 }
 .bottomLogo {
   padding-top: 40px;
+  padding-right: 5%;
   height: 200px;
   position: relative;
   float: right;
@@ -559,7 +560,11 @@ footer p {
   width: 50%;
 }
 .socials {
-  float: left
+  float: left;
+}
+
+.feed {
+  margin: auto;
 }
 
 .feed {
