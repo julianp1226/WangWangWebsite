@@ -38,8 +38,10 @@
 }
 
 body {
-  margin: 0 20%;
   margin-top: 60px;
+  margin-left:0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -533,25 +535,33 @@ a {
 #createCourtParent .child2 input {
   margin-bottom: 25px;
 }
+
 footer {
   background-color:#CDAA89;
   padding: 40px 20px;
+  margin-top:inherit;
 }
 .name {
   font-weight: bold;
 }
 footer p {
   font-size: 24px;
+  font-family: 'Lato';
 }
 .bottomLogo {
   padding-top: 40px;
   height: 200px;
   position: relative;
   float: right;
+  padding-right: 15%;
 }
 .desc {
   width: 50%;
 }
 .socials {
   float: left
+}
+
+.feed {
+  margin: auto;
 }
