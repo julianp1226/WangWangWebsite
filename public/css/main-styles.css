@@ -536,6 +536,9 @@ a {
 footer {
   background-color:#CDAA89;
   padding: 40px 20px;
+  position: absolute;
+  left: 0;
+  width: 100%;
 }
 .name {
   font-weight: bold;
@@ -545,6 +548,7 @@ footer p {
 }
 .bottomLogo {
   padding-top: 40px;
+  padding-right: 5%;
   height: 200px;
   position: relative;
   float: right;
@@ -553,5 +557,6 @@ footer p {
   width: 50%;
 }
 .socials {
-  float: left
+  float: left;
+  padding-right: 1%;
 }
