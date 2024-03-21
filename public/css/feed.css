@@ -69,3 +69,53 @@ main {
     margin-left: -120px;
     padding-top:20px;
 }
+
+.page {
+  display:flex;
+  flex-direction: column;
+}
+
+.following, .foryou {
+  color: rgb(0, 0, 0);
+  background-color: white;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  font-family: "Lato";
+  border: 1px solid rgba(0, 0, 0, 0.253);
+  border-radius: 5px;
+}
+
+.searchbar {
+  display:flex;
+  justify-content: space-between;
+}
+
+
+.searchbuttons {
+  display: flex;
+  padding-right: 70px;
+  gap:25px;
+  align-items: center;
+}
+
+.icons2 {
+  width: 8%;
+}
+
+.search-with-icon {
+  width: 42%;
+  margin-left:75px;
+  margin-top:10px;
+  position:relative;
+}
+
+.magnifyglass {
+  position: absolute;
+  top:5px;
+  left:5px;
+}
+
+
