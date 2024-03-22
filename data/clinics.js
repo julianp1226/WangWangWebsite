@@ -17,7 +17,8 @@ import {
   validImageUrl,
   checkPassword,
   validAddress,
-  validClinicStatus
+  validClinicStatus,
+  validBool
 } from "../validation.js";
 
 const createClinic = async (
@@ -114,6 +115,14 @@ const createClinic = async (
 
     address = validStr(address);
     stripeConnAccId = validStr(stripeConnAccId);
+
+    isDateRangeInfinite = validBool(isDateRangeInfinite) 
+    isProfileBasic = validBool(isProfileBasic)
+    isClinicTiming = validBool(isClinicTiming)
+    areBankDetailsSubmitted = validBool(areBankDetailsSubmitted)
+    isStripeIntegrated = validBool(isStripeIntegrated)
+    isPasswordChange = validBool(isPasswordChange)
+    isApplyCancelled = validBool(isApplyCancelled)
 
     if (!Array.isArray(clinicSpecialisationIds)) {
       throw new Error("clinicSpecialisationIds must be an array!");
