@@ -10,3 +10,16 @@ main a p {
 main div {
     white-space: pre;
   }
+.prod {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+    align-items: center;
+}
+.prodIMG {
+    width: 20%;
+    padding-left: 5%;
+    padding-right: 5%;
+}

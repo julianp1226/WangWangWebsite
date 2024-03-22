@@ -17,6 +17,7 @@ router.route('/').get(async (req, res) => {
     return res.render("mall", {
         title: "Shop",
         auth: auth,
+        products: allProducts
         //id: req.session.user.id
       });
   });

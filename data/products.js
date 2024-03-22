@@ -67,7 +67,7 @@ const createProduct = async (
     couponId = validStr(couponId, "Coupon ID");
     categoryId = validStr(categoryId, "Category ID");
     vendorId = validStr(couponId, "Coupon ID");
-    quantity = validInt(quantity, "Quantity");
+    quantity = validNumber(quantity, "Quantity");
   } catch (e) {
     throw e;
   };

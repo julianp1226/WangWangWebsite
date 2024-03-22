@@ -15,8 +15,19 @@
     <br>
     <div>
         <h1>Trending</h1>
+        
         <a><p>View All →</p></a>
-        {{itemArr}}
+        <br>
+        <div class="prod">
+            {{#each products}}
+        
+            <img class="prodIMG" src={{this.image}}>
+            
+        
+        
+            {{/each}}
+        </div>
+        <br>
         
     </div>
     <div>

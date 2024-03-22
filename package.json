@@ -5,9 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "seed": "node --trace-uncaught ./tasks/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
+  
   "author": "",
   "license": "ISC",
   "dependencies": {
