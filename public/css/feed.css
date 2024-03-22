@@ -1,0 +1,121 @@
+.cards {
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 200px;
+    /* max-width: 300px; */
+    height: 300px;
+    margin: 8px;
+    border-radius: 12px;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+  padding: 2px 16px;
+  height: 55px;
+  display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card img {
+  width: 100%;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+    object-fit: cover;
+    height: 100%;
+}
+
+.card video {
+  width: 100%;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  object-fit: cover;
+  height:100%;
+}
+
+.likes, .comments {
+  font-family: 'Lato', sans-serif;
+  display: inline-flex;
+  font-size: 19px;
+}
+
+.med {
+  height:245px;
+}
+
+.icons {
+  padding-right: 5px;
+}
+
+main {
+  display: flex;
+    width: 1000px;
+    margin-left: -120px;
+    padding-top:20px;
+}
+
+.page {
+  display:flex;
+  flex-direction: column;
+}
+
+.following, .foryou {
+  color: rgb(0, 0, 0);
+  background-color: white;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  font-family: "Lato";
+  border: 1px solid rgba(0, 0, 0, 0.253);
+  border-radius: 5px;
+}
+
+.searchbar {
+  display:flex;
+  justify-content: space-between;
+}
+
+
+.searchbuttons {
+  display: flex;
+  padding-right: 70px;
+  gap:25px;
+  align-items: center;
+}
+
+.icons2 {
+  width: 8%;
+}
+
+.search-with-icon {
+  width: 42%;
+  margin-left:75px;
+  margin-top:10px;
+  position:relative;
+}
+
+.magnifyglass {
+  position: absolute;
+  top:5px;
+  left:5px;
+}
+
+

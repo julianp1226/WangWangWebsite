@@ -67,7 +67,7 @@ const createProduct = async (
     couponId = validStr(couponId, "Coupon ID");
     categoryId = validStr(categoryId, "Category ID");
     vendorId = validStr(couponId, "Coupon ID");
-    quantity = validInt(quantity, "Quantity");
+    quantity = validNumber(quantity, "Quantity");
   } catch (e) {
     throw e;
   };
@@ -90,6 +90,17 @@ const createProduct = async (
   const newId = insertInfo.insertedId.toString();
   return newId;
 }
+const getAllProducts = async () => {
+  let allProducts;
+  try {
+    const productsCollection = await products();
+    allProducts = await productsCollection.find({}).toArray();
+  } 
+  catch (e) {
+    throw e;
+  }
+  return allProducts;
+};
 const getProductById = async (id) => {
   try {
     id = validId(id, "productId");
@@ -107,3 +118,4 @@ const getProductById = async (id) => {
   return product;
   //mongoshit
 }
+export {createProduct, getAllProducts, getProductById};

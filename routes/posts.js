@@ -17,32 +17,43 @@ import {
 import xss from 'xss';
 
 router.route("/").get(async (req, res) => {
+  let auth = false;
   let allPosts;
   try {
     allPosts = await getAllPosts();
   } catch (e) {
     return res.status(500).render("error", { error: e, status: 500 });
   }
+  if (req.session.user) {
+    auth = true;
+  }
+  allPosts.forEach(element => {
+    if (element.type === 'image') {
+      element.isImage = true;
+    } else {
+      element.isImage = false
+    }
+  });
   //return res.json(allPosts)
   return res.render("feed", {
       title: "Feed",
       posts: allPosts,
-      auth: true,
-      id: req.session.user.id
+      auth: auth,
+      //id: req.session.user.id
     });
 });
 
 
 router.route("/id/:postId").get(async (req, res) => {
-  let sessionId;
+ // let sessionId;
   let postId;
   try {
     postId = validId(req.params.postId);
-    sessionId = validId(req.session.user.id);
+   // sessionId = validId(req.session.user.id);
   } catch (e) {
     return res
       .status(400)
-      .render("error", { error: e, auth: true, status: 400 });
+      .render("error", { error: e, status: 400 });
   }
   let thisPost;
   try {
@@ -50,7 +61,7 @@ router.route("/id/:postId").get(async (req, res) => {
   } catch (e) {
     return res
     .status(404)
-    .render("error", { error: "Current post not found", auth: true, status: 404 });
+    .render("error", { error: "Current post not found", status: 404 });
   }
   return res.json(thisPost)
 });

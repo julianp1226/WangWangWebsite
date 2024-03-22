@@ -17,7 +17,9 @@ import {
   validCountryCode,
   validInterests,
   validStrArr,
-  validNumber
+  validNumber,
+  validVideoUrl,
+  isValidImage
 } from "../validation.js";
 
 
@@ -25,7 +27,6 @@ const createPost = async (
   userId,
   title,
   media,
-  type,
   tags,
   likeCount,
   commentCount
@@ -34,14 +35,13 @@ const createPost = async (
     !userId ||
     !title ||
     !media ||
-    !type ||
     !tags ||
     !likeCount ||
     !commentCount
   ) {
     throw "Error: Missing required input";
   }
- 
+  let type;
   try {
     userId = validId(userId);
   } catch (e) {
@@ -53,12 +53,21 @@ const createPost = async (
     throw e;
   }
   try {
-    type = validStr(type);
+    media = validStr(media);
   } catch (e) {
     throw e;
   }
-  if (type != "image" && type != "video") {
-    throw "Error: Media must be of type image or video.";
+  if (validVideoUrl(media)) {
+    type = "video"
+  } else if (isValidImage(media)) {
+    type = "image"
+  } else {
+    throw "Invalid file format."
+  }
+  try {
+    type = validStr(type);
+  } catch (e) {
+    throw e;
   }
   try {
     tags = validStrArr(tags);
@@ -116,7 +125,7 @@ const getPostById = async (id) => {
   return post;
 };
 
-//console.log(await createPost("65f4c23c772bb8ce19f612bb", "Buy this!", "/public/media/boldandbrash.jpg", "image", ["#fun", "#selfcare"], 67, 2));
+//console.log(await createPost("65fd11a1a0f40b80482efaca", "post 1", "/public/media/venice.mp4", ["#fun", "#selfcare", "#facial"], 112, 3));
 const getAllPosts = async () => {
   let allPosts;
   try {
