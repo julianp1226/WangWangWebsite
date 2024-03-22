@@ -128,6 +128,7 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+  text-indent: 30px;
 }
 
 select {

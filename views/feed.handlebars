@@ -5,30 +5,30 @@
     <div class="page">
     <div class="searchbar">
       <div class="search-with-icon">
-        <input class="search" type="search" placeholder="       Search">
+        <input class="search" type="search" placeholder="Search">
         <svg class="magnifyglass"width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6537 21.1936C6.58584 21.1936 2.47754 17.0853 2.47754 12.0174C2.47754 6.9496 6.58584 2.84131 11.6537 2.84131C16.7215 2.84131 20.8298 6.9496 20.8298 12.0174C20.8298 17.0853 16.7215 21.1936 11.6537 21.1936Z" stroke="#5C5C5C" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M21.7961 22.1589L19.8643 20.2271" stroke="#5C5C5C" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
 
-    <div class="searchbuttons">
-    <button class="following" type="button">Following</button>
-    <button class="foryou" type="button">For You</button>
-    <svg class="icons2" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M15.583 19.25H28.4163" stroke="#292D32" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M20.167 33.7884L28.3253 39.2151C29.5353 40.0218 31.167 39.1601 31.167 37.6934V33.7884C36.667 33.7884 40.3337 30.1217 40.3337 24.6217V13.6217C40.3337 8.12174 36.667 4.45508 31.167 4.45508H12.8337C7.33366 4.45508 3.66699 8.12174 3.66699 13.6217V24.6217C3.66699 30.1217 7.33366 33.7884 12.8337 33.7884H20.167Z" stroke="#292D32" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <svg class="icons2" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7.98347 22.5847C7.3583 23.2502 6.7533 24.561 6.6323 25.4685L5.88614 32.0025C5.62397 34.362 7.31797 35.9754 9.6573 35.572L16.151 34.4629C17.0585 34.3015 18.329 33.636 18.9541 32.9504L35.511 15.4255C38.3746 12.4005 39.6653 8.95203 35.2085 4.7372C30.7718 0.562701 27.404 2.03487 24.5403 5.05987L7.98347 22.5847Z" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M21.7793 7.98389C22.6465 13.5499 27.1638 17.8051 32.7701 18.3697" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    </div>
+      <div class="searchbuttons">
+        <button class="following" type="button">Following</button>
+        <button class="foryou" type="button">For You</button>
+        <svg class="icons2" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.583 19.25H28.4163" stroke="#292D32" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20.167 33.7884L28.3253 39.2151C29.5353 40.0218 31.167 39.1601 31.167 37.6934V33.7884C36.667 33.7884 40.3337 30.1217 40.3337 24.6217V13.6217C40.3337 8.12174 36.667 4.45508 31.167 4.45508H12.8337C7.33366 4.45508 3.66699 8.12174 3.66699 13.6217V24.6217C3.66699 30.1217 7.33366 33.7884 12.8337 33.7884H20.167Z" stroke="#292D32" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg class="icons2" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.98347 22.5847C7.3583 23.2502 6.7533 24.561 6.6323 25.4685L5.88614 32.0025C5.62397 34.362 7.31797 35.9754 9.6573 35.572L16.151 34.4629C17.0585 34.3015 18.329 33.636 18.9541 32.9504L35.511 15.4255C38.3746 12.4005 39.6653 8.95203 35.2085 4.7372C30.7718 0.562701 27.404 2.03487 24.5403 5.05987L7.98347 22.5847Z" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.7793 7.98389C22.6465 13.5499 27.1638 17.8051 32.7701 18.3697" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
     </div>
     <div class="cards">
         {{#each posts}}
             {{#if this.isImage}}
-            <div class="card" onclick="location.href='/feed/id/{{this._id}}';" style="cursor: pointer;">
+            <div class="card" onclick="window.dialog.showModal();" style="cursor: pointer;">
               <div class="med">
               <img alt="{{this.title}}" src={{this.media}} id="image">
               </div>
