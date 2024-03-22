@@ -8,6 +8,7 @@ router.route('/').get(async (req, res) => {
     let allProducts;
     try {
         allProducts = await getAllProducts()
+        allProducts.map((x)=>x["rating"] = 5)
     } catch (e) {
         return res.status(500).render("error", { error: e, status: 500 });
     }

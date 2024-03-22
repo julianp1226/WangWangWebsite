@@ -2,37 +2,110 @@
         <link rel="stylesheet" href="/public/css/shop-styles.css"/>
 </head>
 <main>
-    <div>
+    <div class="section">
         <h1 class="Shop">Recommended For You</h1>
-        <a><p>View All →</p></a>
-        {{itemArr}}
+        <a class="viewLink"><p>View All →</p></a>
+        <br>
+        <span class="prod">
+            {{#each products}}
+            <div class="product">
+                <a href="/shop/{{this._id}}" >
+                <img class="productIMG" src={{this.image}}>
+                <span class="info">
+                    <p class="prodTitle">{{this.name}}</p>
+                    <span class="ratingInfo">
+                        <img class="star" src="/public/media/Star.png">
+                        <p class="rating">5</p>
+                        
+                    </span>
+                </span>
+                <span class="info">
+                    <p class="price">${{this.actualPrice}}</p>
+                    <img class="bag" src="/public/media/Bag.png">
+                </span>
+                </a>
+            </div>
+            {{/each}}
+        </span>
     </div>
-    <div>
+    <div class="section">
         <h1>Best Selling</h1>
-        <a><p>View All →</p></a>
-        {{itemArr}}
+        <a class="viewLink"><p>View All →</p></a>
+        <br>
+        <span class="prod">
+            {{#each products}}
+            <div class="product">
+                <a href="/shop/{{this._id}}" >
+                <img class="productIMG" src={{this.image}}>
+                <span class="info">
+                    <p class="prodTitle">{{this.name}}</p>
+                    <span class="ratingInfo">
+                        <img class="star" src="/public/media/Star.png">
+                        <p class="rating">5</p>
+                        
+                    </span>
+                </span>
+                <span class="info">
+                    <p class="price">${{this.actualPrice}}</p>
+                    <img class="bag" src="/public/media/Bag.png">
+                </span>
+                </a>
+            </div>
+            {{/each}}
+        </span>
     </div>
     <br>
-    <div>
+    <div class="section">
         <h1>Trending</h1>
         
-        <a><p>View All →</p></a>
+        <a class="viewLink"><p>View All →</p></a>
         <br>
-        <div class="prod">
+        <span class="prod">
             {{#each products}}
-        
-            <img class="prodIMG" src={{this.image}}>
-            
-        
-        
+            <div class="product">
+                <a href="/shop/{{this._id}}" >
+                <img class="productIMG" src={{this.image}}>
+                <span class="info">
+                    <p class="prodTitle">{{this.name}}</p>
+                    <span class="ratingInfo">
+                        <img class="star" src="/public/media/Star.png">
+                        <p class="rating">5</p>
+                        
+                    </span>
+                </span>
+                <span class="info">
+                    <p class="price">${{this.actualPrice}}</p>
+                    <img class="bag" src="/public/media/Bag.png">
+                </span>
+                </a>
+            </div>
             {{/each}}
-        </div>
-        <br>
-        
+        </span>    
     </div>
-    <div>
+    <div class="section">
         <h1>Recently Viewed</h1>
-        <a><p>View All →</p></a>
-        {{itemArr}}
+        <a class="viewLink"><p>View All →</p></a>
+        <br>
+        <span class="prod">
+            {{#each products}}
+            <div class="product">
+                <a href="/shop/{{this._id}}" >
+                <img class="productIMG" src={{this.image}}>
+                <span class="info">
+                    <p class="prodTitle">{{this.name}}</p>
+                    <span class="ratingInfo">
+                        <img class="star" src="/public/media/Star.png">
+                        <p class="rating">5</p>
+                        
+                    </span>
+                </span>
+                <span class="info">
+                    <p class="price">${{this.actualPrice}}</p>
+                    <img class="bag" src="/public/media/Bag.png">
+                </span>
+                </a>
+            </div>
+            {{/each}}
+        </span>
     </div>
 </main>
