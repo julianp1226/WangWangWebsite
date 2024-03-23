@@ -1,0 +1,22 @@
+<main>
+  <head>
+        <link rel="stylesheet" href="/public/css/post.css"/>
+  </head>
+  <div class="post-page">
+    <div class="indiv-post" id="onepost">
+      <div class="top-of-post">
+        <div>
+        <img id="profilepic" alt="{{name}}" src={{profilePic}}>
+        </div>
+         <h1 id="profile-name">{{name}}</h1>
+         <button class="follow">FOLLOW</button>
+         <svg id="x" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="get_out()" style="cursor: pointer;">
+          <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
+          <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/>
+      </svg>
+      </div>
+      <img alt="{{post.title}}" src={{post.media}}> 
+      <p>Some more text here</p>
+    </div>      
+  </div>
+</main>

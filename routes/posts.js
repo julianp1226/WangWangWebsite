@@ -11,6 +11,9 @@ import {
   getPostById
 } from "../data/posts.js";
 import {
+  getUserById
+} from "../data/users.js"
+import {
   validId,
   validImageUrl,
 } from "../validation.js";
@@ -63,7 +66,22 @@ router.route("/id/:postId").get(async (req, res) => {
     .status(404)
     .render("error", { error: "Current post not found", status: 404 });
   }
-  return res.json(thisPost)
+  let thisUser;
+  try {
+    thisUser = await getUserById(thisPost.userId);
+  } catch (e) {
+    return res
+    .status(404)
+    .render("error", { error: "User for this post not found", status: 404 });
+  }
+  let userName = thisUser.firstName;
+  let profilePic = thisUser.profilePic;
+  return res.render("post", {
+      title: "post",
+      post: thisPost,
+    name: userName,
+      profilePic:profilePic,
+    });
 });
 
 export default router;

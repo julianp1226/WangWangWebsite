@@ -28,7 +28,7 @@
     <div class="cards">
         {{#each posts}}
             {{#if this.isImage}}
-            <div class="card" onclick="window.dialog.showModal();" style="cursor: pointer;">
+            <div class="card" id="{{this._id}}" onclick="get_id(this.id)" style="cursor: pointer;">
               <div class="med">
               <img alt="{{this.title}}" src={{this.media}} id="image">
               </div>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             {{else}}
-            <div class="card" onclick="location.href='/feed/id/{{this._id}}';" style="cursor: pointer;">
+            <div class="card" id="{{this._id}}" onclick="get_id(this.id)" style="cursor: pointer;">
               <div class="med">
               <video id="video">
                   <source src={{this.media}}>
@@ -80,4 +80,23 @@
         {{/each}}
       </div>
     </div>
+    <div class="post-modal"></div>
+    <script>
+      const modal = document.querySelector('.post-modal')
+      const get_id = clicked_id => {
+        fetch(`/feed/id/${clicked_id}`)
+        .then(res=>res.text())
+        .then(data=>{
+          modal.innerHTML=data
+          modal.style.display="block"
+          history.pushState(null,null,`/feed/id/${clicked_id}`)
+          })
+      }
+
+      const get_out = () => {
+        history.back();
+        modal.innerHTML = ""
+        modal.style.display="none"
+      }
+    </script>
 </main>
