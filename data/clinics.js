@@ -218,7 +218,7 @@ const getClinicById = async (id) => {
   const clinic = await clinicsCollection.findOne({ _id: new ObjectId(id) });
 
   if (clinic === null)
-    throw "Error (data/users.js :: getUserById(id)): No user found";
+    throw "Error (data/clinics.js :: getClinicById(id)): No user found";
 
   clinic._id = clinic._id.toString();
   return clinic;
@@ -228,7 +228,7 @@ const getClinicById = async (id) => {
 const getAllClinics = async () => {
   let allClinics;
   try {
-    const ClinicsCollection = await users();
+    const ClinicsCollection = await clinics();
     allClinics = await ClinicsCollection.find({}).toArray();
   } 
   catch (e) {

@@ -1,0 +1,16 @@
+<main class="feed">
+    <head>
+        <link rel="stylesheet" href="/public/css/feed.css"/>
+    </head>
+    <div class="page">
+        <div class="cards">
+            {{#each clinics}}
+                <div class="card" onclick="location.href='/clinics/id/{{this._id}}';" style="cursor: pointer;">
+                    <div class="container">
+                    {{this.name}}
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</main>

@@ -3,7 +3,8 @@ const router = Router();
 import multer from "multer";
 import { ObjectId } from "mongodb";
 import {
-    createClinic
+    createClinic,
+    getAllClinics
 } from "../data/clinics.js";
 import {
     createClinicSpecialisation,
@@ -19,7 +20,7 @@ import {
   "", // description
   "", // image
   100,
-  [1, 2, 3], // clinicSpecialisationIds
+  [], // clinicSpecialisationIds
   "active",
   10, // ratingCount
   4.5, // avgRating
@@ -47,9 +48,7 @@ import {
   "sampleStripeAccountId" // stripeConnAccId
 );*/
 
-
-
-router.route("/testClinic").get(async (req, res) => {
+/*router.route("/testClinic").get(async (req, res) => {
     try{
         const myClinic = await createClinic("sampleAccessToken",
         "example@example.com",
@@ -118,6 +117,24 @@ router.route("/testClinicSpecialU").get(async (req, res) => {
         return res
         .status(400)
         .render("error", { error: e, auth: true, status: 400 });
+    }
+})*/
+
+router.route("/").get(async (req, res) => { 
+    let auth = false
+    try{
+        let clinics = await getAllClinics()
+        if (req.session.user) {
+            auth = true;
+        }
+        return res.render("clinics", {
+            clinics: clinics,
+            auth: auth,
+        });
+    }catch(e){
+        return res
+        .status(404)
+        .render("error", { error: "No clinics found" + e, status: 404});
     }
 })
 
