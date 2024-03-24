@@ -6,8 +6,8 @@
   top: 0;
   overflow: hidden;
   display: flex;
+  z-index: -1;
   justify-content: left;
-  z-index: 2;
   align-items: center;
 }
 
