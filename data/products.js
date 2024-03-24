@@ -197,7 +197,7 @@ const updateProduct = async (
     image: image,
     status: status,
     images: images
-  })
+  }})
   if(!updateInfo) throw "Could not update product in DB"
   return "Success!"
 }
