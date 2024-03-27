@@ -23,6 +23,7 @@ main h1 {
     align-items: center;
     margin-bottom: 0;
     padding-bottom: 0;
+    flex-wrap: wrap;
 }
 .product {
     width: 20;

@@ -133,6 +133,7 @@ const deleteProductById = async (id) => {
 }
 
 const updateProduct = async (
+  productId,
   name,
   description,
   image,
@@ -146,7 +147,7 @@ const updateProduct = async (
   status,
 ) => {
   if (
-    !name || !description || !actualPrice || !discountedPrice || !categoryId || !quantity || !couponId || !vendorId
+    !productId || !name || !description || !actualPrice || !discountedPrice || !categoryId || !quantity || !couponId || !vendorId
   ) {
     throw "Error: Some necessary inputs not provided";
   };
@@ -173,6 +174,7 @@ const updateProduct = async (
     }
   };
   try {
+    productId = validId(productId, "Product Id")
     name = validStr(name, "Name");
     description = validStr(description, "Description");
     actualPrice = validNumber(actualPrice, "Actual Price");
@@ -185,8 +187,8 @@ const updateProduct = async (
     throw e;
   };
   const productsCollection = await products();
-  const updateInfo = await productsCollection.findOneAndUpdate({_id: new ObjectId(productId)}, {$set: {
-    name: name,
+  const updateInfo = await productsCollection.findOneAndUpdate({_id: new ObjectId(productId)}, {$set: 
+    {name: name,
     description: description,
     actualPrice: actualPrice,
     discountedPrice: discountedPrice,
@@ -196,7 +198,7 @@ const updateProduct = async (
     quantity: quantity,
     image: image,
     status: status,
-    images: images
+    images: images}
   })
   if(!updateInfo) throw "Could not update product in DB"
   return "Success!"
