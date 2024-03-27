@@ -25,24 +25,23 @@ router.route('/').get(async (req, res) => {
 //TODO
 router.route('/:id').get(async (req, res) => {
 let auth = false;
-let allProducts;
+let product;
 try {
-    allProducts = await getAllProducts()
-    allProducts.map((x)=>x["rating"] = 5)
+    product = await getProductById(req.params.id)
+    product['rating'] = 5
 } catch (e) {
     return res.status(500).render("error", { error: e, status: 500 });
 }
 if (req.session.user) {
     auth = true;
 }
-return res.render("mall", {
-    title: "Shop",
+return res.render("mallProduct", {
+    title: product.name,
     auth: auth,
-    products: allProducts.slice(0,3) //Display only first 3 (?) elements
+    product: product
     //id: req.session.user.id
     });
 });
-//TODO
 router.route('/viewall/:type').get(async (req, res) => {
     let auth = false;
     let allProducts;
