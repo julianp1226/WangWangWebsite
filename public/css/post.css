@@ -1,11 +1,19 @@
 img {
   width: 500px;
-  height: 500px;
   display: block;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: auto;
 }
+
+video {
+  width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+}
+
 
 h1 {
   display: block;
@@ -23,7 +31,6 @@ footer {
 }
 
 .indiv-post {
-  border:2px solid black;
   border-radius: 12px;
   background-color: white;
 }
@@ -61,4 +68,64 @@ footer {
     margin-left: 12%;
     margin-right: 12px;
     margin-bottom: 7%;
+}
+
+.caption {
+  font-family: "Lato";
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#likes-and-icons {
+  display: flex;
+  margin-left: 5%;
+    margin-right: 5%;
+    margin-top:2%
+}
+
+.likes {
+  font-family: 'Lato';
+}
+
+.send {
+  padding-left: 6%;
+}
+
+#post-date {
+  margin-left: auto;
+  font-family: 'Lato';
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.tags {
+    display: flex;
+    align-items: center;
+    gap: 1%;
+    margin: 5%;
+        border-bottom: 2px solid #0000002e;
+    padding-bottom: 5%;
+}
+
+#tag-label {
+  font-size: small;
+}
+
+.tags-box {
+  border: 2px solid #00000017;
+    border-radius: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.tag-name {
+  font-family: 'Lato';
+  font-size: small;
+}
+
+.comments-section {
+  display:flex;
+  font-family: 'Lato';
+  justify-content: center;
+  font-size: x-large;
+  padding-bottom: 5%;
 }

@@ -76,10 +76,15 @@ router.route("/id/:postId").get(async (req, res) => {
   }
   let userName = thisUser.firstName;
   let profilePic = thisUser.profilePic;
+  if (thisPost.type === "image") {
+    thisPost.isImage = true;
+  } else {
+    thisPost.isImage = false;
+  }
   return res.render("post", {
       title: "post",
       post: thisPost,
-    name: userName,
+      name: userName,
       profilePic:profilePic,
     });
 });
