@@ -55,7 +55,8 @@ footer {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 13px;
+  letter-spacing: 2px;
   font-family: "Lato";
   border-radius: 10px;
 }
@@ -122,10 +123,17 @@ footer {
   font-size: small;
 }
 
-.comments-section {
+.comments-heading {
   display:flex;
   font-family: 'Lato';
   justify-content: center;
   font-size: x-large;
   padding-bottom: 5%;
+}
+
+.name-comment-time {
+  display: flex;
+    margin-left: 6%;
+    margin-right: 6%;
+    flex-direction: column;
 }

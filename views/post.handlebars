@@ -53,9 +53,25 @@
         </div>
         {{/each}}
       </div>
-      <div class="comments-section">
-        0 Comments
+      <div class="comments-heading">
+        {{post.commentCount}} Comments
       </div>
+      <div class="comments-section">
+        {{#each post.comments}}
+          <div class="name-comment-time">
+            <div>
+            {{this.commenterUsername}}
+            </div>
+            <div>
+            {{this.comment}}
+            </div>
+            <div>
+            {{this.date}}
+            </div>
+          </div>
+           {{/each}}
+      </div>
+
     </div>      
   </div>
 </main>
