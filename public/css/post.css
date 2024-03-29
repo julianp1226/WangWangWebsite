@@ -1,11 +1,24 @@
-img {
+#media {
   width: 500px;
-  height: 500px;
   display: block;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: auto;
 }
+
+.post-main{
+      width: fit-content;
+    margin: auto;
+}
+
+video {
+  width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+}
+
 
 h1 {
   display: block;
@@ -15,7 +28,7 @@ h1 {
 
 .post-page {
   margin-left:auto;
-
+    margin-top: 15%;
 }
 
 footer {
@@ -23,7 +36,6 @@ footer {
 }
 
 .indiv-post {
-  border:2px solid black;
   border-radius: 12px;
   background-color: white;
 }
@@ -48,7 +60,8 @@ footer {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 13px;
+  letter-spacing: 2px;
   font-family: "Lato";
   border-radius: 10px;
 }
@@ -61,4 +74,116 @@ footer {
     margin-left: 12%;
     margin-right: 12px;
     margin-bottom: 7%;
+}
+
+.caption {
+  font-family: "Lato";
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#likes-and-icons {
+  display: flex;
+  margin-left: 5%;
+    margin-right: 5%;
+    margin-top:2%
+}
+
+.likes {
+  font-family: 'Lato';
+}
+
+.send {
+  padding-left: 6%;
+}
+
+#post-date {
+  margin-left: auto;
+  font-family: 'Lato';
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.tags {
+    display: flex;
+    align-items: center;
+    gap: 1%;
+    margin: 5%;
+        border-bottom: 2px solid #0000002e;
+    padding-bottom: 5%;
+}
+
+#tag-label {
+  font-size: small;
+}
+
+.tags-box {
+  border: 2px solid #00000017;
+    border-radius: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.tag-name {
+  font-family: 'Lato';
+  font-size: small;
+}
+
+.comments-heading {
+  display:flex;
+  font-family: 'Lato';
+  justify-content: center;
+  font-size: x-large;
+  padding-bottom: 5%;
+}
+
+.name-comment-time {
+  display: flex;
+    margin-left: 4%;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.comment-profile-pic {
+  height: 60px;
+    width: 60px;
+  border-radius:50%;
+}
+
+#comment-prof-pic {
+ height: 60px;
+    width: 60px;
+}
+
+#top-profile-pic {
+  border-radius: 50%;
+}
+
+.comments-section {
+  display: flex;
+    align-items: center;
+    margin-left: 5%;
+    margin-right: 5%;
+        font-family: 'Lato';
+    padding-bottom: 5%;
+}
+
+#commenter-name {
+  font-weight: bold;
+}
+
+#actual-comment {
+  font-size:15px;
+   color: rgba(0, 0, 0, 0.5);
+}
+
+#date-posted {
+  font-size:12px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#comment-like-button-div {
+  display: flex;
+      flex-direction: column;
+    align-items: center;
+    margin-left: auto;
 }

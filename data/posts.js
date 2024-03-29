@@ -28,20 +28,20 @@ const createPost = async (
   title,
   media,
   tags,
-  likeCount,
-  commentCount
+  caption
 ) => {
   if (
     !userId ||
     !title ||
     !media ||
-    !tags ||
-    !likeCount ||
-    !commentCount
+    !tags
   ) {
     throw "Error: Missing required input";
   }
   let type;
+  let likeCount = 0
+  let commentCount = 0;
+
   try {
     userId = validId(userId);
   } catch (e) {
@@ -84,6 +84,12 @@ const createPost = async (
   } catch (e) {
     throw e;
   }
+  try {
+    caption = validStr(caption);
+  } catch (e) {
+    throw e;
+  }
+
 
   let addPost = {
     userId: userId,
@@ -92,7 +98,9 @@ const createPost = async (
     type: type,
     tags: tags,
     likeCount: likeCount,
-    commentCount:commentCount,
+    commentCount: commentCount,
+    caption: caption,
+    comments: [],
     insertDate: new Date().toJSON().slice(0, 10)
   };
   const postsCollection = await posts();
@@ -125,7 +133,10 @@ const getPostById = async (id) => {
   return post;
 };
 
-//console.log(await createPost("65fd11a1a0f40b80482efaca", "post 1", "/public/media/venice.mp4", ["#fun", "#selfcare", "#facial"], 112, 3));
+/*console.log(await createPost("65fd11a1a0f40b80482efaca", "post 1", "/public/media/venice.mp4", ["#fun", "#selfcare", "#facial"],"This product is great!"));
+console.log(await createPost("65fd11a1a0f40b80482efaca", "post 2", "/public/media/boldandbrash.jpg", ["#selfcare", "#facial", "product"], "This product is great too"));
+*/
+
 const getAllPosts = async () => {
   let allPosts;
   try {

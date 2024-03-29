@@ -1,0 +1,130 @@
+main {
+    color: #1E1E1E;
+    display: flex;
+    justify-content: center;
+}
+h2 {
+    margin-bottom: 0.5em;
+}
+.imgCol {
+    float:left;
+    padding-right: 2%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1em;
+    width:50%
+}
+.infoCol {
+    float:right;
+    padding-left: 2%;
+    display: flex;
+    flex-direction: column;
+    width:50%
+}
+.prodIMG {
+    border-radius: 5%;
+}
+.prod {
+    display: flex;
+    justify-content: center;
+    align-items:start;
+}
+.ratingInfo {
+    height: fit-content;
+    display: flex;
+    justify-content: left;
+    align-items: baseline;
+}
+.star {
+    width: 1em;
+}
+.rating {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.price{
+    opacity: 50%;
+}
+.imgGal{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    padding-top: 3%;
+    
+}
+.imgGal img {
+    width: 10%;
+    padding-inline: 1%;
+    border-radius: 15%;
+}
+.quantity {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.quantityIn {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 20%;
+}
+.important {
+    font-weight: bold;
+}
+.quantityIn button {
+    padding: 0;
+    margin: 0;
+    height: 2em;
+    width: 2em; /* Adjust the width as needed */
+    text-align: center;
+    border:none;
+    background-color: rgba(0, 0, 0, 0);
+}
+.product {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+}
+.quantityIn input {
+    width: 2em; /* Adjust the width as needed */
+    height: 1em;
+    margin: 0;
+    text-align: center;
+    border:none;
+    
+    background-color: rgba(0, 0, 0, 0);
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+#ATC {
+    display: flex;
+    align-self: center;
+    background-color: #FF3EA5;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    font-size: 16px;
+    font-family: "Lato";
+    border-radius: 10px;
+}
+.link {
+    display: flex;
+    padding-top: 1%;
+    align-self: center;
+    text-decoration: underline;
+    color: #FF3EA5;
+
+}
+.revBox{
+    display: flex;
+    justify-content: space-between;
+}

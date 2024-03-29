@@ -2,6 +2,7 @@
 main h1 {
     float: left;
     padding-bottom: 0;
+    margin-bottom: 0;
 }
 .viewLink {
     text-decoration: underline;
@@ -9,6 +10,7 @@ main h1 {
     color: #FF3EA5;
     padding-right: 2%;
 }
+
 .section {
     white-space: pre;
     padding-left: 2%;
@@ -23,9 +25,12 @@ main h1 {
     align-items: center;
     margin-bottom: 0;
     padding-bottom: 0;
+    margin-top: 0;
+    flex-wrap: wrap;
 }
 .product {
-    width: 20;
+    height: fit-content;
+    width: 20%;
 }
 .product a {
     display: flex;

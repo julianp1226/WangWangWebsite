@@ -19,7 +19,7 @@
             <path d="M15.583 19.25H28.4163" stroke="#292D32" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M20.167 33.7884L28.3253 39.2151C29.5353 40.0218 31.167 39.1601 31.167 37.6934V33.7884C36.667 33.7884 40.3337 30.1217 40.3337 24.6217V13.6217C40.3337 8.12174 36.667 4.45508 31.167 4.45508H12.8337C7.33366 4.45508 3.66699 8.12174 3.66699 13.6217V24.6217C3.66699 30.1217 7.33366 33.7884 12.8337 33.7884H20.167Z" stroke="#292D32" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <svg class="icons2" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg onclick="document.getElementById('create-post').style.display='block'" style="cursor: pointer;" class="icons2" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7.98347 22.5847C7.3583 23.2502 6.7533 24.561 6.6323 25.4685L5.88614 32.0025C5.62397 34.362 7.31797 35.9754 9.6573 35.572L16.151 34.4629C17.0585 34.3015 18.329 33.636 18.9541 32.9504L35.511 15.4255C38.3746 12.4005 39.6653 8.95203 35.2085 4.7372C30.7718 0.562701 27.404 2.03487 24.5403 5.05987L7.98347 22.5847Z" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M21.7793 7.98389C22.6465 13.5499 27.1638 17.8051 32.7701 18.3697" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -78,6 +78,18 @@
             </div>
             {{/if}}
         {{/each}}
+      </div>
+    </div>
+    <div id="create-post" class="create-post-modal">
+      <div class="create-post-modal-content">
+        <div class="w3-container">
+          <svg id="exit" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="document.getElementById('create-post').style.display='none'" style="cursor: pointer;">
+          <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
+          <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/>
+          </svg>
+          <h1 id="create-post-heading">Create Post</h1>
+          <div id="create-post-body">Choose Media</div>
+        </div>
       </div>
     </div>
     <div class="post-modal"></div>
