@@ -47,7 +47,8 @@ const createComment = async (userId, postId, comment) => {
 
   let commentObject = {
     _id: new ObjectId(),
-    commenterUsername: commenter.firstName,
+    commenterFirstname: commenter.firstName,
+    commenterProfilePic: commenter.profilePic,
     user_id: userId,
     post_id: postId,
     comment: comment,

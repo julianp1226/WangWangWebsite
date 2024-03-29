@@ -1,11 +1,11 @@
-<main>
+<main class="post-main">
   <head>
         <link rel="stylesheet" href="/public/css/post.css"/>
   </head>
   <div class="post-page">
     <div class="indiv-post" id="onepost">
       <div class="top-of-post">
-        <div>
+        <div id="top-profile-pic">
         <img id="profilepic" alt="{{name}}" src={{profilePic}}>
         </div>
          <h1 id="profile-name">{{name}}</h1>
@@ -16,7 +16,7 @@
       </svg>
       </div>
       {{#if post.isImage}}
-      <img alt="{{post.title}}" src={{post.media}}> 
+      <img id="media" alt="{{post.title}}" src={{post.media}}> 
       {{else}}
        <video id="video" autoplay loop>
                   <source src={{post.media}}>
@@ -25,7 +25,7 @@
       {{/if}}
       <p class="caption">{{post.caption}}</p>
       <div id="likes-and-icons">
-        <div id="likes">
+        <div id="like-icon">
           <svg class="icons" width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7166 20.7296C7.07147 19.4795 1.2793 15.0424 1.2793 8.48682C1.2793 5.14702 3.97976 2.43701 7.30048 2.43701C8.91313 2.43701 10.4208 3.0668 11.5373 4.19279C12.6537 3.0668 14.1614 2.43701 15.774 2.43701C19.0947 2.43701 21.7952 5.15656 21.7952 8.48682C21.7952 15.0519 16.003 19.4795 12.3579 20.7296C12.1193 20.8155 11.8331 20.8536 11.5373 20.8536C11.2414 20.8536 10.9552 20.8155 10.7166 20.7296ZM2.71064 8.48682C2.71064 15.0042 8.97992 18.6303 11.1842 19.3841C11.356 19.4414 11.7281 19.4414 11.8999 19.3841C14.0946 18.6303 20.3734 15.0137 20.3734 8.48682C20.3734 5.93903 18.3123 3.86836 15.7836 3.86836C14.3331 3.86836 12.9877 4.54586 12.1193 5.71956C11.8522 6.08217 11.2414 6.08217 10.9743 5.71956C10.0868 4.53632 8.75091 3.86836 7.30048 3.86836C4.77177 3.86836 2.71064 5.93903 2.71064 8.48682Z" fill="#292D32"/>
                   </svg>
@@ -58,16 +58,25 @@
       </div>
       <div class="comments-section">
         {{#each post.comments}}
+        <div class="comment-profile-pic">
+          <img id="comment-prof-pic" alt="profile-picture" src="{{this.commenterProfilePic}}">
+        </div>
           <div class="name-comment-time">
-            <div>
-            {{this.commenterUsername}}
+            <div id="commenter-name">
+            {{this.commenterFirstname}}
             </div>
-            <div>
+            <div id="actual-comment">
             {{this.comment}}
             </div>
-            <div>
+            <div id="date-posted">
             {{this.date}}
             </div>
+          </div>
+          <div id="comment-like-button-div">
+          <svg id='comment-like-button' width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#FF3EA5" fill-rule="evenodd" clip-rule="evenodd" d="M10.7166 20.7296C7.07147 19.4795 1.2793 15.0424 1.2793 8.48682C1.2793 5.14702 3.97976 2.43701 7.30048 2.43701C8.91313 2.43701 10.4208 3.0668 11.5373 4.19279C12.6537 3.0668 14.1614 2.43701 15.774 2.43701C19.0947 2.43701 21.7952 5.15656 21.7952 8.48682C21.7952 15.0519 16.003 19.4795 12.3579 20.7296C12.1193 20.8155 11.8331 20.8536 11.5373 20.8536C11.2414 20.8536 10.9552 20.8155 10.7166 20.7296ZM2.71064 8.48682C2.71064 15.0042 8.97992 18.6303 11.1842 19.3841C11.356 19.4414 11.7281 19.4414 11.8999 19.3841C14.0946 18.6303 20.3734 15.0137 20.3734 8.48682C20.3734 5.93903 18.3123 3.86836 15.7836 3.86836C14.3331 3.86836 12.9877 4.54586 12.1193 5.71956C11.8522 6.08217 11.2414 6.08217 10.9743 5.71956C10.0868 4.53632 8.75091 3.86836 7.30048 3.86836C4.77177 3.86836 2.71064 5.93903 2.71064 8.48682Z" fill="#292D32"/>
+                  </svg>
+          <div style="font-size:smaller;">{{this.likes}}</div>
           </div>
            {{/each}}
       </div>

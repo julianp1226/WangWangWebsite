@@ -1,9 +1,14 @@
-img {
+#media {
   width: 500px;
   display: block;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: auto;
+}
+
+.post-main{
+      width: fit-content;
+    margin: auto;
 }
 
 video {
@@ -23,7 +28,7 @@ h1 {
 
 .post-page {
   margin-left:auto;
-
+    margin-top: 15%;
 }
 
 footer {
@@ -133,7 +138,52 @@ footer {
 
 .name-comment-time {
   display: flex;
-    margin-left: 6%;
-    margin-right: 6%;
+    margin-left: 4%;
     flex-direction: column;
+    gap: 8px;
+}
+
+.comment-profile-pic {
+  height: 60px;
+    width: 60px;
+  border-radius:50%;
+}
+
+#comment-prof-pic {
+ height: 60px;
+    width: 60px;
+}
+
+#top-profile-pic {
+  border-radius: 50%;
+}
+
+.comments-section {
+  display: flex;
+    align-items: center;
+    margin-left: 5%;
+    margin-right: 5%;
+        font-family: 'Lato';
+    padding-bottom: 5%;
+}
+
+#commenter-name {
+  font-weight: bold;
+}
+
+#actual-comment {
+  font-size:15px;
+   color: rgba(0, 0, 0, 0.5);
+}
+
+#date-posted {
+  font-size:12px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#comment-like-button-div {
+  display: flex;
+      flex-direction: column;
+    align-items: center;
+    margin-left: auto;
 }
