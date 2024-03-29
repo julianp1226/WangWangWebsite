@@ -2,10 +2,20 @@
         <link rel="stylesheet" href="/public/css/product-styles.css"/>
 </head>
 <main>
-    <span class="prod">
+    <div class="product">
+        <span class="prod">
         <br>
         <span class="imgCol">
             <img class = "prodIMG" src={{product.image}} />
+            <span  class="imgGal">
+                {{#each product.images}}
+                    <img class="galIMG" src={{this}} >     
+                {{/each}}
+            </span>
+            <span class="revBox">
+                <h1>Reviews</h1>
+                <a class="link" href="/">GIVE A REVIEW →</a> <!--TODO REVIEW STUFF-->
+            </span>
         </span>
         <span class="infoCol">
             <h2>{{product.name}}</h2>
@@ -14,7 +24,25 @@
                 <p class="rating">5</p>
             </span>
             <p class="price">${{product.actualPrice}}</p>
+            <form>
+                <span class="quantity">
+                    <label class="important" for="num">Quantity</label>
+                    <span class="quantityIn">
+                        <button id="down" type="menu">-</button>
+                        <input type="text" id="num" name="num">
+                        <button id="up" type="menu">+</button>
+                    </span>
+                </span>
+                <br>
+                <button id="ATC" type="submit">Add to Cart</button>
+            </form>
+            <a class="link" href="/">Save to Wish List</a> <!-- TODO: Add Link to save to wishlist once implemented -->
+            <p class="important">Description</p>
+            <p>{{product.description}}</p>
         </span>
+        
     </span>
+    
+    </div>
     
 </main>

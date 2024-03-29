@@ -83,7 +83,8 @@ const createProduct = async (
     quantity: quantity,
     image: image,
     status: status,
-    images: images
+    images: images,
+    reviews: []
   };
   const insertInfo = await productsCollection.insertOne(addP);
   if (!insertInfo.acknowledged || !insertInfo.insertedId) throw "Could not add product to DB";
@@ -131,7 +132,20 @@ const deleteProductById = async (id) => {
   if(!removalInfo) throw "Could not delete product from DB"
   return "Product deleted!"
 }
+const addReview = async (productId,review) => {
+  if(!productId || !review || !review.stars || !review.text || !review.userId){
+    throw "Error: Necessary inputs not provided"
+  }
+  try {
+    validId(productId,"Product ID");
+    validNumber(review.stars, "Star Rating");
+    validStr(review.text, "Review Text");
+    validId(review.userId,"User ID")
+  } catch (error) {
+    throw error
+  }
 
+}
 const updateProduct = async (
   productId,
   name,
@@ -145,9 +159,10 @@ const updateProduct = async (
   vendorId,
   couponId,
   status,
+  reviews
 ) => {
   if (
-    !productId || !name || !description || !actualPrice || !discountedPrice || !categoryId || !quantity || !couponId || !vendorId
+    !productId || !name || !description || !actualPrice || !discountedPrice || !categoryId || !quantity || !couponId || !vendorId || !reviews
   ) {
     throw "Error: Some necessary inputs not provided";
   };
@@ -198,9 +213,11 @@ const updateProduct = async (
     quantity: quantity,
     image: image,
     status: status,
-    images: images}
+    images: images,
+    reviews:  reviews
+      }
   })
   if(!updateInfo) throw "Could not update product in DB"
   return "Success!"
 }
-export {createProduct, getAllProducts, getProductById, deleteProductById};
+export {createProduct, getAllProducts, getProductById, deleteProductById,  addReview};
