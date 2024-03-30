@@ -1,0 +1,32 @@
+<main>
+  <head>
+      <link rel="stylesheet" href="/public/css/payment.css">
+  </head>
+  <div id = "payment-main">
+    <h1>Payment Methods</h1>
+    {{#each all_cards}}
+    <div id = "payment-ctn">
+        <p>Name: {{this.nameOnCard}}</p>
+        <p>CardType: {{this.cardType}}</p>
+        <p>Ending in: {{this.last4Digits}}</p>
+        <p>Expiry: {{this.expiry}}</p>
+        {{!-- Fixed the Delete button --}}
+        {{#if ownPage}}
+          <button
+            id="DeletePayment"
+            onclick="window.location.href='/payments/id/{{this.userId}}/deletePayment';"
+          >Remove this Payment</button>
+        {{/if}}
+    </div>
+    {{/each}}
+    {{#if ownPage}}
+      <button
+        id="AddPayment"
+        onclick="window.location.href='/payments/id/{{id}}/addPayment';"
+      >Add Payment</button>
+    {{/if}}
+          
+  </div>
+  <script>
+  </script>
+</main>
