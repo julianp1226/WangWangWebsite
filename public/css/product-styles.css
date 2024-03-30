@@ -128,3 +128,54 @@ form{
     display: flex;
     justify-content: space-between;
 }
+.similarProds{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+.simProd {
+    display: flex;
+    flex-wrap: wrap;
+    width:110%
+}
+.simProduct {
+    display: flex;
+    flex-wrap: wrap;
+    padding-inline: 1%;
+    padding-bottom: 2%;
+
+}
+.productIMG {
+    width: 100%;
+    align-self: center;
+    border-radius: 2%;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.simRatingInfo {
+    display: flex;
+    justify-content: right;
+    align-items: baseline;
+}
+.simStar {
+    width: 50%;
+}
+.bag {
+    height:40%;
+}
+.simRating {
+    color: #1E1E1E;
+    margin-bottom: 0;
+    padding-left: 20%;
+}
+.full-rating {
+    float: right;
+}
+.simProduct a {
+    color: #1E1E1E
+}

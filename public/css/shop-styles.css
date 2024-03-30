@@ -18,6 +18,7 @@ main h1 {
   }
 .prod {
     width: 100%;
+    
     overflow: hidden;
     display: flex;
     justify-content: space-evenly;
@@ -29,6 +30,7 @@ main h1 {
     flex-wrap: wrap;
 }
 .product {
+    padding-inline: 1%;
     height: fit-content;
     width: 20%;
 }
