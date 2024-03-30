@@ -159,6 +159,7 @@ p {
     position: absolute;
     width: 1230px;
     top: 1050px;
+    z-index: 3;
   }
 
   #products, #things_we_offer {
