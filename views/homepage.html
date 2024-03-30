@@ -1,7 +1,7 @@
 <main>
   <head>
-    <link rel="stylesheet" href="/public/css/homepage-style.css" media="screen and (min-width: 1230px)">
-    <link rel="stylesheet" href="/public/css/homepage-style-small.css" media="screen and (max-width: 1230px)">
+    <link rel="stylesheet" href="../public/css/homepage-style.css">
+    <link rel="stylesheet" href="../public/css/homepage-style-small.css" media="screen and (max-width: 1230px)">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   </head>
@@ -27,21 +27,19 @@
         </div>
         <br><br>
         <form>
-          <div class="row_container">
-            <input type="text" id="search" placeholder="Search Clinics, Doctors">
-            <button type="submit" id="search_btn">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M14.6776 12.93C15.888 11.2784 16.4301 9.23062 16.1955 7.19644C15.9609 5.16226 14.9669 3.29168 13.4123 1.95892C11.8578 0.626155 9.8573 -0.070492 7.81116 0.00834944C5.76502 0.0871909 3.8241 0.935706 2.3767 2.38414C0.929305 3.83257 0.0821784 5.7741 0.00480109 7.8203C-0.0725762 9.86649 0.625502 11.8665 1.95937 13.4201C3.29325 14.9737 5.16455 15.9663 7.19889 16.1995C9.23323 16.4326 11.2806 15.8891 12.9314 14.6775H12.9301C12.9676 14.7275 13.0076 14.775 13.0526 14.8213L17.8651 19.6338C18.0995 19.8683 18.4175 20.0001 18.749 20.0003C19.0806 20.0004 19.3987 19.8688 19.6332 19.6344C19.8678 19.4 19.9996 19.082 19.9997 18.7504C19.9999 18.4189 19.8682 18.1008 19.6339 17.8663L14.8214 13.0538C14.7767 13.0085 14.7286 12.968 14.6776 12.93ZM15.0001 8.125C15.0001 9.02784 14.8223 9.92184 14.4768 10.756C14.1313 11.5901 13.6249 12.348 12.9865 12.9864C12.3481 13.6248 11.5902 14.1312 10.7561 14.4767C9.92195 14.8222 9.02795 15 8.12511 15C7.22228 15 6.32828 14.8222 5.49417 14.4767C4.66005 14.1312 3.90216 13.6248 3.26376 12.9864C2.62535 12.348 2.11894 11.5901 1.77344 10.756C1.42794 9.92184 1.25012 9.02784 1.25012 8.125C1.25012 6.30164 1.97444 4.55296 3.26376 3.26364C4.55307 1.97433 6.30175 1.25 8.12511 1.25C9.94848 1.25 11.6972 1.97433 12.9865 3.26364C14.2758 4.55296 15.0001 6.30164 15.0001 8.125Z" fill="white"/>
-              </svg>
-            </button>
-          </div>
+          <input type="text" id="search" placeholder="Search Clinics, Doctors">
+          <button type="submit" id="search_btn">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.6776 12.93C15.888 11.2784 16.4301 9.23062 16.1955 7.19644C15.9609 5.16226 14.9669 3.29168 13.4123 1.95892C11.8578 0.626155 9.8573 -0.070492 7.81116 0.00834944C5.76502 0.0871909 3.8241 0.935706 2.3767 2.38414C0.929305 3.83257 0.0821784 5.7741 0.00480109 7.8203C-0.0725762 9.86649 0.625502 11.8665 1.95937 13.4201C3.29325 14.9737 5.16455 15.9663 7.19889 16.1995C9.23323 16.4326 11.2806 15.8891 12.9314 14.6775H12.9301C12.9676 14.7275 13.0076 14.775 13.0526 14.8213L17.8651 19.6338C18.0995 19.8683 18.4175 20.0001 18.749 20.0003C19.0806 20.0004 19.3987 19.8688 19.6332 19.6344C19.8678 19.4 19.9996 19.082 19.9997 18.7504C19.9999 18.4189 19.8682 18.1008 19.6339 17.8663L14.8214 13.0538C14.7767 13.0085 14.7286 12.968 14.6776 12.93ZM15.0001 8.125C15.0001 9.02784 14.8223 9.92184 14.4768 10.756C14.1313 11.5901 13.6249 12.348 12.9865 12.9864C12.3481 13.6248 11.5902 14.1312 10.7561 14.4767C9.92195 14.8222 9.02795 15 8.12511 15C7.22228 15 6.32828 14.8222 5.49417 14.4767C4.66005 14.1312 3.90216 13.6248 3.26376 12.9864C2.62535 12.348 2.11894 11.5901 1.77344 10.756C1.42794 9.92184 1.25012 9.02784 1.25012 8.125C1.25012 6.30164 1.97444 4.55296 3.26376 3.26364C4.55307 1.97433 6.30175 1.25 8.12511 1.25C9.94848 1.25 11.6972 1.97433 12.9865 3.26364C14.2758 4.55296 15.0001 6.30164 15.0001 8.125Z" fill="white"/>
+            </svg>
+          </button>
         </form>
         <br>
         <button id="learn_more_btn">Click to learn more about us!</button>
       </div>
       <div id="right_container">
-        <img src="/public/media/wangwang-desktop.png" id="desktop_img">
-        <img src="/public/media/wangwang-mobile.png" id="mobile_img">
+        <img src="../public/media/wangwang-desktop.png" id="desktop_img">
+        <img src="../public/media/wangwang-mobile.png" id="mobile_img">
         <button type="button" id="chat_btn">
           <svg width="48" height="50" viewBox="0 0 48 50" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M24.3738 0.00302429C11.0976 -0.208253 0.261733 10.6763 0.00458797 24.5047C-0.0330629 26.5348 0.161719 28.5112 0.563173 30.4067C1.24275 33.6161 1.64677 36.8823 1.64677 40.1691V46.5222C1.64677 47.4956 2.40422 48.2847 3.33873 48.2847H9.43771C12.5929 48.2847 15.7284 48.7056 18.8096 49.4135C20.6292 49.8315 22.5265 50.0345 24.4753 49.9952C37.7504 49.7275 48.1995 38.4404 47.9971 24.6112C47.7994 11.1129 37.332 0.20908 24.3738 0.00302429Z" fill="white"/>
@@ -54,7 +52,7 @@
     </div>
     <div id="ellipse"></div>
     <div id="logos" class="row_container" style="justify-content: center">
-      <img src="/public/media/stevens-logo.png" style="margin-right: 35px; width: 108px; height: 122px">
+      <img src="../public/media/stevens-logo.png" style="margin-right: 35px; width: 108px; height: 122px">
       <h1 style="font-size: 45px; margin-right: 35px">X</h1>
       <svg style="margin-top: 18px" width="90" height="82" viewBox="0 0 90 82" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M49.4132 44.5013C49.4132 45.2025 48.8747 45.8622 47.9482 46.3528C47.0265 46.841 45.7458 47.1461 44.3254 47.1461C42.9051 47.1461 41.6244 46.841 40.7026 46.3528C39.7762 45.8622 39.2377 45.2025 39.2377 44.5013C39.2377 43.8001 39.7762 43.1404 40.7026 42.6497C41.6244 42.1616 42.9051 41.8565 44.3254 41.8565C45.7458 41.8565 47.0265 42.1616 47.9482 42.6497C48.8747 43.1404 49.4132 43.8001 49.4132 44.5013Z" fill="white" stroke="white" stroke-width="0.210758"/>
@@ -70,15 +68,13 @@
       </svg>
     </div>
     <br><br><br><br><br><br><br><br>
-    <div>
-      <div style="margin-left: 20px">
-        <h2 style="line-height: 20px">Best Selling Products</h2>
-        <p style="font-size: 22px; color: #808080">Find the best healthcare products on the marketplace in our shop.</p>
-      </div>
+    <div style="padding: 0 50px 0 50px">
+      <h2 style="line-height: 20px">Best Selling Products</h2>
+      <p style="font-size: 22px; color: #808080">Find the best healthcare products on the marketplace in our shop.</p>
       <br>
-      <div class="row_container" id="products">
+      <div class="row_container" style="align-items: center">
         <div class="product_container">
-          <img src="/public/media/product1.png" class="product_imgs">
+          <img src="../public/media/product1.png" style="border-radius: 20px">
           <h3>Rituals of Sakura</h3>
           <div class="row_container" style="justify-content: space-between">
             <p class="price">$ 100.00</p>
@@ -90,7 +86,7 @@
           </div>
         </div>
         <div class="product_container">
-          <img src="/public/media/product2.png" class="product_imgs">
+          <img src="../public/media/product2.png" style="border-radius: 20px">
           <h3>Glossier</h3>
           <div class="row_container" style="justify-content: space-between">
             <p class="price">$ 100.00</p>
@@ -102,7 +98,7 @@
           </div>
         </div>
         <div class="product_container">
-          <img src="/public/media/product3.png" class="product_imgs">
+          <img src="../public/media/product3.png" style="border-radius: 20px">
           <h3>The Ordinary</h3>
           <div class="row_container" style="justify-content: space-between">
             <p class="price">$ 100.00</p>
@@ -114,7 +110,7 @@
           </div>
         </div>
         <div class="product_container">
-          <img src="/public/media/product1.png" class="product_imgs">
+          <img src="../public/media/product1.png" style="border-radius: 20px">
           <h3>Rituals of Sakura</h3>
           <div class="row_container" style="justify-content: space-between">
             <p class="price">$ 100.00</p>
@@ -133,7 +129,7 @@
         </button>
       </div>
       <br><br>
-      <div class="row_container center">
+      <div class="row_container" style="justify-content: center">
         <u style="margin: 12px 8px 0 0"><a>Explore more products</a></u>
         <svg style="margin-top: 7px" width="24" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M22.4442 16.369C23.2003 15.6129 23.2003 14.3871 22.4442 13.631L10.1229 1.30968C9.36678 0.55358 8.14091 0.55358 7.38481 1.30968C6.62871 2.06577 6.62871 3.29165 7.38481 4.04774L18.3371 15L7.38481 25.9523C6.62871 26.7084 6.62871 27.9342 7.38481 28.6903C8.14091 29.4464 9.36678 29.4464 10.1229 28.6903L22.4442 16.369ZM0 16.9361H21.0751V13.0639H0V16.9361Z" fill="black"/>
@@ -141,12 +137,12 @@
       </div>
     </div>
     <br><br><br><br>
-    <div class="center">
+    <div class="column_container" style="align-items: center">
       <h2 style="line-height: 0px">Things We Offer</h2>
       <p style="font-size: 18px; color: #808080">What we do here at Wang Wang.</p>
       <br><br>
-      <div class="row_container" id="things_we_offer">
-        <div class="column_container" style="align-items: center; text-align: center">
+      <div class="row_container">
+        <div class="column_container" style="align-items: center; text-align: center; margin-right: 140px">
           <div class="pink_circle">
             <svg style="margin-top: 20px" width="74" height="84" viewBox="0 0 44 54" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5848 31.518H28.4151V45.886H15.5848V31.518Z" fill="#FFD18D"/>
@@ -177,7 +173,7 @@
             </svg>
           </div>
         </div>
-        <div class="column_container" style="align-items: center; text-align: center">
+        <div class="column_container" style="align-items: center; text-align: center; margin-right: 140px">
           <div class="pink_circle">
             <svg style="margin-top: 33px" width="70" height="70" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M48 4.12189V29.9881C48 32.2876 46.1348 34.1532 43.8347 34.1532H4.16419C1.86403 34.1532 0 32.2876 0 29.988V4.12189C0 1.84607 1.84462 0 4.12031 0H43.879C46.1543 0 48 1.84616 48 4.12189Z" fill="#C4E2F2"/>
@@ -211,7 +207,7 @@
             </svg>
           </div>
         </div>
-        <div class="column_container" style="align-items: center; text-align: center">
+        <div class="column_container" style="align-items: center; text-align: center; margin-right: 140px">
           <div class="pink_circle">
             <svg style="margin-top: 30px" width="69" height="70" viewBox="0 0 47 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M45.2 0H2.8876C1.40328 0 0.199997 1.20328 0.199997 2.6876V44.9157C0.199997 46.4 1.40328 47.6033 2.8876 47.6033H45.2C46.6843 47.6033 47.8876 46.4 47.8876 44.9157V2.6876C47.8876 1.20328 46.6843 0 45.2 0Z" fill="#6382E3"/>
@@ -284,15 +280,15 @@
       </div>
     </div>
     <br><br><br><br><br><br><br><br><br><br>
-    <div class="row_container" id="videos">
+    <div class="row_container" style="width: 1440px; padding-left: 50px; justify-content: space-around; align-items: center">
       <button type="button" style="background-color: white; border: 0px">
         <svg width="66" height="175" viewBox="0 0 66 175" fill="none" xmlns="http://www.w3.org/2000/svg">
           <line y1="-0.380952" x2="107.723" y2="-0.380952" transform="matrix(-0.589695 -0.807626 0.786544 -0.617535 64.5239 174)" stroke="black" stroke-width="0.761905"/>
           <line y1="-0.380952" x2="107.723" y2="-0.380952" transform="matrix(0.589695 -0.807626 -0.786544 -0.617535 1.00006 87.0002)" stroke="black" stroke-width="0.761905"/>
         </svg>
       </button>
-      <div>
-        <img src="/public/media/Video.png">
+      <div class="column_containers">
+        <img src="../public/media/Video.png">
         <h2>How We Can Help</h2>
       </div>
       <svg width="66" height="175" viewBox="0 0 66 175" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -301,15 +297,13 @@
       </svg>
     </div>
     <br><br><br><br><br><br><br><br><br>
-    <div class="column_container" id="find_your_clinic">
-      <div style="padding-left: 20px">
-        <h2 style="margin-bottom: 5px">Find Your Clinic</h2>
-        <p style="color: #675545; font-size: 24px">All your aesthetic clinician needs in one place.</p>
-      </div>
+    <div class="column_container" id="find_your_clinic" style="padding: 0 50px 0 50px">
+      <h2 style="margin-bottom: 5px">Find Your Clinic</h2>
+      <p style="color: #675545; font-size: 24px">All your aesthetic clinician needs in one place.</p>
       <br>
-      <div class="row_container" id="clinics_container">
-        <div class="column_container">
-          <img src="/public/media/clinic1.png" class="clinic_imgs">
+      <div class="row_container">
+        <div class="column_container" style="margin-right: 30px">
+          <img src="../public/media/clinic1.png">
           <h3 style="line-height: 25px; margin-bottom: 0px">CoolCare Clinic &<br>Wellness Center</h3>
           <p class="subtitle2">Skin specialist</p>
           <div class="row_container">
@@ -319,8 +313,8 @@
             <p class="subtitle2" style="margin-left: 10px">4.6 ( 3k )</p>
           </div>
         </div>
-        <div class="column_container">
-          <img src="/public/media/clinic2.png" class="clinic_imgs">
+        <div class="column_container" style="margin-right: 30px">
+          <img src="../public/media/clinic2.png">
           <h3 style="line-height: 25px; margin-bottom: 0px">Innovative<br>Health Club</h3>
           <p class="subtitle2">Skin specialist</p>
           <div class="row_container">
@@ -330,8 +324,8 @@
             <p class="subtitle2" style="margin-left: 10px">4.6 ( 3k )</p>
           </div>
         </div>
-        <div class="column_container">
-          <img src="/public/media/clinic3.png" class="clinic_imgs">
+        <div class="column_container" style="margin-right: 30px">
+          <img src="../public/media/clinic3.png">
           <h3 style="line-height: 25px; margin-bottom: 0px">Chillax Medical<br>Club</h3>
           <p class="subtitle2">Skin specialist</p>
           <div class="row_container">
@@ -341,8 +335,8 @@
             <p class="subtitle2" style="margin-left: 10px">4.6 ( 3k )</p>
           </div>
         </div>
-        <div class="column_container">
-          <img src="/public/media/clinic1.png" class="clinic_imgs">
+        <div class="column_container" style="margin-right: 30px">
+          <img src="../public/media/clinic1.png">
           <h3 style="line-height: 25px; margin-bottom: 0px">Chillax Medical<br>Club</h3>
           <p class="subtitle2">Skin specialist</p>
           <div class="row_container">
@@ -352,7 +346,7 @@
             <p class="subtitle2" style="margin-left: 10px">4.6 ( 3k )</p>
           </div>
         </div>
-        <button type="button" style="background-color: #CDAA89; border: 0px; height: 100px">
+        <button type="button" style="background-color: #CDAA89; border: 0px; height: 100px; margin: auto">
           <svg width="37" height="97" viewBox="0 0 37 97" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line y1="-0.380952" x2="59.4335" y2="-0.380952" transform="matrix(0.589695 0.807626 -0.786544 0.617535 1 1)" stroke="black" stroke-width="0.761905"/>
             <line y1="-0.380952" x2="59.4335" y2="-0.380952" transform="matrix(-0.589695 0.807626 0.786544 0.617535 36.0476 49)" stroke="black" stroke-width="0.761905"/>
@@ -367,8 +361,8 @@
       </div>
     </div>
     <br><br><br><br><br><br><br><br><br><br><br><br>
-    <div class="column_container" id="review_container">
-      <div class="row_container" style="justify-content: space-between; padding-left: 80px">
+    <div class="column_container" style="padding-left: 80px">
+      <div class="row_container" style="justify-content: space-between">
         <h2 style="font-family: Poppins, sans-serif; font-weight: 700">What do customers say<br>about Wang Wang?</h2>
         <div class="row_container" style="padding: 65px 170px 0 0">
           <div id="first_review"></div>
@@ -377,12 +371,12 @@
         </div>
       </div>
       <br>
-      <div class="row_container" style="padding-left: 80px">
-        <div class="column_container reviews" style="margin-right: 50px">
+      <div class="row_container">
+        <div class="reviews" style="margin-right: 50px">
           <p style="font-size: 18px; font-family: Poppins, sans-serif; font-weight: 500">Jorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
           <br><br>
           <div class="row_container" style="justify-content: space-between">
-            <div class="row_container">
+            <div class="row_container" style="width: 50%">
               <svg style="margin: 15px 75px 0 0" width="48" height="41" viewBox="0 0 48 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M43.2001 41C44.4731 41 45.694 40.52 46.5941 39.6657C47.4943 38.8114 48 37.6527 48 36.4444V25.3198C48 24.1116 47.4943 22.9528 46.5941 22.0985C45.694 21.2442 44.4731 20.7642 43.2001 20.7642H36.5378C36.5378 19.1652 36.6386 17.5617 36.8354 15.9627C37.133 14.268 37.6322 12.7601 38.3234 11.4436C39.0194 10.1224 39.9121 9.08833 41.0065 8.33211C42.0961 7.48478 43.4833 7.06111 45.1729 7.06111V0C42.3937 0 39.9649 0.564889 37.877 1.69467C35.8072 2.81299 34.0276 4.35717 32.6691 6.21378C31.3055 8.26065 30.3005 10.5037 29.6931 12.8558C29.0811 15.4514 28.7815 18.1045 28.8003 20.7642V36.4444C28.8003 37.6527 29.306 38.8114 30.2062 39.6657C31.1064 40.52 32.3272 41 33.6002 41H43.2001ZM14.4006 41C15.6736 41 16.8945 40.52 17.7946 39.6657C18.6948 38.8114 19.2005 37.6527 19.2005 36.4444V25.3198C19.2005 24.1116 18.6948 22.9528 17.7946 22.0985C16.8945 21.2442 15.6736 20.7642 14.4006 20.7642H7.7383C7.7383 19.1652 7.8391 17.5617 8.03589 15.9627C8.33349 14.268 8.83268 12.7601 9.52387 11.4436C10.2199 10.1224 11.1126 9.08833 12.207 8.33211C13.2966 7.48478 14.6838 7.06111 16.3733 7.06111V0C13.5942 0 11.1654 0.564889 9.07747 1.69467C7.00768 2.81299 5.22814 4.35717 3.86956 6.21378C2.50603 8.26065 1.50102 10.5037 0.893617 12.8558C0.28156 15.4514 -0.0179544 18.1045 0.000831721 20.7642V36.4444C0.000831721 37.6527 0.506536 38.8114 1.40669 39.6657C2.30685 40.52 3.52773 41 4.80075 41H14.4006Z" fill="#1E1E1E"/>
               </svg>
@@ -391,7 +385,7 @@
                 <p style="font-family: Poppins, sans-; font-size: 12px; color: #766454">Youtuber</p>
               </div>
             </div>
-            <div class="row_container" style="justify-content: right; margin-right: 15px">
+            <div class="row_container" style="width: 50%; justify-content: right; margin-right: 15px">
               <svg style="margin: 13px 10px 0 0" width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.515 18.8038C4.0325 19.0513 3.485 18.6175 3.5825 18.0638L4.62 12.1513L0.216249 7.95627C-0.195001 7.56377 0.0187491 6.84627 0.569999 6.76877L6.6925 5.89877L9.4225 0.490015C9.66875 0.00251464 10.335 0.00251464 10.5812 0.490015L13.3112 5.89877L19.4337 6.76877C19.985 6.84627 20.1987 7.56377 19.7862 7.95627L15.3837 12.1513L16.4212 18.0638C16.5187 18.6175 15.9712 19.0513 15.4887 18.8038L10 15.9838L4.515 18.8038Z" fill="#1E1E1E"/>
               </svg>
@@ -399,11 +393,11 @@
             </div>
           </div>
         </div>
-        <div class="column_container reviews">
+        <div class="reviews">
           <p style="font-size: 18px; font-family: Poppins, sans-serif; font-weight: 500">Jorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
           <br><br>
           <div class="row_container" style="justify-content: space-between">
-            <div class="row_container">
+            <div class="row_container" style="width: 50%">
               <svg style="margin: 15px 75px 0 0" width="48" height="41" viewBox="0 0 48 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M43.2001 41C44.4731 41 45.694 40.52 46.5941 39.6657C47.4943 38.8114 48 37.6527 48 36.4444V25.3198C48 24.1116 47.4943 22.9528 46.5941 22.0985C45.694 21.2442 44.4731 20.7642 43.2001 20.7642H36.5378C36.5378 19.1652 36.6386 17.5617 36.8354 15.9627C37.133 14.268 37.6322 12.7601 38.3234 11.4436C39.0194 10.1224 39.9121 9.08833 41.0065 8.33211C42.0961 7.48478 43.4833 7.06111 45.1729 7.06111V0C42.3937 0 39.9649 0.564889 37.877 1.69467C35.8072 2.81299 34.0276 4.35717 32.6691 6.21378C31.3055 8.26065 30.3005 10.5037 29.6931 12.8558C29.0811 15.4514 28.7815 18.1045 28.8003 20.7642V36.4444C28.8003 37.6527 29.306 38.8114 30.2062 39.6657C31.1064 40.52 32.3272 41 33.6002 41H43.2001ZM14.4006 41C15.6736 41 16.8945 40.52 17.7946 39.6657C18.6948 38.8114 19.2005 37.6527 19.2005 36.4444V25.3198C19.2005 24.1116 18.6948 22.9528 17.7946 22.0985C16.8945 21.2442 15.6736 20.7642 14.4006 20.7642H7.7383C7.7383 19.1652 7.8391 17.5617 8.03589 15.9627C8.33349 14.268 8.83268 12.7601 9.52387 11.4436C10.2199 10.1224 11.1126 9.08833 12.207 8.33211C13.2966 7.48478 14.6838 7.06111 16.3733 7.06111V0C13.5942 0 11.1654 0.564889 9.07747 1.69467C7.00768 2.81299 5.22814 4.35717 3.86956 6.21378C2.50603 8.26065 1.50102 10.5037 0.893617 12.8558C0.28156 15.4514 -0.0179544 18.1045 0.000831721 20.7642V36.4444C0.000831721 37.6527 0.506536 38.8114 1.40669 39.6657C2.30685 40.52 3.52773 41 4.80075 41H14.4006Z" fill="#1E1E1E"/>
               </svg>
@@ -412,7 +406,7 @@
                 <p style="font-family: Poppins, sans-; font-size: 12px; color: #766454">Youtuber</p>
               </div>
             </div>
-            <div class="row_container" style="justify-content: right; margin-right: 15px">
+            <div class="row_container" style="width: 50%; justify-content: right; margin-right: 15px">
               <svg style="margin: 13px 10px 0 0" width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.515 18.8038C4.0325 19.0513 3.485 18.6175 3.5825 18.0638L4.62 12.1513L0.216249 7.95627C-0.195001 7.56377 0.0187491 6.84627 0.569999 6.76877L6.6925 5.89877L9.4225 0.490015C9.66875 0.00251464 10.335 0.00251464 10.5812 0.490015L13.3112 5.89877L19.4337 6.76877C19.985 6.84627 20.1987 7.56377 19.7862 7.95627L15.3837 12.1513L16.4212 18.0638C16.5187 18.6175 15.9712 19.0513 15.4887 18.8038L10 15.9838L4.515 18.8038Z" fill="#1E1E1E"/>
               </svg>
