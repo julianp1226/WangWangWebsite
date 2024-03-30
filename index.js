@@ -5,6 +5,7 @@ import configRoutes from "./routes/index.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import exphbs from "express-handlebars";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -60,7 +61,15 @@ app.use("/", (req, res, next) => {
   next();
 });
 
-app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs.engine({ defaultLayout: "main", helpers:{
+  math: function(lvalue, operator, rvalue) {
+      lvalue = parseFloat(lvalue);
+      rvalue = parseFloat(rvalue);
+      return {
+          "+": lvalue + rvalue,
+      }[operator];
+    }
+  }}));
 app.set("view engine", "handlebars");
 
 configRoutes(app);

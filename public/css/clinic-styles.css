@@ -1,0 +1,16 @@
+.clinic {
+    padding-left: 2%;
+    align-self: left;
+    align-items: left;
+    flex-direction: column;
+    width: 50%;
+    border-bottom: solid lightslategray; 
+}
+
+img {
+    border-radius: 2%;
+}
+
+.clinic-info {
+    float: right;
+}

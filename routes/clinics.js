@@ -129,7 +129,7 @@ router.route("/").get(async (req, res) => {
         }
         return res.render("clinics", {
             clinics: clinics,
-            auth: auth,
+            auth: auth
         });
     }catch(e){
         return res

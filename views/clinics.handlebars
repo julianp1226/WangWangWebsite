@@ -1,16 +1,21 @@
 <main class="feed">
     <head>
-        <link rel="stylesheet" href="/public/css/feed.css"/>
+        <link rel="stylesheet" href="/public/css/clinic-styles.css"/>
     </head>
-    <div class="page">
-        <div class="cards">
+        <br></br>
+        <div class="clinics">
             {{#each clinics}}
-                <div class="card" onclick="location.href='/clinics/id/{{this._id}}';" style="cursor: pointer;">
+                <div class="clinic" onclick="location.href='/clinics/id/{{this._id}}';" style="cursor: pointer;">
+                    {{math @index "+" 1}}. {{this.name}}
+                    <br></br>
+                    <div class="clinic-info">
+                        <p>{{this.avgRating}}</p>
+                        <p>{{this.address}}</p>
+                    </div>
                     <div class="container">
-                    {{this.name}}
+                        <img src={{this.image}}>
                     </div>
                 </div>
             {{/each}}
         </div>
-    </div>
 </main>
