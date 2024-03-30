@@ -3,6 +3,7 @@ import authRoutes from "./auth.js";
 import postRoutes from './posts.js'
 import clinicRoutes from './clinics.js'
 import shopRoutes from './shops.js'
+import paymentRoutes from './payment.js'
 
 const constructor = (app) => {
   app.use("/", authRoutes);
@@ -10,6 +11,7 @@ const constructor = (app) => {
   app.use("/feed", postRoutes);// TODO: Handle own profile, other user profiles, reviews, etc.
   app.use("/clinic", clinicRoutes); //TODO: Comment out test routes after making sure all clinic functions work properly
   app.use("/shop", shopRoutes);
+  app.use("/payments", paymentRoutes);
 
   app.get("/", async (req, res) => {
     if (!req.session || !req.session.user || !req.session.user.id) {
