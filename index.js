@@ -53,6 +53,8 @@ app.use("/", (req, res, next) => {
     req.originalUrl.substring(0, 6) != "/login" &&
     req.originalUrl.substring(0, 9) != "/register" &&
     req.originalUrl.substring(0, 9) != "/" &&
+    req.originalUrl.substring(0, 5) != "/feed" &&
+    req.originalUrl.substring(0, 5) != "/shop" &&
     (!req.session || !req.session.user)
   )
     return res.redirect("/");
@@ -63,7 +65,6 @@ app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 configRoutes(app);
-
 app.listen(3000, () => {
   console.log("We've now got a server!");
   console.log("Your routes will be running on http://localhost:3000");

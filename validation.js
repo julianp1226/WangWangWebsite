@@ -55,7 +55,7 @@ const validStr = (str, varName) => {
   return str;
 };
 
-export const checkName = (name, stringName) => {
+const checkName = (name, stringName) => {
   name = validStr(name, "Name");
   if (!/^[a-zA-Z]+/.test(name)) {
     throw `Error: ${stringName} cannot contain any spaces or numbers`;
@@ -66,7 +66,7 @@ export const checkName = (name, stringName) => {
   return name;
 };
 
-export const checkCardName = (name) => {
+const checkCardName = (name) => {
   name = validStr(name, "Name");
   if (!/^[a-zA-Z]+/.test(name)) {
     throw `Error: Name on Card cannot contain any spaces or numbers`;
@@ -489,6 +489,7 @@ const validDate = (date) => {
   return date;
 };
 
+// THROWS AN ERROR
 const validImageUrl = (url) => {
   const imageExtensions = /(jpg|png|gif)$/i;
   if (imageExtensions.test(url) === false) {
@@ -618,6 +619,38 @@ const validInterests = (interests) => {
   return interests;
 }
 
+const validClinicStatus = (status) => {
+  status = validStr(status, "Clinic Status")
+  if(status !== "active" && status !== "inactive"){
+    throw "Error: Invalid Clinic Status [Can only be active/inactive]"
+  }
+  return status
+}
+
+// RETURNS TRUE/FALSE
+const validVideoUrl = (filename) => {
+  // Supported video file extensions
+    const validExtensions = ['.mp4', '.avi', '.mov', '.mkv', '.wmv', '.flv', '.webm'];
+
+    // Extract file extension
+    const fileExtension = filename.slice(filename.lastIndexOf('.'));
+
+    // Check if the file extension is in the list of valid extensions
+    return validExtensions.includes(fileExtension.toLowerCase());
+};
+
+// RETURNS TRUE/FALSE
+function isValidImage(filename) {
+    // Supported image file extensions
+    const validExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg'];
+
+    // Extract file extension
+    const fileExtension = filename.slice(filename.lastIndexOf('.'));
+
+    // Check if the file extension is in the list of valid extensions
+    return validExtensions.includes(fileExtension.toLowerCase());
+}
+
 export {
   isAuth,
   validId,
@@ -644,7 +677,10 @@ export {
   validMobile,
   validCountryCode,
   validInterests,
-  checkCardName
+  checkCardName,
+  validClinicStatus,
+  validVideoUrl,
+  isValidImage
 };
 // console.log(await validAddress("not existing 15 Drive", "do not care", "MOO", "10309", 'AIzaSyA4UJGUMNxXEATNsR9D7tBQspRyLwTdHBY'));
 // console.log(validAddressLine("kdjfn   washINGton   street"))

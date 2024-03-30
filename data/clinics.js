@@ -1,4 +1,5 @@
 import { clinics } from "../config/mongoCollections.js";
+import {getClinicSpecialisationById} from "../data/clinicSpecialisations.js"
 import { ObjectId } from "mongodb";
 import bcrypt from "bcryptjs";
 
@@ -15,7 +16,8 @@ import {
   validExpLevel,
   validImageUrl,
   checkPassword,
-  validAddress
+  validAddress,
+  validClinicStatus
 } from "../validation.js";
 
 const createClinic = async (
@@ -56,29 +58,34 @@ const createClinic = async (
   insertDate = Math.round(new Date() / 1000)
   ) => {
   if (email === undefined) {
-      console.error("Email is required!");
-      return;
+      /*console.error("Email is required!");
+      return;*/
+      throw "Error: Email is required! (data/clinics.js)";
   }
   if (password === undefined) {
-      console.error("Password is required!");
-      return;
+      /*console.error("Password is required!");
+      return;*/
+      throw "Error: Password is required! (data/clinics.js)";
   }
   if (name === undefined) {
-      console.error("Name is required!");
-      return;
+      /*console.error("Name is required!");
+      return;*/
+      throw "Error: Name is required! (data/clinics.js)";
   }
   if (price === undefined) {
-      console.error("Price is required!");
-      return;
+      /*console.error("Price is required!");
+      return;*/
+      throw "Error: Price is required! (data/clinics.js)";
   }
   if (locationPoint === undefined) {
-      console.error("LocationPoint is required!");
-      return;
+      /*console.error("LocationPoint is required!");
+      return;*/
+      throw "Error: Location Point is required! (data/clinics.js)";
   }
-  if (status != "active" && status != "inactive") {
+  /*if (status != "active" && status != "inactive") {
     console.error("Invalid status");
     return;
-  }
+  }*/
 
   if (!image) {
     image = "/public/images/No_Image_Available.jpg";
@@ -88,66 +95,52 @@ const createClinic = async (
 
   try {
     email = validEmail(email);
-  } catch (e) {
-    throw e;
-  }
-
-  try {
     password = checkPassword(password);
-  } catch (e) {
-    throw e;
-  }
 
-  try {
     name = validStr(name);
-  } catch (e) {
-    throw e;
-  }
-
-  try {
-     price = validNumber(price);
-  } catch (e) {
-    throw e;
-  }
-
-  try {
-        ratingCount = validNumber(ratingCount);
-        avgRating = validNumber(avgRating);
-        startDate = validNumber(startDate);
-        endDate = validNumber(endDate);
-        sessionBreak = validNumber(sessionBreak);
-        slotTime = validNumber(slotTime);
-        slotBreak = validNumber(slotBreak);
-    } catch (e) {
-        throw e;
-  }
-  
-  try {
+    price = validNumber(price);
+    ratingCount = validNumber(ratingCount);
+    avgRating = validNumber(avgRating);
+    status = validClinicStatus(status);
+    
+    startDate = validNumber(startDate);
+    endDate = validNumber(endDate);
+    sessionBreak = validNumber(sessionBreak);
+    slotTime = validNumber(slotTime);
+    slotBreak = validNumber(slotBreak);
     timeZone = validStr(timeZone);
     openingTime = validStr(openingTime);
     closingTime = validStr(closingTime);
+
     address = validStr(address);
-    stripeConnAccId = validStr(address);
+    stripeConnAccId = validStr(stripeConnAccId);
+
+    if (!Array.isArray(clinicSpecialisationIds)) {
+      throw new Error("clinicSpecialisationIds must be an array!");
+    }
+    clinicSpecialisationIds.forEach(id => {
+      try{
+        id = validId(id);
+        //Make sure each provided Id is actually a clinicSpecialisation
+        getClinicSpecialisationById(id)
+      } catch(e){
+        throw e
+      }
+    });
+
+    if (!Array.isArray(scheduledTiming)) {
+        throw new Error("scheduledTiming must be an array!");
+    }
+    if (!Array.isArray(dayoff)) {
+        throw new Error("dayoff must be an array!");
+    }
+    if (!Array.isArray(timing)) {
+        throw new Error("timing must be an array!");
+    }
   } catch (e) {
     throw e;
   }
 
-   try {
-        if (!Array.isArray(clinicSpecialisationIds)) {
-            throw new Error("clinicSpecialisationIds must be an array!");
-        }
-        if (!Array.isArray(scheduledTiming)) {
-            throw new Error("scheduledTiming must be an array!");
-        }
-        if (!Array.isArray(dayoff)) {
-            throw new Error("dayoff must be an array!");
-        }
-        if (!Array.isArray(timing)) {
-            throw new Error("timing must be an array!");
-        }
-    } catch (e) {
-        throw e;
-    }
   
   const createClinic = {
   accessToken: accessToken,
@@ -230,10 +223,37 @@ const getAllClinics = async () => {
     allClinics = await ClinicsCollection.find({}).toArray();
   } 
   catch (e) {
-    throw e;
+    throw "Error (data/clinics.js :: getAllClinics()):" + e;
   }
   return allClinics;
 };
+
+//TODO: Test function
+const addReview = async (id, rating) => {
+  try{
+    id = validId(id)
+    let clinic = await getClinicById(id)
+    let newCount = clinic.ratingCount + 1
+    let newReview = {
+      ratingCount: newCount,
+      avgRating: (clinic.avgRating * clinic.ratingCount + rating)/newCount
+    }
+
+    const clinicsCollection = await clinics();
+    const updateInfo = await clinicsCollection.findOneAndUpdate(
+      { _id: new ObjectId(id) },
+      { $set: newReview },
+      { returnDocument: "after" }
+    );
+    if (updateInfo.lastErrorObject.n === 0) throw "Error: Review unable to be added";
+  
+    let finalClinic = await updateInfo.value;
+    finalClinic._id = finalClinic._id.toString();
+    return finalClinic;
+  } catch(e){
+    throw "Error (data/clinics.js :: addReview()):" + e;
+  }
+}
 
 /*const clinic = await createClinic(
   "sampleAccessToken",
