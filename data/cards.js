@@ -59,7 +59,7 @@ const createCard = async (
     }
 
     try {
-        userId = validId(userId);
+        userId = validStr(userId);
     } catch (e) {
         throw e;
     }
@@ -164,28 +164,37 @@ const createCard = async (
     return card;
 };
 
-
+// Get all cards from a certain userId
 const getCardsByUserID = async (user_id) => {
-    try {
-        user_id = validId(user_id, "user_id");
-    } catch (e) {
-        throw e;
-    }
+    if (user_id === undefined || typeof(user_id) !== 'string') throw "user_id must be a string";
+    user_id = user_id.trim()
+    if (user_id.length ===0) throw "user_id must be non-empty string";
     const cardsCollection = await cards();
-    const card = await cardsCollection.find({ 'userId': user_id });
+    let card = await cardsCollection.find({}).toArray();
 
-    if (card === null)
-        throw "No cards found";
-
+    // if (!cards) throw "There are no cards";
     return card;
 };
 
 
-// Remove Card
+// Remove certain Card
+const removeCard = async (user_id, first6, last4) =>{
+    if (user_id === undefined || first6 === undefined || last4 === undefined) throw "Must provide all fields";
+    if (typeof(first6) !== 'string' || typeof(last4) !== 'string' || typeof(user_id) !== 'string') throw "All fields must be a string";
+    user_id = user_id.trim();
+    first6 = first6.trim();
+    last4 = last4.trim();
+    if (user_id.length === 0 || first6.length ===0 || last4.length ===0) throw "All fields must be non-empty string";
+    let card_collection  = await cards();
+    let deleteinfo = await card_collection.findOneAndDelete({userId: user_id, first6Digits: first6, last4Digits:last4});
+    if (!deleteinfo) throw "No matching card found";
 
-// Update Card info
+    let new_cards = await getCardsByUserID(user_id);
+    return new_cards;
+}
 
 export {
   createCard,
-  getCardsByUserID
+  getCardsByUserID,
+  removeCard
 };
