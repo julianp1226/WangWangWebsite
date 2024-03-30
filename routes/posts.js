@@ -19,8 +19,9 @@ import {
 } from "../validation.js";
 import xss from 'xss';
 
-router.route("/").get(async (req, res) => {
-  let auth = false;
+router.route("/")
+  .get(async (req, res) => {
+    let auth = false;
   let allPosts;
   try {
     allPosts = await getAllPosts();
@@ -44,7 +45,12 @@ router.route("/").get(async (req, res) => {
       auth: auth,
       //id: req.session.user.id
     });
-});
+  })
+  .post(async (req, res) => {
+    console.log(req.session.user.id)
+    console.log(req.body);
+    return req.body;
+  });
 
 
 router.route("/id/:postId").get(async (req, res) => {

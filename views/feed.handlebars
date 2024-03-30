@@ -19,10 +19,17 @@
             <path d="M15.583 19.25H28.4163" stroke="#292D32" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M20.167 33.7884L28.3253 39.2151C29.5353 40.0218 31.167 39.1601 31.167 37.6934V33.7884C36.667 33.7884 40.3337 30.1217 40.3337 24.6217V13.6217C40.3337 8.12174 36.667 4.45508 31.167 4.45508H12.8337C7.33366 4.45508 3.66699 8.12174 3.66699 13.6217V24.6217C3.66699 30.1217 7.33366 33.7884 12.8337 33.7884H20.167Z" stroke="#292D32" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
+        {{#if auth}}
         <svg onclick="document.getElementById('create-post').style.display='block'" style="cursor: pointer;" class="icons2" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7.98347 22.5847C7.3583 23.2502 6.7533 24.561 6.6323 25.4685L5.88614 32.0025C5.62397 34.362 7.31797 35.9754 9.6573 35.572L16.151 34.4629C17.0585 34.3015 18.329 33.636 18.9541 32.9504L35.511 15.4255C38.3746 12.4005 39.6653 8.95203 35.2085 4.7372C30.7718 0.562701 27.404 2.03487 24.5403 5.05987L7.98347 22.5847Z" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M21.7793 7.98389C22.6465 13.5499 27.1638 17.8051 32.7701 18.3697" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
+        {{else}}
+        <svg onclick="location.href = '/login';" style="cursor: pointer;" class="icons2" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.98347 22.5847C7.3583 23.2502 6.7533 24.561 6.6323 25.4685L5.88614 32.0025C5.62397 34.362 7.31797 35.9754 9.6573 35.572L16.151 34.4629C17.0585 34.3015 18.329 33.636 18.9541 32.9504L35.511 15.4255C38.3746 12.4005 39.6653 8.95203 35.2085 4.7372C30.7718 0.562701 27.404 2.03487 24.5403 5.05987L7.98347 22.5847Z" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.7793 7.98389C22.6465 13.5499 27.1638 17.8051 32.7701 18.3697" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{/if}}
       </div>
     </div>
     <div class="cards">
@@ -82,14 +89,34 @@
     </div>
     <div id="create-post" class="create-post-modal">
       <div class="create-post-modal-content">
+
+        <form action="/feed" method="POST" onsubmit="return submitForm()">
         <div class="w3-container">
           <svg id="exit" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="document.getElementById('create-post').style.display='none'" style="cursor: pointer;">
           <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
           <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/>
           </svg>
           <h1 id="create-post-heading">Create Post</h1>
-          <div id="create-post-body">Choose Media</div>
+          <div id="create-post-body"><p style="margin-bottom: 10px;">Choose Media</p>
+          <button class="create-post-media-select" type="button">Photo</button>
+          <button class="create-post-media-select" type="button">Video</button>
+          <p style="margin-bottom: 10px;">Tags</p>
+          <ul id='list' style="padding-left: inherit;"></ul>
+          <div class="create-post-tags">
+          <input id="tags-input" type='text'/>
+          <div>
+          <svg id='add' style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"/></svg>
+          </div>
+          </div>
+          <p style="margin-bottom: 10px;">Caption</p>
+          <textarea id="caption-box" name="caption" rows="4" cols="50"  placeholder="What's on your mind?"></textarea>
+          <br>
+          <input type="hidden" id="listValuesInput" name="tags">
+          <button id="post-button" type="submit">POST</button>
+          </div>
         </div>
+        </form>
+
       </div>
     </div>
     <div class="post-modal"></div>
@@ -105,10 +132,37 @@
           })
       }
 
+      //Defining a listener for our button, specifically, an onclick handler
+      document.getElementById("add").onclick = function() {
+      //First things first, we need our text:
+      var text = document.getElementById("tags-input").value; //.value gets input values
+
+        //Now construct a quick list element
+        var li = document.createElement('li'); // is a node
+        li.className = "tags-list-element";
+        li.innerHTML =  text + '<svg id="remove-tag" width="10" height="10" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;margin-left: 10px;"> <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/><line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/></svg>';
+        //Now use appendChild and add it to the list!
+        document.getElementById("list").appendChild(li);
+        var deleteButton = document.getElementById("remove-tag");
+        deleteButton.addEventListener("click", function() {
+          li.remove()
+        })
+      }
+
       const get_out = () => {
         history.back();
         modal.innerHTML = ""
         modal.style.display="none"
       }
+
+       function submitForm() {
+        var listItems = document.querySelectorAll("#list li");
+        var listValues = [];
+        listItems.forEach(function(item) {
+            listValues.push(item.textContent);
+        });
+        document.getElementById("listValuesInput").value = JSON.stringify(listValues); // Store list values in hidden input field
+        return true; // Continue with form submission
+    }
     </script>
 </main>
