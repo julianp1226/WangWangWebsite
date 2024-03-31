@@ -26,9 +26,16 @@ router.route('/').get(async (req, res) => {
 router.route('/:id').get(async (req, res) => {
 let auth = false;
 let product;
+let allProducts
 try {
     product = await getProductById(req.params.id)
     product['rating'] = 5
+    allProducts = await getAllProducts()
+    allProducts.map((x)=>x["rating"] = 5)
+    //Increase product list size for now (for proof of concept)
+    allProducts = allProducts.concat(allProducts)
+    allProducts = allProducts.concat(allProducts)
+    allProducts = allProducts.concat(allProducts)
 } catch (e) {
     return res.status(500).render("error", { error: e, status: 500 });
 }
@@ -38,7 +45,8 @@ if (req.session.user) {
 return res.render("mallProduct", {
     title: product.name,
     auth: auth,
-    product: product
+    product: product,
+    products: allProducts.slice(0,6)
     //id: req.session.user.id
     });
 });

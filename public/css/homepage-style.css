@@ -41,22 +41,24 @@ a {
   flex-direction: column;
   padding-top: 30px;
   height: 5200px;
+  overflow: hidden;
 }
   
 #brown_background {
   background-color: #CDAA89;
-  width: 1532px;
+  width: 100%;
   height: 1000px;
   display: flex;
   flex-direction: row;
   justify-content: right;
+  z-index: 0;
 }
 
 #ellipse {
   position: absolute;
   z-index: -1;
   top: 985px;
-  width: 1532px;
+  width: 100%;
   height: 220px;
   border-radius: 50%;
   background-color: #CDAA89;
@@ -65,11 +67,13 @@ a {
 
 #pink_background {
   position: absolute;
+  z-index: 1;
 }
 
 #left_container {
   width: 50%;
   padding: 100px 0 0 75px;
+  z-index: 2;
 }
 
 #right_container {
@@ -77,6 +81,7 @@ a {
   justify-content: right;
   width: 50%;
   padding-top: 165px;
+  z-index: 2;
 }
 
 .row_container {
@@ -93,9 +98,9 @@ a {
   position: relative;
   font-family: Lato, sans-serif;
   font-size: 17px;
-  width: 407px;
+  width: 60%;
   height: 30px;
-  padding: 10px 50px 10px 0;
+  padding: 10px 25px 10px 25px;
   border-radius: 10px;
 }
 
@@ -104,20 +109,20 @@ a {
   position: absolute;
   width: 40px;
   height: 40px;
-  top: 775px;
-  left: 485px;
+  left: 80px;
   border: 0px;
   border-radius: 10px;
   padding-top: 5px;
+  margin-top: 5px;
 }
 
 #learn_more_btn {
   background-color: #FF3EA5;
   font-family: Lato, sans-serif;
-  font-size: 22px;
+  font-size: 18px;
   color: white;
   height: 65px;
-  width: 375px;
+  width: 50%;
   padding: 20px;
   border: 0px;
   border-radius: 10px;
@@ -154,15 +159,26 @@ a {
   position: absolute;
   width: 100%;
   top: 1050px;
+  z-index: 3;
+}
+
+#products, #things_we_offer {
+  justify-content: space-around;
+  width: 100%;
 }
 
 .product_container {
-  width: 283px;
-  height: 400px;
+  width: 20%;
+  height: 30%;
   box-shadow: 0 10px 10px 4px lightgray;
   border-radius: 20px;
   padding: 16px 0 0 16px;
-  margin-right: 40px;
+}
+
+.product_imgs {
+  height: auto;
+  max-width: 95%;
+  border-radius: 20px;
 }
 
 .price {
@@ -185,8 +201,13 @@ a {
 .next_btn {
   width: 50px;
   background-color: white;
-  margin-left: 25px;
   border: 0px;
+}
+
+.center{
+  text-align: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .pink_circle {
@@ -207,16 +228,39 @@ a {
   font-size: 18px;
 }
 
+#videos {
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
 #find_your_clinic {
   height: 750px;
+  width: 100%;
   background-image: linear-gradient(#CDAA89, #CDAA89, #CDAA89, white);
   border-radius: 15px;
+}
+
+#clinics_container {
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 20px 0 20px;
+}
+
+.clinic_imgs {
+  height: auto;
+  max-width: 95%;
 }
 
 .subtitle2 {
   margin-top: 0px;
   font-weight: 300;
   font-size: 16px;
+}
+
+#review_container {
+  width: 100%;
+  overflow: hidden;
 }
 
 #first_review {
@@ -235,8 +279,6 @@ a {
 }
 
 .reviews {
-  display: flex;
-  flex-direction: column;
   width: 700px;
   height: 300px;
   background-color: #CDAA89;

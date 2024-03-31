@@ -90,7 +90,7 @@
     <div id="create-post" class="create-post-modal">
       <div class="create-post-modal-content">
 
-        <form action="/feed" method="POST" onsubmit="return submitForm()">
+        <form action="/feed" method="POST" onsubmit="return submitForm()" enctype="multipart/form-data">
         <div class="w3-container">
           <svg id="exit" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="document.getElementById('create-post').style.display='none'" style="cursor: pointer;">
           <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
@@ -98,8 +98,9 @@
           </svg>
           <h1 id="create-post-heading">Create Post</h1>
           <div id="create-post-body"><p style="margin-bottom: 10px;">Choose Media</p>
-          <button class="create-post-media-select" type="button">Photo</button>
-          <button class="create-post-media-select" type="button">Video</button>
+          <button class="create-post-media-select" type="button" style="cursor: pointer;" onclick="showFileUpload()">Photo</button>
+          <button class="create-post-media-select" type="button" style="cursor: pointer;" onclick="showFileUpload()">Video</button>
+          <input type="file" id="postMedia" name="file" style="display: none;">
           <p style="margin-bottom: 10px;">Tags</p>
           <ul id='list' style="padding-left: inherit;"></ul>
           <div class="create-post-tags">
@@ -112,7 +113,7 @@
           <textarea id="caption-box" name="caption" rows="4" cols="50"  placeholder="What's on your mind?"></textarea>
           <br>
           <input type="hidden" id="listValuesInput" name="tags">
-          <button id="post-button" type="submit">POST</button>
+          <button id="post-button" type="submit" style="cursor:pointer">POST</button>
           </div>
         </div>
         </form>
@@ -163,6 +164,10 @@
         });
         document.getElementById("listValuesInput").value = JSON.stringify(listValues); // Store list values in hidden input field
         return true; // Continue with form submission
+    }
+
+    function showFileUpload() {
+      document.getElementById("postMedia").style.display = "block";
     }
     </script>
 </main>
