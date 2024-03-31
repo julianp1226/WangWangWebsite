@@ -170,7 +170,7 @@ const getCardsByUserID = async (user_id) => {
     user_id = user_id.trim()
     if (user_id.length ===0) throw "user_id must be non-empty string";
     const cardsCollection = await cards();
-    let card = await cardsCollection.find({}).toArray();
+    let card = await cardsCollection.find({userId: user_id}).toArray();
 
     // if (!cards) throw "There are no cards";
     return card;
