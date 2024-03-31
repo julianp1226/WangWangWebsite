@@ -10,15 +10,16 @@
         <p>CardType: {{this.cardType}}</p>
         <p>Ending in: {{this.last4Digits}}</p>
         <p>Expiry: {{this.expiry}}</p>
-        {{!-- Fixed the Delete button --}}
+        {{!-- TODO: Fixed the Delete button --}}
         {{#if ownPage}}
           <button
             id="DeletePayment"
-            onclick="window.location.href='/payments/id/{{this.userId}}/deletePayment';"
+            onclick="window.location.href='/payments/id/{{id}}/deletePayment';"
           >Remove this Payment</button>
         {{/if}}
     </div>
     {{/each}}
+    {{!-- TODO: Fixed the add payment button --}}
     {{#if ownPage}}
       <button
         id="AddPayment"
