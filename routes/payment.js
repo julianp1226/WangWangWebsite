@@ -21,7 +21,8 @@ router
       res.render("Payments", {
         auth: true,
         id: req.session.user.id,
-        all_cards: all_cards
+        all_cards: all_cards,
+        ownPage: req.params.userId === req.session.user.id
       });
     }catch(e){
       return res.render("error", {error: e, auth: true});
@@ -36,7 +37,7 @@ router.route("/id/:userId/addPayment")
     try{
       let remaining_methods = await createCard(req.params.userId, newCard.first6Digits, newCard.last4Digits, newCard.nameOnCard, 
         newCard.cardScheme, newCard.cardType, newCard.expiry, newCard.email, newCard.cardToken, newCard.isDefault, newCard.status, newCard.redirectUrl);
-      res.render("addPayment", {
+      res.render("Payments", {
         auth: true,
         ownPage: req.params.userId === req.session.user.id,     //Check here
         id: req.session.user.id,
