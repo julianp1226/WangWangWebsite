@@ -42,6 +42,39 @@
         </span>
         
     </span>
+        <span class="reviews">
+            <span class="review1">
+                
+            </span>
+            <span class="review2">
+                
+            </span>
+        </span>
+        <span class="similarProds">
+            <h1>Similar Products</h1>
+            <a href="/shop/viewall/similarto/{{product._id}}" class="link"><p>View All →</p></a>
+        </span>
+        <span class="simProd">
+            {{#each products}}
+            <div class="simProduct">
+                <a href="/shop/{{this._id}}" >
+                <img class="productIMG" src={{this.image}}>
+                <span class="info">
+                    <p class="prodTitle">{{this.name}}</p>
+                    <span class="simRatingInfo">
+                        <img class="simStar" src="/public/media/Star.png">
+                        <p class="simRating">5</p>
+                        
+                    </span>
+                </span>
+                <span class="info">
+                    <p class="price">${{this.actualPrice}}</p>
+                    <img class="bag" src="/public/media/Bag.png">
+                </span>
+                </a>
+            </div>
+            {{/each}}
+        </span>
     
     </div>
     
