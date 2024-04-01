@@ -1,16 +1,16 @@
 <main class="feed">
     <head>
-        <link rel="stylesheet" href="/public/css/clinic-styles.css"/>
+        <link rel="stylesheet" href="/public/css/clinics-styles.css"/>
     </head>
         <br></br>
         <div class="clinics">
             {{#each clinics}}
-                <div class="clinic" onclick="location.href='/clinics/id/{{this._id}}';" style="cursor: pointer;">
-                    {{math @index "+" 1}}. {{this.name}}
-                    <br></br>
+                <div class="clinic">
+                    <p>{{math @index "+" 1}}. {{this.name}}</p>
                     <div class="clinic-info">
                         <p>{{this.avgRating}}</p>
                         <p>{{this.address}}</p>
+                        <button class="appointment-button" onclick="location.href='/clinics/id/{{this._id}}';" style="cursor: pointer;">    BOOK APPOINTMENT     </button>
                     </div>
                     <div class="container">
                         <img src={{this.image}}>
