@@ -179,3 +179,22 @@ form{
 .simProduct a {
     color: #1E1E1E
 }
+.readMore{
+    width:20%;
+    display: flex;
+    align-self: flex-start;
+}
+#RM {
+    display: flex;
+    background-color: #FF3EA5;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    font-size: 16px;
+    font-family: "Lato";
+    border-radius: 10px;
+}
