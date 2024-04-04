@@ -198,3 +198,30 @@ form{
     font-family: "Lato";
     border-radius: 10px;
 }
+.reviews {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.reviews span{
+    width: 50%;
+}
+.reviews h2{
+    text-align: left;
+}
+.revbar {
+    display: flex;
+    flex-direction: row;
+}
+.reviews h3 {
+    margin: 0;
+    padding-inline: 2%;
+}
+.reviews img{
+    width: 10%;
+    height: 100%;
+}
+.postDate {
+    padding-left: 3%;
+}
