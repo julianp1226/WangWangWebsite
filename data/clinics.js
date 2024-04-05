@@ -237,6 +237,19 @@ const getAllClinics = async () => {
   return allClinics;
 };
 
+const deleteClinicById = async (id) => {
+  try {
+    id = validId(id, "clinicId");
+  } catch (e) {
+    throw "Error (data/product.js :: deleteClinicById(id)):" + e;
+  }
+
+  const ClinicsCollection = await clinics();
+  const removalInfo = await ClinicsCollection.findOneAndDelete({ _id: new ObjectId(id) });
+  if(!removalInfo) throw "Could not delete clinic from DB"
+  return "Clinic deleted!"
+};
+
 //TODO: Test function
 const addReview = async (id, rating) => {
   try{
