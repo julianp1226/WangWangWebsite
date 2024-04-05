@@ -320,5 +320,6 @@ console.log(clinic)*/
 export {
   createClinic,
   getClinicById,
-  getAllClinics
+  getAllClinics,
+  deleteClinicById
 };
