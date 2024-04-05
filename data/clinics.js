@@ -186,7 +186,8 @@ const createClinic = async (
   isPasswordChange: isPasswordChange,
   isApplyCancelled: isApplyCancelled,
   stripeConnAccId: stripeConnAccId,
-  insertDate: insertDate
+  insertDate: insertDate,
+  reviews: []
 };
 
   const clinicsCollection = await clinics();
@@ -250,7 +251,7 @@ const deleteClinicById = async (id) => {
   return "Clinic deleted!"
 };
 
-//TODO: Test function
+/*
 const addReview = async (id, rating) => {
   try{
     id = validId(id)
@@ -269,6 +270,41 @@ const addReview = async (id, rating) => {
     );
     if (updateInfo.lastErrorObject.n === 0) throw "Error: Review unable to be added";
   
+    let finalClinic = await updateInfo.value;
+    finalClinic._id = finalClinic._id.toString();
+    return finalClinic;
+  } catch(e){
+    throw "Error (data/clinics.js :: addReview()):" + e;
+  }
+}
+*/
+
+//TODO: Test function
+const addReview = async (clinicId, review) => {
+  if(!clinicId || !review || !review.stars || !review.text || !review.userId){
+    throw "Error: Necessary inputs not provided"
+  }
+  try {
+    validId(productId,"Clinic ID");
+    validNumber(review.stars, "Star Rating");
+    validStr(review.text, "Review Text");
+    validId(review.userId,"User ID")
+  } catch (error) {
+    throw error
+  }
+  try {
+    const clinicsCollection = await clinics();
+    const clinic = await clinicsCollection.findOne({_id: new ObjectId(clinicId)});
+    
+    let to_update = clinic.reviews;
+    let new_count = clinic.ratingCount + 1;
+    to_update.push(review);
+    let avg = (clinic.avgRating * clinic.ratingCount + rating)/new_count;
+    
+    const updateInfo = await clinicsCollection.findOneAndUpdate({_id: new ObjectId(clinicId)}, {$set: {reviews: to_update, avgRating: avg, ratingCount: new_count}});
+    
+    if (updateInfo.lastErrorObject.n === 0) throw "Error: Review unable to be added";
+    
     let finalClinic = await updateInfo.value;
     finalClinic._id = finalClinic._id.toString();
     return finalClinic;
