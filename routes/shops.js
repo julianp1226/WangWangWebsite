@@ -22,7 +22,7 @@ router.route('/').get(async (req, res) => {
         //id: req.session.user.id
       });
   });
-//TODO
+
 router.route('/:id').get(async (req, res) => {
 let auth = false;
 let product;
@@ -50,6 +50,35 @@ return res.render("mallProduct", {
     //id: req.session.user.id
     });
 });
+
+router.route('/viewall/similarto/:id').get(async (req, res) => {
+    let auth = false;
+let product;
+let allProducts
+try {
+    product = await getProductById(req.params.id)
+    product['rating'] = 5
+    allProducts = await getAllProducts()
+    allProducts.map((x)=>x["rating"] = 5)
+    //Increase product list size for now (for proof of concept)
+    allProducts = allProducts.concat(allProducts)
+    allProducts = allProducts.concat(allProducts)
+    allProducts = allProducts.concat(allProducts)
+} catch (e) {
+    return res.status(500).render("error", { error: e, status: 500 });
+}
+if (req.session.user) {
+    auth = true;
+}
+return res.render("mallFull", {
+    title: "Similar To ".concat(product.name),
+    auth: auth,
+    products: allProducts,
+    titleWord: "Similar To ".concat(product.name)
+    //id: req.session.user.id
+    });
+});
+
 router.route('/viewall/:type').get(async (req, res) => {
     let auth = false;
     let allProducts;
