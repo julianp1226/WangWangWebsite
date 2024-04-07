@@ -18,6 +18,7 @@ import {
   validImageUrl,
   checkPassword
 } from "../validation.js";
+import { getUserById } from "./users.js";
 
 const createProduct = async (
   name,
@@ -133,6 +134,8 @@ const deleteProductById = async (id) => {
   return "Product deleted!"
 }
 const addReview = async (productId,review) => {
+  let user;
+  let product;
   if(!productId || !review || !review.stars || !review.text || !review.userId){
     throw "Error: Necessary inputs not provided"
   }
@@ -141,6 +144,18 @@ const addReview = async (productId,review) => {
     validNumber(review.stars, "Star Rating");
     validStr(review.text, "Review Text");
     validId(review.userId,"User ID")
+    user = await getUserById(review.userId);
+    product = await getProductById(productId);
+    product.reviews.push(
+      {
+        user: user.firstName,
+        stars: review.stars,
+        text: review.text,
+        time: new Date()
+      }
+    )
+    await updateProduct(productId,product.name,product.description, product.image, product.images, product.quantity,product.actualPrice,product.discountedPrice,product.categoryId,product.vendorId,product.couponId,product.status,product.reviews);
+    return "Product Updated!"
   } catch (error) {
     throw error
   }
