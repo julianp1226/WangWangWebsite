@@ -93,41 +93,28 @@ const createCard = async (
         throw e;
     }
     if (status !== "active" && status !== "blocked" && status !== "deleted") throw "Invalid status provided";
-    try {
-        insertDate = validNumber(insertDate, insertDate, true, 2020, 2100);
-    } catch (e) {
-        throw e;
-    }
-    try {
-        creationDate = validDate(creationDate);
-    } catch (e) {
-        throw e;
-    }
-    try {
-        cardScheme = validStr(cardScheme);
-    } catch (e) {
-        throw e;
-    }
-    try {
-        cardType = validStr(cardType);
-    } catch (e) {
-        throw e;
-    }
-    try {
-        redirectUrl = validStr(redirectUrl);
-    } catch (e) {
-        throw e;
-    }
-    try {
-        expiry = validStr(expiry);
-    } catch (e) {
-        throw e;
-    }
-    try {
-        cardToken = validStr(cardToken);
-    } catch (e) {
-        throw e;
-    }
+
+    // try {
+    //     cardScheme = validStr(cardScheme);
+    // } catch (e) {
+    //     throw e;
+    // }
+    cardScheme = cardScheme.trim();
+    // try {
+    //     cardType = validStr(cardType);
+    // } catch (e) {
+    //     throw e;
+    // }
+    cardType = cardType.trim();
+    // try {
+    //     redirectUrl = validStr(redirectUrl);
+    // } catch (e) {
+    //     throw e;
+    // }
+    redirectUrl = redirectUrl.trim();
+    if (Number(expiry.slice(0, 2)) > 12) throw "Invalid Month";
+    expiry = expiry.trim();
+
     email = email.toLowerCase();
     
     const createCard = {
