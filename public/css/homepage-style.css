@@ -102,6 +102,7 @@ a {
   height: 30px;
   padding: 10px 25px 10px 25px;
   border-radius: 10px;
+  text-indent: 8%;
 }
 
 #search_btn {
