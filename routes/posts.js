@@ -17,6 +17,10 @@ import {
   validId,
   validImageUrl,
 } from "../validation.js";
+import {
+  likePost,
+  createComment,
+} from "../data/comments.js"
 import xss from 'xss';
 
 router.route("/")
@@ -127,6 +131,43 @@ router.route("/id/:postId").get(async (req, res) => {
       name: userName,
       profilePic:profilePic,
     });
+});
+
+router.route("/likePost").post(async (req, res) => {
+    const { postId } = req.body;
+    try {
+      let likedPost = await likePost(postId);
+      res.sendStatus(200);
+    } catch {
+      return res
+      .status(404)
+      .render("error", { error: "Unable to like post", status: 404 });
+    }
+  }
+);
+
+router.route("/id/:postId/comment").post(async (req, res) => {
+  let comment = req.body.commentInput;
+  if (!req.session.user) {
+    return res.redirect("/login");
+  } 
+  let user = req.session.user.id;
+  let postId;
+  try {
+    postId = validId(req.params.postId);
+  } catch (e) {
+    return res
+      .status(400)
+      .render("error", { error: e, status: 400 });
+  }
+    try {
+      let uploadComment = await createComment(user,postId, comment);
+    } catch (e){
+      return res
+      .status(404)
+      .render("error", { error: e, status: 404 });
+    }
+      return res.redirect(`/feed/id/${postId}`);
 });
 
 export default router;

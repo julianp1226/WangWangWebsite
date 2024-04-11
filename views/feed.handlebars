@@ -32,7 +32,7 @@
         {{/if}}
       </div>
     </div>
-    <div class="cards">
+    <div class="grid" id="grid">
         {{#each posts}}
             {{#if this.isImage}}
             <div class="card" id="{{this._id}}" onclick="get_id(this.id)" style="cursor: pointer;">
@@ -43,7 +43,7 @@
                   <div class="likes"><svg class="icons" width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7166 20.7296C7.07147 19.4795 1.2793 15.0424 1.2793 8.48682C1.2793 5.14702 3.97976 2.43701 7.30048 2.43701C8.91313 2.43701 10.4208 3.0668 11.5373 4.19279C12.6537 3.0668 14.1614 2.43701 15.774 2.43701C19.0947 2.43701 21.7952 5.15656 21.7952 8.48682C21.7952 15.0519 16.003 19.4795 12.3579 20.7296C12.1193 20.8155 11.8331 20.8536 11.5373 20.8536C11.2414 20.8536 10.9552 20.8155 10.7166 20.7296ZM2.71064 8.48682C2.71064 15.0042 8.97992 18.6303 11.1842 19.3841C11.356 19.4414 11.7281 19.4414 11.8999 19.3841C14.0946 18.6303 20.3734 15.0137 20.3734 8.48682C20.3734 5.93903 18.3123 3.86836 15.7836 3.86836C14.3331 3.86836 12.9877 4.54586 12.1193 5.71956C11.8522 6.08217 11.2414 6.08217 10.9743 5.71956C10.0868 4.53632 8.75091 3.86836 7.30048 3.86836C4.77177 3.86836 2.71064 5.93903 2.71064 8.48682Z" fill="#292D32"/>
                   </svg>
-                  {{this.likeCount}}</div>
+                  <p id="outsideLikeNumber-{{this._id}}">{{this.likeCount}}</p></div>
                   <div class="comments"><svg class="icons" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.26059 10.9289C7.86936 10.9289 7.54492 10.6045 7.54492 10.2132C7.54492 9.822 7.86936 9.49756 8.26059 9.49756H14.9402C15.3314 9.49756 15.6559 9.822 15.6559 10.2132C15.6559 10.6045 15.3314 10.9289 14.9402 10.9289H8.26059Z" fill="#292D32"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M14.4911 21.2157L10.426 18.5056H6.82861C3.54607 18.5056 1.3418 16.3014 1.3418 13.0188V7.29346C1.3418 4.01091 3.54607 1.80664 6.82861 1.80664H16.3709C19.6534 1.80664 21.8577 4.01091 21.8577 7.29346V13.0188C21.8577 16.0533 19.9683 18.1717 17.0866 18.4675V19.8225C17.0866 20.4427 16.7526 21.0057 16.2087 21.292C15.9606 21.4256 15.6839 21.4924 15.4167 21.4924C15.0922 21.4924 14.7678 21.397 14.4911 21.2157ZM2.77314 7.2839V13.0093C2.77314 15.4712 4.3667 17.0647 6.82861 17.0647H10.6455C10.7887 17.0647 10.9223 17.1029 11.0463 17.1888L15.2926 20.0133C15.3976 20.0801 15.493 20.0515 15.5407 20.0229C15.5884 19.9943 15.6648 19.937 15.6648 19.8129V17.7804C15.6648 17.3892 15.9892 17.0647 16.3805 17.0647C18.8424 17.0647 20.4359 15.4712 20.4359 13.0093V7.2839C20.4359 4.82199 18.8424 3.22843 16.3805 3.22843H6.82861C4.3667 3.22843 2.77314 4.82199 2.77314 7.2839Z" fill="#292D32"/>
@@ -69,7 +69,7 @@
                   <div class="likes"><svg class="icons" width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7166 20.7296C7.07147 19.4795 1.2793 15.0424 1.2793 8.48682C1.2793 5.14702 3.97976 2.43701 7.30048 2.43701C8.91313 2.43701 10.4208 3.0668 11.5373 4.19279C12.6537 3.0668 14.1614 2.43701 15.774 2.43701C19.0947 2.43701 21.7952 5.15656 21.7952 8.48682C21.7952 15.0519 16.003 19.4795 12.3579 20.7296C12.1193 20.8155 11.8331 20.8536 11.5373 20.8536C11.2414 20.8536 10.9552 20.8155 10.7166 20.7296ZM2.71064 8.48682C2.71064 15.0042 8.97992 18.6303 11.1842 19.3841C11.356 19.4414 11.7281 19.4414 11.8999 19.3841C14.0946 18.6303 20.3734 15.0137 20.3734 8.48682C20.3734 5.93903 18.3123 3.86836 15.7836 3.86836C14.3331 3.86836 12.9877 4.54586 12.1193 5.71956C11.8522 6.08217 11.2414 6.08217 10.9743 5.71956C10.0868 4.53632 8.75091 3.86836 7.30048 3.86836C4.77177 3.86836 2.71064 5.93903 2.71064 8.48682Z" fill="#292D32"/>
                   </svg>
-                  {{this.likeCount}}</div>
+                  <p id="outsideLikeNumber-{{this._id}}">{{this.likeCount}}</p></div>
                   <div class="comments"><svg class="icons" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.26059 10.9289C7.86936 10.9289 7.54492 10.6045 7.54492 10.2132C7.54492 9.822 7.86936 9.49756 8.26059 9.49756H14.9402C15.3314 9.49756 15.6559 9.822 15.6559 10.2132C15.6559 10.6045 15.3314 10.9289 14.9402 10.9289H8.26059Z" fill="#292D32"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M14.4911 21.2157L10.426 18.5056H6.82861C3.54607 18.5056 1.3418 16.3014 1.3418 13.0188V7.29346C1.3418 4.01091 3.54607 1.80664 6.82861 1.80664H16.3709C19.6534 1.80664 21.8577 4.01091 21.8577 7.29346V13.0188C21.8577 16.0533 19.9683 18.1717 17.0866 18.4675V19.8225C17.0866 20.4427 16.7526 21.0057 16.2087 21.292C15.9606 21.4256 15.6839 21.4924 15.4167 21.4924C15.0922 21.4924 14.7678 21.397 14.4911 21.2157ZM2.77314 7.2839V13.0093C2.77314 15.4712 4.3667 17.0647 6.82861 17.0647H10.6455C10.7887 17.0647 10.9223 17.1029 11.0463 17.1888L15.2926 20.0133C15.3976 20.0801 15.493 20.0515 15.5407 20.0229C15.5884 19.9943 15.6648 19.937 15.6648 19.8129V17.7804C15.6648 17.3892 15.9892 17.0647 16.3805 17.0647C18.8424 17.0647 20.4359 15.4712 20.4359 13.0093V7.2839C20.4359 4.82199 18.8424 3.22843 16.3805 3.22843H6.82861C4.3667 3.22843 2.77314 4.82199 2.77314 7.2839Z" fill="#292D32"/>
@@ -123,6 +123,7 @@
     <div class="post-modal"></div>
     <script>
       const modal = document.querySelector('.post-modal')
+
       const get_id = clicked_id => {
         fetch(`/feed/id/${clicked_id}`)
         .then(res=>res.text())
@@ -169,5 +170,41 @@
     function showFileUpload() {
       document.getElementById("postMedia").style.display = "block";
     }
+
+      $('.grid').masonry({
+        itemSelector: '.card',
+        columnWidth: '.card',
+        fitWidth: true,
+      });
+
+    const likePost = clicked_id => {
+      // Split the URL by '/'
+      var urlParts = clicked_id.split('/');
+
+      // Get the last element of the array
+      var lastElement = urlParts[urlParts.length - 1];
+
+      var postId = lastElement; 
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/feed/likePost', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onload = function() {
+          if (xhr.status === 200) {
+              console.log('Post liked successfully');
+              document.getElementById(`postLike-${postId}`).style.fill = "#FF3EA5";
+              var likeElement = document.getElementById(`like-${postId}`);
+              var outsideLikeElement = document.getElementById(`outsideLikeNumber-${postId}`)
+              var currentLikes = parseInt(likeElement.textContent);
+              // Increment the likes by 1
+              var newLikes = currentLikes + 1;
+              // Update the content of the element with the new number of likes
+              likeElement.textContent = newLikes;
+              outsideLikeElement.textContent = newLikes;
+          } else {
+             console.error('Failed to like post');
+          }
+      };
+      xhr.send(JSON.stringify({ postId: postId }));
+    };
     </script>
 </main>
