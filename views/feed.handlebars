@@ -90,9 +90,9 @@
     <div id="create-post" class="create-post-modal">
       <div class="create-post-modal-content">
 
-        <form action="/feed" method="POST" onsubmit="return submitForm()" enctype="multipart/form-data">
+        <form id="postform" action="/feed" method="POST" onsubmit="return submitForm()" enctype="multipart/form-data">
         <div class="w3-container">
-          <svg id="exit" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="document.getElementById('create-post').style.display='none'" style="cursor: pointer;">
+          <svg id="exit" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="document.getElementById('create-post').style.display='none'; document.getElementById('postform').reset(); hideFileUpload(); removeAll();" style="cursor: pointer;">
           <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
           <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/>
           </svg>

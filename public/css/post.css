@@ -161,11 +161,19 @@ footer {
 
 .comments-section {
   display: flex;
-    align-items: center;
+  flex-direction: column;
     margin-left: 5%;
     margin-right: 5%;
         font-family: 'Lato';
     padding-bottom: 5%;
+    gap:30px;
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
 }
 
 #commenter-name {
@@ -223,4 +231,16 @@ footer {
       border: none;
     background-color: white;
     cursor: pointer;
+}
+
+.error-div {
+     font-family: 'Lato';
+    display: flex;
+    color: red;
+    justify-content: center;
+}
+
+.individual-comment {
+  display:flex;
+  align-items: center;
 }

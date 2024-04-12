@@ -29,11 +29,6 @@ const createComment = async (userId, postId, comment) => {
     throw "Error (data/comments.js :: User commenter not found)";
 
   let postComments = post.comments;
-  for (let i of postComments) {
-    if (i.user_id.toString() == userId) {
-      throw `Error: You already commented on this post.`;
-    }
-  }
 
   try {
     comment = validStr(comment, "Comment");

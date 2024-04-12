@@ -9,7 +9,7 @@
         <img id="profilepic" alt="{{name}}" src={{profilePic}}>
         </div>
          <h1 id="profile-name">{{name}}</h1>
-         <button class="follow">FOLLOW</button>
+         <button class="follow" id="follow">FOLLOW</button>
          <svg id="x" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="get_out()" style="cursor: pointer;">
           <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
           <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/>
@@ -58,6 +58,7 @@
       </div>
       <div class="comments-section">
         {{#each post.comments}}
+        <div class="individual-comment">
         <div class="comment-profile-pic">
           <img id="comment-prof-pic" alt="profile-picture" src="{{this.commenterProfilePic}}">
         </div>
@@ -78,9 +79,11 @@
                   </svg>
           <div style="font-size:smaller;">{{this.likes}}</div>
           </div>
+          </div>
            {{/each}}
       </div>
-      <form id="commentForm" action="/feed/id/{{post._id}}/comment" method="POST">
+      <div class="error-div" id="error-div"></div>
+      <form id="commentForm" action="/feed/id/{{post._id}}/comment" method="POST" onsubmit="event.preventDefault(); validateMyForm();">
       <div class="add-comment">
         <input id="commentInput" name="commentInput" class="type-comment" type="text" placeholder="Write something...">
         <button id="postCommentButton" type="submit">
