@@ -106,4 +106,16 @@ function validateMyForm() {
 
 function removeAll() {
   document.getElementById("list").innerHTML = "";
+  document.getElementById("error-div").innerHTML = "";
+}
+
+let searchForm = document.getElementById("searchPosts");
+let searchTerm = document.getElementById("search");
+
+if (searchForm) {
+  searchForm.addEventListener("submit", (event) => {
+    if (searchTerm.value.trim() === "") {
+      event.preventDefault();
+    }
+  });
 }

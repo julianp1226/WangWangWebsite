@@ -5,11 +5,15 @@
     <div class="page">
     <div class="searchbar">
       <div class="search-with-icon">
-        <input class="search" type="search" placeholder="Search">
+        <form id="searchPosts" action="/feed/search" method="POST">
+        <input class="search" id="search" name="search" type="search" placeholder="Search">
+        <button type="submit" style="display: contents; cursor:pointer;">
         <svg class="magnifyglass"width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6537 21.1936C6.58584 21.1936 2.47754 17.0853 2.47754 12.0174C2.47754 6.9496 6.58584 2.84131 11.6537 2.84131C16.7215 2.84131 20.8298 6.9496 20.8298 12.0174C20.8298 17.0853 16.7215 21.1936 11.6537 21.1936Z" stroke="#5C5C5C" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M21.7961 22.1589L19.8643 20.2271" stroke="#5C5C5C" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
+        </button>
+        </form>
       </div>
 
       <div class="searchbuttons">
@@ -100,7 +104,7 @@
           <div id="create-post-body"><p style="margin-bottom: 10px;">Choose Media</p>
           <button class="create-post-media-select" type="button" style="cursor: pointer;" onclick="showFileUpload()">Photo</button>
           <button class="create-post-media-select" type="button" style="cursor: pointer;" onclick="showFileUpload()">Video</button>
-          <input type="file" id="postMedia" name="file" style="display: none;">
+          <input type="file" id="postMedia" name="file" style="display: none; margin-top: 2%;">
           <p style="margin-bottom: 10px;">Tags</p>
           <ul id='list' style="padding-left: inherit;"></ul>
           <div class="create-post-tags">
@@ -113,6 +117,7 @@
           <textarea id="caption-box" name="caption" rows="4" cols="50"  placeholder="What's on your mind?"></textarea>
           <br>
           <input type="hidden" id="listValuesInput" name="tags">
+          <div class="error-div" id="error-div"></div>
           <button id="post-button" type="submit" style="cursor:pointer">POST</button>
           </div>
         </div>
@@ -122,4 +127,5 @@
     </div>
     <div class="post-modal"></div>
     <script src="../public/js/feed.js"></script>
+    <script src="../public/js/addPost.js"></script>
 </main>

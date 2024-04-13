@@ -174,4 +174,49 @@ router.route("/id/:postId/comment").post(async (req, res) => {
   return res.redirect(`/feed/id/${postId}`);
 });
 
+router.route("/search").post(async (req, res) => {
+  let searchTerm = req.body;
+
+  let auth = false;
+  let allPosts;
+  try {
+    allPosts = await getAllPosts();
+  } catch (e) {
+    return res.status(500).render("error", { error: e, status: 500 });
+  }
+  if (req.session.user) {
+    auth = true;
+  }
+
+  let filteredPosts = [];
+
+  allPosts.forEach(element => {
+    // Iterate through each tag in the tags array of the current object
+    element.tags.forEach(tag => {
+      // Check if the current tag includes the specified word as a substring
+      if (tag.includes(searchTerm.search.trim())) {
+        // If the word is present in the tag, add the object to the filteredPosts array
+        filteredPosts.push(element);
+      }
+    });
+  });
+
+
+  filteredPosts.forEach(element => {
+    if (element.type === 'image') {
+      element.isImage = true;
+    } else {
+      element.isImage = false
+    }
+  });
+
+  return res.render("feed", {
+    title: "Feed",
+    posts: filteredPosts,
+    auth: auth,
+    //id: req.session.user.id
+  });
+
+});
+
 export default router;

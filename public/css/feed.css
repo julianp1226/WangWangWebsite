@@ -135,7 +135,6 @@
 .create-post-modal{
   z-index:3;
   display:none;
-  padding-top:5%;
   position:fixed;
   left:0;
   top:0;
@@ -254,3 +253,8 @@
     margin-top: 3%;
 }
 
+#error-div {
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+}
