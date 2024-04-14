@@ -4,12 +4,16 @@ import multer from "multer";
 import { ObjectId } from "mongodb";
 import {
     createClinic,
-    getAllClinics
+    getAllClinics,
+    getClinicById
 } from "../data/clinics.js";
 import {
     createClinicSpecialisation,
     updateClinicSpecialisation
 } from "../data/clinicSpecialisations.js";
+import {
+    validId
+  } from "../validation.js";
 
 /*const clinic = await createClinic(
   "sampleAccessToken",
@@ -135,6 +139,25 @@ router.route("/").get(async (req, res) => {
         return res
         .status(404)
         .render("error", { error: "No clinics found" + e, status: 404});
+    }
+})
+
+router.route("/:id").get(async (req, res)=> {
+    let auth = false
+    try{
+        let clinicId = validId(req.params.id);
+        let clinic = await getClinicById(clinicId)
+        if (req.session.user) {
+            auth = true;
+        }
+        return res.render("clinic", {
+            clinic: clinic,
+            auth: auth
+        });
+    }catch(e){
+        return res
+        .status(404)
+        .render("error", { error: "Clinic Not Found" + e, status: 404});
     }
 })
 

@@ -1,4 +1,4 @@
-<main class="feed">
+<main>
     <head>
         <link rel="stylesheet" href="/public/css/clinics-styles.css"/>
     </head>
@@ -10,7 +10,7 @@
                     <div class="clinic-info">
                         <p>{{this.avgRating}}</p>
                         <p>{{this.address}}</p>
-                        <button class="appointment-button" onclick="location.href='/clinics/id/{{this._id}}';" style="cursor: pointer;">    BOOK APPOINTMENT     </button>
+                        <button class="appointment-button" onclick="location.href='/clinic/{{this._id}}';" style="cursor: pointer;">    BOOK APPOINTMENT     </button>
                     </div>
                     <div class="container">
                         <img src={{this.image}}>

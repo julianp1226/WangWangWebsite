@@ -18,7 +18,7 @@ const clinic = await createClinic(
   "samplePassword1!",
   "clinicAdmin",
   "Sample Clinic",
-  "", // description
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pulvinar nulla a dui vestibulum volutpat. Nullam turpis quam, consequat non convallis ac, aliquet quis felis. Ut ut molestie massa. Proin eleifend lorem enim, hendrerit rhoncus nisi egestas non. In egestas pulvinar magna nec sodales. Donec lacinia arcu urna, et finibus mi tempus id. Sed vel pretium nulla.", // description
   "/public/images/GSGImage.png", // image
   100,
   [], // clinicSpecialisationIds
