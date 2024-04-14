@@ -17,7 +17,8 @@ import {
   validImageUrl,
   checkPassword,
   validAddress,
-  validClinicStatus
+  validClinicStatus,
+  validBool
 } from "../validation.js";
 
 const createClinic = async (
@@ -115,6 +116,14 @@ const createClinic = async (
     address = validStr(address);
     stripeConnAccId = validStr(stripeConnAccId);
 
+    isDateRangeInfinite = validBool(isDateRangeInfinite) 
+    isProfileBasic = validBool(isProfileBasic)
+    isClinicTiming = validBool(isClinicTiming)
+    areBankDetailsSubmitted = validBool(areBankDetailsSubmitted)
+    isStripeIntegrated = validBool(isStripeIntegrated)
+    isPasswordChange = validBool(isPasswordChange)
+    isApplyCancelled = validBool(isApplyCancelled)
+
     if (!Array.isArray(clinicSpecialisationIds)) {
       throw new Error("clinicSpecialisationIds must be an array!");
     }
@@ -177,7 +186,8 @@ const createClinic = async (
   isPasswordChange: isPasswordChange,
   isApplyCancelled: isApplyCancelled,
   stripeConnAccId: stripeConnAccId,
-  insertDate: insertDate
+  insertDate: insertDate,
+  reviews: []
 };
 
   const clinicsCollection = await clinics();
@@ -209,7 +219,7 @@ const getClinicById = async (id) => {
   const clinic = await clinicsCollection.findOne({ _id: new ObjectId(id) });
 
   if (clinic === null)
-    throw "Error (data/users.js :: getUserById(id)): No user found";
+    throw "Error (data/clinics.js :: getClinicById(id)): No user found";
 
   clinic._id = clinic._id.toString();
   return clinic;
@@ -219,7 +229,7 @@ const getClinicById = async (id) => {
 const getAllClinics = async () => {
   let allClinics;
   try {
-    const ClinicsCollection = await users();
+    const ClinicsCollection = await clinics();
     allClinics = await ClinicsCollection.find({}).toArray();
   } 
   catch (e) {
@@ -228,7 +238,20 @@ const getAllClinics = async () => {
   return allClinics;
 };
 
-//TODO: Test function
+const deleteClinicById = async (id) => {
+  try {
+    id = validId(id, "clinicId");
+  } catch (e) {
+    throw "Error (data/product.js :: deleteClinicById(id)):" + e;
+  }
+
+  const ClinicsCollection = await clinics();
+  const removalInfo = await ClinicsCollection.findOneAndDelete({ _id: new ObjectId(id) });
+  if(!removalInfo) throw "Could not delete clinic from DB"
+  return "Clinic deleted!"
+};
+
+/*
 const addReview = async (id, rating) => {
   try{
     id = validId(id)
@@ -247,6 +270,41 @@ const addReview = async (id, rating) => {
     );
     if (updateInfo.lastErrorObject.n === 0) throw "Error: Review unable to be added";
   
+    let finalClinic = await updateInfo.value;
+    finalClinic._id = finalClinic._id.toString();
+    return finalClinic;
+  } catch(e){
+    throw "Error (data/clinics.js :: addReview()):" + e;
+  }
+}
+*/
+
+//TODO: Test function
+const addReview = async (clinicId, review) => {
+  if(!clinicId || !review || !review.stars || !review.text || !review.userId){
+    throw "Error: Necessary inputs not provided"
+  }
+  try {
+    validId(productId,"Clinic ID");
+    validNumber(review.stars, "Star Rating");
+    validStr(review.text, "Review Text");
+    validId(review.userId,"User ID")
+  } catch (error) {
+    throw error
+  }
+  try {
+    const clinicsCollection = await clinics();
+    const clinic = await clinicsCollection.findOne({_id: new ObjectId(clinicId)});
+    
+    let to_update = clinic.reviews;
+    let new_count = clinic.ratingCount + 1;
+    to_update.push(review);
+    let avg = (clinic.avgRating * clinic.ratingCount + rating)/new_count;
+    
+    const updateInfo = await clinicsCollection.findOneAndUpdate({_id: new ObjectId(clinicId)}, {$set: {reviews: to_update, avgRating: avg, ratingCount: new_count}});
+    
+    if (updateInfo.lastErrorObject.n === 0) throw "Error: Review unable to be added";
+    
     let finalClinic = await updateInfo.value;
     finalClinic._id = finalClinic._id.toString();
     return finalClinic;
@@ -298,5 +356,6 @@ console.log(clinic)*/
 export {
   createClinic,
   getClinicById,
-  getAllClinics
+  getAllClinics,
+  deleteClinicById
 };

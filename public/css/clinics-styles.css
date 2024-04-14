@@ -1,0 +1,30 @@
+.clinic {
+    padding-left: 2%;
+    align-self: left;
+    align-items: left;
+    flex-direction: column;
+    width: 50%;
+    border-bottom: solid lightslategray; 
+}
+
+img {
+    border-radius: 2%;
+}
+
+.clinic-info {
+    float: right;
+}
+
+p {
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.appointment-button {
+    background-color: #CDAA89; 
+    color: white;
+    font-family: Lato, sans-serif;
+    font-size: 20px;
+    border: none;
+}
