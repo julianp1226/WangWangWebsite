@@ -86,7 +86,8 @@ footer {
   display: flex;
   margin-left: 5%;
     margin-right: 5%;
-    margin-top:2%
+    margin-top:2%;
+        align-items: flex-start;
 }
 
 .likes {
@@ -160,11 +161,19 @@ footer {
 
 .comments-section {
   display: flex;
-    align-items: center;
+  flex-direction: column;
     margin-left: 5%;
     margin-right: 5%;
         font-family: 'Lato';
     padding-bottom: 5%;
+    gap:30px;
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
 }
 
 #commenter-name {
@@ -186,4 +195,52 @@ footer {
       flex-direction: column;
     align-items: center;
     margin-left: auto;
+}
+
+.add-comment {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 38%);
+    transition: 0.3s;
+    margin: 8px;
+    border-radius: 20px;
+    display: flex;
+    padding-bottom: 2.5%;
+    justify-content: center;
+    padding-top: 2.5%;
+    width: 90%;
+    margin-left: 5%;
+        gap: 2%;
+}
+
+.bottom-spacer {
+  padding-bottom: 5%;
+}
+
+.type-comment {
+      background: #EFF3F7;
+    border-radius: 15.5px;
+    padding-top: 2%;
+        width: 85%;
+    padding-bottom: 2%;
+    border: none;
+    text-indent: 5%;
+    font-family: 'Lato';
+    font-size: initial;
+}
+
+#postCommentButton {
+      border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.error-div {
+     font-family: 'Lato';
+    display: flex;
+    color: red;
+    justify-content: center;
+}
+
+.individual-comment {
+  display:flex;
+  align-items: center;
 }

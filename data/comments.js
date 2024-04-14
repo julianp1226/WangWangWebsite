@@ -29,11 +29,6 @@ const createComment = async (userId, postId, comment) => {
     throw "Error (data/comments.js :: User commenter not found)";
 
   let postComments = post.comments;
-  for (let i of postComments) {
-    if (i.user_id.toString() == userId) {
-      throw `Error: You already commented on this post.`;
-    }
-  }
 
   try {
     comment = validStr(comment, "Comment");
@@ -71,8 +66,31 @@ const createComment = async (userId, postId, comment) => {
   return commentObject;
 };
 
+const likePost = async (postId) => {
+  try {
+    postId = validId(postId);
+  } catch (e) {
+    throw (
+      "Error (data/comments.js):" +
+      e
+    );
+  }
+  
+  const postsCollection = await posts();
+
+  const updatedInfo = await postsCollection.findOneAndUpdate(
+    { _id: new ObjectId(postId) },
+    { $inc : { "likeCount" : 1 } },
+    { returnDocument: "after" }
+  );
+
+  return updatedInfo;
+}
+
+//console.log(await likePost('65fd11a1a0f40b80482efaca'));
 //console.log(await createComment("65fd11a1a0f40b80482efaca","6604514fef5b72488d4dfed1", "Good stuff" ))
 
 export {
-  createComment
+  createComment,
+  likePost
 }

@@ -1,17 +1,18 @@
-.cards {
-  display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    width: 100%;
-    margin-left: 6%;
+#grid {
+  width: 100%;
+  margin-left: 6%;
+}
+
+.card:nth-child(even){
+  height:400px;
 }
 
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     width: 200px;
     /* max-width: 300px; */
-    height: 300px;
+    height: 250px;
     margin: 8px;
     border-radius: 12px;
     display: flex;
@@ -54,10 +55,11 @@
   font-family: 'Lato', sans-serif;
   display: inline-flex;
   font-size: 19px;
+  align-items: center;
 }
 
 .med {
-  height:245px;
+  height:90%;
 }
 
 .icons {
@@ -73,6 +75,7 @@
 .page {
   display:flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .following, .foryou {
@@ -124,7 +127,7 @@
   left:0;
   bottom:0;
   width: 100%;
-  height:120%;
+  height:150%;
   background-color: rgba(0,0,0,.5);
   display: none;
 }
@@ -132,7 +135,6 @@
 .create-post-modal{
   z-index:3;
   display:none;
-  padding-top:5%;
   position:fixed;
   left:0;
   top:0;
@@ -251,3 +253,8 @@
     margin-top: 3%;
 }
 
+#error-div {
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+}
