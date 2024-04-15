@@ -324,7 +324,7 @@ const addAppointment = async (clinicId, userId, date, startTime, endTime) => {
     validId(userId,"User ID");
     validDate(date, "Appointment Date");
     validTime(startTime, "Appointment Start Time");
-    validTime(endTime, "Appointment End Time);
+    validTime(endTime, "Appointment End Time");
   } catch (error) {
     throw error
   }
@@ -381,7 +381,7 @@ const updateAppointment = async (clinicId, appointmentId, userId, date, startTim
     validId(userId,"User ID");
     validDate(date, "Appointment Date");
     validTime(startTime, "Appointment Start Time");
-    validTime(endTime, "Appointment End Time);
+    validTime(endTime, "Appointment End Time");
   } catch (error) {
     throw error
   }
@@ -434,7 +434,7 @@ const removeAppointment = async (clinicId, appointmentId) => {
   
   try {
     validId(clinicId,"Clinic ID");
-    validId(
+    validId(appointmentId, "Appointment ID");
   } catch (error) {
     throw error
   }
