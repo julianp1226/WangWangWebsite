@@ -18,7 +18,8 @@ import {
   checkPassword,
   validAddress,
   validClinicStatus,
-  validBool
+  validBool,
+  validDate
 } from "../validation.js";
 
 const createClinic = async (
@@ -335,7 +336,7 @@ const addAppointment = async (clinicId, userId, date, startTime, endTime) => {
 
     let appts = clinic.appointments;
 
-    if !(validTimeInRange(startTime, endTime, validTime(clinic.openingTime), validTime(clinic.closingTime)){ //appointment time is outside clinic range
+    if (!validTimeInRange(startTime, endTime, validTime(clinic.openingTime), validTime(clinic.closingTime))){ //appointment time is outside clinic range
       throw "invalid appointment time";
     };
 
@@ -392,7 +393,7 @@ const updateAppointment = async (clinicId, appointmentId, userId, date, startTim
 
     let appts = clinic.appointments;
 
-    if !(validTimeInRange(startTime, endTime, validTime(clinic.openingTime), validTime(clinic.closingTime)){ //appointment time is outside clinic range
+    if (!validTimeInRange(startTime, endTime, validTime(clinic.openingTime), validTime(clinic.closingTime))){ //appointment time is outside clinic range
       throw "invalid appointment time";
     };
 
