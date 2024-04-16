@@ -408,7 +408,7 @@ const updateAppointment = async (clinicId, appointmentId, userId, date, startTim
     let appointmentObj = {
       _id: appointmentId,
       userId: userId,
-      clinic: clinicid,
+      clinic: clinicId,
       appointmentDate: date,
       startTime: startTime,
       endTime: endTime,

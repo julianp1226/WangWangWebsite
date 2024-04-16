@@ -150,9 +150,25 @@ router.route("/:id").get(async (req, res)=> {
         if (req.session.user) {
             auth = true;
         }
+
+        let dates = []
+        let date = new Date()
+        const weekday = ["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
+        const month = ["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];
+
+
+        for(let i = 0; i<14; i++){
+            dates[i] = {
+                day: date.getDate(),
+                month: month[date.getMonth()],
+                dayOfWeek: weekday[date.getDay()]}
+            date.setUTCDate(date.getUTCDate() + 1)
+        }
+
         return res.render("clinic", {
             clinic: clinic,
-            auth: auth
+            auth: auth,
+            dates: dates
         });
     }catch(e){
         return res
