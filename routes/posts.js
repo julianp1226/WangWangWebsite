@@ -209,13 +209,22 @@ router.route("/search").post(async (req, res) => {
       element.isImage = false
     }
   });
-
-  return res.render("feed", {
-    title: "Feed",
-    posts: filteredPosts,
-    auth: auth,
-    //id: req.session.user.id
-  });
+  if (filteredPosts.length === 0) {
+    return res.render("feed", {
+      title: "Feed",
+      none: "Sorry, no results found.",
+      styles: "font-size: xxx-large;",
+      auth: auth,
+      //id: req.session.user.id
+    });
+  } else {
+    return res.render("feed", {
+      title: "Feed",
+      posts: filteredPosts,
+      auth: auth,
+      //id: req.session.user.id
+    });
+  }
 
 });
 

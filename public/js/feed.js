@@ -119,3 +119,9 @@ if (searchForm) {
     }
   });
 }
+
+noSearchResults = document.getElementById("none-found");
+if (noSearchResults.innerHTML.trim() !== "") {
+  noSearchResults.classList.add("none-found");
+  noSearchResults.style.display = "block";
+}
