@@ -88,19 +88,19 @@ const createUser = async (
     status: "active",
     role: "user",
     profilePic: profilePic,
-   // owner: false,
+    // owner: false,
     deviceType: "ios",
     authType: "app",
     isNotification: true,
     stripeCustomerId: stripeCustomer.id, //TODO: Figure out how to generate customers with StripeAPI & store resulting id here
     creationDate: new Date(),
-    insertDate: Math.round(new Date()/1000),
-    lastUpdatedAt: Math.round(new Date()/1000),
+    insertDate: Math.round(new Date() / 1000),
+    lastUpdatedAt: Math.round(new Date() / 1000),
     password: bcrypt.hashSync(password, 10)
   };
   const usersCollection = await users();
   //check email doesn't exist (only run if email is provided)
-  if(email!==""){
+  if (email !== "") {
     const checkEmail = await usersCollection.findOne({
       email: new RegExp("^" + email.toLowerCase(), "i"),
     });
@@ -170,7 +170,7 @@ const getAllUsers = async () => {
   try {
     const usersCollection = await users();
     allUsers = await usersCollection.find({}).toArray();
-  } 
+  }
   catch (e) {
     throw e;
   }
@@ -190,10 +190,10 @@ const updateUser = async (
   profilePic,
   isNotification
 ) => {
-  try{
+  try {
     id = validId(id)
   }
-  catch(e){
+  catch (e) {
     throw e
   }
   let user = await getUserById(id);
@@ -222,9 +222,9 @@ const updateUser = async (
     lastName = validStr(lastName);
     email = validEmailOptional(email);
     //check email doesn't exist (only run if email is provided)
-    if(email!==""){
+    if (email !== "") {
       let checkEmail = await usersCollection.findOne({
-        _id: {$ne: new ObjectId(id)},
+        _id: { $ne: new ObjectId(id) },
         email: email,
       });
       //console.log(checkEmail._id)
@@ -235,14 +235,14 @@ const updateUser = async (
     bio = validStrOptional(bio, "Bio")
     isNotification = validBool(isNotification, "isNotification")
 
-    if(authType === "app"){
+    if (authType === "app") {
       mobile = validMobile(mobile);
       countryCode = validCountryCode(countryCode)
     }
-    if(mobile!=="" || countryCode!==""){
-      if(mobile!== "" && countryCode !== ""){
+    if (mobile !== "" || countryCode !== "") {
+      if (mobile !== "" && countryCode !== "") {
         let checkPhone = await usersCollection.findOne({
-          _id: {$ne: new ObjectId(id)},
+          _id: { $ne: new ObjectId(id) },
           countryCode: countryCode,
           mobile: mobile
         });
@@ -250,7 +250,7 @@ const updateUser = async (
           throw "Error: this phone number is already associated with an account.";
         }
       }
-      else{
+      else {
         throw "Error: country code & mobile must both be provided or blank"
       }
     }
@@ -262,7 +262,7 @@ const updateUser = async (
   } catch (e) {
     throw e;
   }
- 
+
   /*if (typeof owner !== "boolean") {
     if (typeof owner === "string") {
       if (owner === "true") {
@@ -286,7 +286,7 @@ const updateUser = async (
     mobile: mobile,
     profilePic: profilePic,
     isNotification: isNotification,
-    lastUpdatedAt: Math.round(new Date()/1000)
+    lastUpdatedAt: Math.round(new Date() / 1000)
   };
   const updateInfo = await usersCollection.findOneAndUpdate(
     { _id: new ObjectId(id) },
@@ -352,12 +352,12 @@ const updateUser = async (
 };*/
 
 const checkUser = async (countryCode, mobile, password) => {
-  try{
+  try {
     countryCode = validCountryCode(countryCode)
     mobile = validMobile(mobile)
     password = checkPassword(password)
   }
-  catch(e){
+  catch (e) {
     throw e
   }
 
