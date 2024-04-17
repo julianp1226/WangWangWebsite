@@ -1,8 +1,8 @@
 <head>
         <link rel="stylesheet" href="/public/css/product-styles.css"/>
 </head>
-<main>
-    <div class="product">
+<main id="main">
+    <div id="product" class="product">
         <span class="prod">
         <br>
         <span class="imgCol">
@@ -14,7 +14,7 @@
             </span>
             <span class="revBox">
                 <h1>Reviews</h1>
-                <a class="link" href="/">GIVE A REVIEW →</a> <!--TODO REVIEW STUFF-->
+                <a class="link" id="giveReview" href="/no-javascript.html">GIVE A REVIEW →</a> <!--TODO REVIEW STUFF-->
             </span>
         </span>
         <span class="infoCol">
@@ -95,7 +95,9 @@
             </div>
             {{/each}}
         </span>
-    
+        
+
+
     </div>
     <script src="../public/js/products.js"></script>
     

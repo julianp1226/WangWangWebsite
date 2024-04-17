@@ -1,8 +1,9 @@
 import { Router } from "express";
 const router = Router();
 import { ObjectId } from "mongodb";
-import {createProduct,getAllProducts,getProductById} from '../data/products.js'
-
+import {addReview, createProduct,getAllProducts,getProductById} from '../data/products.js'
+import xss from 'xss';
+import { validStr, validNumber, validId } from "../validation.js";
 router.route('/').get(async (req, res) => {
     let auth = false;
     let allProducts;
@@ -78,7 +79,48 @@ return res.render("mallFull", {
     //id: req.session.user.id
     });
 });
-
+router.route('/review/:id').post(async (req, res) => {
+    let stars = xss(req.body.rating);
+    let text = xss(req.body.reviewText);
+    let user = req.session.user
+    let productId = req.params.id
+    if(!user){
+        return res.redirect("/"+productId)
+    }
+    if (!stars){
+        throw new Error("No stars amount provided")
+    }
+    try {
+        stars = validNumber(stars,"Stars")
+        user = validId(user.id, "Product Id")
+        productId = validId(productId,"Product Id")
+    } catch (error) {
+        throw new Error(error)
+    }
+    if (stars < 1 || stars > 5){
+        throw new Error("Invalid star amount provided")
+    }
+    if (text){
+        try{
+            text = validStr(text,"Review Text")
+        }catch (error){
+            throw new Error(error)
+        }
+    } else {
+        text = ""
+    }
+    let review = {
+        stars: stars,
+        text: text,
+        userId: user
+    }
+    try {
+        await addReview(productId,review)
+    } catch (error) {
+        throw new Error(error)
+    }
+    return res.redirect("/"+productId)
+  });
 router.route('/viewall/:type').get(async (req, res) => {
     let auth = false;
     let allProducts;
