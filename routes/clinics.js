@@ -195,7 +195,8 @@ router.route("/:id").get(async (req, res)=> {
         while(sameDate && beforeClosing){ //Loop goes until we've hit closing time or we roll over until midnight.
             let myDate = new Date()
             myDate.setHours(openingHour)
-            myDate.setMinutes(openingMinute + timeIndex*(clinic.slotTime))
+            myDate.setMinutes(openingMinute + timeIndex*(clinic.slotBreak))
+            //myDate.setMinutes(openingMinute + timeIndex*(clinic.slotTime))
             let hours = myDate.getHours()
             let minutes = myDate.getMinutes()
             times[timeIndex] = {hours: hours, minutes: minutes}
