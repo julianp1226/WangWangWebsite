@@ -37,4 +37,37 @@
         <br></br>
         <span>{{clinic.avgRating}}</span>
         <span>Overall Rating ({{clinc.ratingCount}} Reviews)</span>
+
+            <div id="create-post" class="create-post-modal">
+      <div class="create-post-modal-content">
+
+        <form id="postform" action="/feed" method="POST" onsubmit="return submitForm()" enctype="multipart/form-data">
+        <div class="w3-container">
+          <svg id="exit" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="document.getElementById('create-post').style.display='none'; document.getElementById('postform').reset(); hideFileUpload(); removeAll();" style="cursor: pointer;">
+          <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
+          <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/>
+          </svg>
+          <h1 id="create-post-heading">Book Your Appointment with {{clinic.name}}</h1>
+          <div id="create-post-body"><p style="margin-bottom: 10px;">Choose Media</p>
+          <button class="create-post-media-select" type="button" style="cursor: pointer;" onclick="showFileUpload()">Photo</button>
+          <button class="create-post-media-select" type="button" style="cursor: pointer;" onclick="showFileUpload()">Video</button>
+          <input type="file" id="postMedia" name="file" style="display: none; margin-top: 2%;">
+          <p style="margin-bottom: 10px;">Tags</p>
+          <ul id='list' style="padding-left: inherit;"></ul>
+          <div class="create-post-tags">
+          <input id="tags-input" type='text'/>
+          <div>
+          <svg id='add' style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"/></svg>
+          </div>
+          </div>
+          <br>
+          <input type="hidden" id="listValuesInput" name="tags">
+          <div class="error-div" id="error-div"></div>
+          <button id="post-button" type="submit" style="cursor:pointer">BOOK APPOINTMENT</button>
+          </div>
+        </div>
+        </form>
+
+      </div>
+    </div>
 </main>

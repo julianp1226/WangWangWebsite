@@ -12,7 +12,8 @@ import {
     updateClinicSpecialisation
 } from "../data/clinicSpecialisations.js";
 import {
-    validId
+    validId,
+    validTime
   } from "../validation.js";
 
 /*const clinic = await createClinic(
@@ -151,19 +152,68 @@ router.route("/:id").get(async (req, res)=> {
             auth = true;
         }
 
+        let openingTime = clinic.openingTime;
+        if(openingTime === ""){
+            openingTime = "12:00 AM"
+        }
+
+        let closingTime = clinic.closingTime;
+        if(closingTime === ""){
+            closingTime = "11:59 PM"
+        }
+
+        let openingHour = parseInt(openingTime.substring(0, openingTime.indexOf(":")));
+        if(openingHour === 12 && openingTime.substring(openingTime.length-2)==="AM"){
+            openingHour = 0
+        }
+        else if(openingHour !== 12 && openingTime.substring(openingTime.length-2)==="PM"){
+            openingHour +=12
+        }
+        let openingMinute = parseInt(openingTime.substring(openingTime.indexOf(":")+1, openingTime.indexOf(":")+3));
+        let closingHour = parseInt(closingTime.substring(0, closingTime.indexOf(":")));
+        if(closingHour === 12 && closingTime.substring(closingTime.length-2)==="AM"){
+            closingHour = 0
+        }
+        else if(closingHour !== 12 && closingTime.substring(closingTime.length-2)==="PM"){
+            closingHour +=12
+        }
+        let closingMinute = parseInt(closingTime.substring(closingTime.indexOf(":")+1, closingTime.indexOf(":")+3));
+
+
+        let times = []
+        let timeIndex = 0
+        let currentDate = (new Date()).getDate()
+        let sameDate = true;
+
+        while(sameDate){
+            let myDate = new Date()
+            myDate.setHours(openingHour)
+            myDate.setMinutes(openingMinute + timeIndex*(clinic.slotTime+clinic.slotBreak))
+            times[timeIndex] = (myDate.getHours()).toString() + ":" + (myDate.getMinutes()).toString()
+            sameDate = (currentDate == myDate.getDate())
+            timeIndex++
+        }
+        console.log(times)
+
+
         let dates = []
         let date = new Date()
         const weekday = ["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
         const month = ["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];
 
+        let currentDay = date.getDate()
 
         for(let i = 0; i<14; i++){
             dates[i] = {
                 day: date.getDate(),
                 month: month[date.getMonth()],
-                dayOfWeek: weekday[date.getDay()]}
+                dayOfWeek: weekday[date.getDay()],
+                year: date.getFullYear()}
+            
             date.setUTCDate(date.getUTCDate() + 1)
         }
+
+
 
         return res.render("clinic", {
             clinic: clinic,
