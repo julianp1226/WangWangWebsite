@@ -181,19 +181,28 @@ router.route("/:id").get(async (req, res)=> {
 
 
         let times = []
+        let displayTimes = []
         let timeIndex = 0
         let currentDate = (new Date()).getDate()
         let sameDate = true;
+        let beforeClosing = true;
+        let closingDate = (new Date())
+        closingDate.setHours(closingHour)
+        closingDate.setMinutes(closingMinute)
 
-        while(sameDate){
+        while(sameDate && beforeClosing){
             let myDate = new Date()
             myDate.setHours(openingHour)
-            myDate.setMinutes(openingMinute + timeIndex*(clinic.slotTime+clinic.slotBreak))
-            times[timeIndex] = (myDate.getHours()).toString() + ":" + (myDate.getMinutes()).toString()
+            myDate.setMinutes(openingMinute + timeIndex*(clinic.slotTime))
+            let hours = myDate.getHours()
+            let minutes = myDate.getMinutes()
+            times[timeIndex] = {hours: hours, minutes: minutes}
+            displayTimes[timeIndex] = hours.toString() + ":" + minutes.toString()
             sameDate = (currentDate == myDate.getDate())
+            beforeClosing = (myDate.setMinutes(myDate.getMinutes() + clinic.slotTime)<closingDate)
             timeIndex++
         }
-        console.log(times)
+        console.log(displayTimes)
 
 
         let dates = []
