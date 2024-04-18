@@ -152,6 +152,7 @@ router.route("/:id").get(async (req, res)=> {
             auth = true;
         }
 
+        //Given schema says openingTime & closingTime can be "", but we can't work with that directly
         let openingTime = clinic.openingTime;
         if(openingTime === ""){
             openingTime = "12:00 AM"
@@ -162,6 +163,7 @@ router.route("/:id").get(async (req, res)=> {
             closingTime = "11:59 PM"
         }
 
+        //Extract hours & minutes from time string as military time
         let openingHour = parseInt(openingTime.substring(0, openingTime.indexOf(":")));
         if(openingHour === 12 && openingTime.substring(openingTime.length-2)==="AM"){
             openingHour = 0
@@ -180,8 +182,8 @@ router.route("/:id").get(async (req, res)=> {
         let closingMinute = parseInt(closingTime.substring(closingTime.indexOf(":")+1, closingTime.indexOf(":")+3));
 
 
-        let times = []
-        let displayTimes = []
+        let times = [] //Stores times as object of hours & minutes as military time (closer to how Date stores it by default & makes some calculations easier)
+        let displayTimes = [] //To store time as "normal" & be used on buttons (TODO: Fix this, currently just stores military time)
         let timeIndex = 0
         let currentDate = (new Date()).getDate()
         let sameDate = true;
@@ -190,14 +192,22 @@ router.route("/:id").get(async (req, res)=> {
         closingDate.setHours(closingHour)
         closingDate.setMinutes(closingMinute)
 
-        while(sameDate && beforeClosing){
+        while(sameDate && beforeClosing){ //Loop goes until we've hit closing time or we roll over until midnight.
             let myDate = new Date()
             myDate.setHours(openingHour)
             myDate.setMinutes(openingMinute + timeIndex*(clinic.slotTime))
             let hours = myDate.getHours()
             let minutes = myDate.getMinutes()
             times[timeIndex] = {hours: hours, minutes: minutes}
-            displayTimes[timeIndex] = hours.toString() + ":" + minutes.toString()
+            let leadingTime = ""
+            if(hours<10){
+                leadingTime = "0"
+            }
+            let middleDisplayTime = ":"
+            if(minutes<10){
+                middleDisplayTime =  middleDisplayTime + "0";
+            }
+            displayTimes[timeIndex] = leadingTime + hours.toString() + middleDisplayTime + minutes.toString()
             sameDate = (currentDate == myDate.getDate())
             beforeClosing = (myDate.setMinutes(myDate.getMinutes() + clinic.slotTime)<closingDate)
             timeIndex++
