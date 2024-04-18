@@ -50,12 +50,7 @@ if (postForm) {
       errorDiv.appendChild(message);
     }
 
-    if (!isValidImage(file.value)) {
-      event.preventDefault();
-      let message = document.createElement("p");
-      message.innerHTML = "Invalid file upload";
-      errorDiv.appendChild(message);
-    } else if (!validVideoUrl(file.value)) {
+    if (isValidImage(file.value) === false && validVideoUrl(file.value) === false) {
       event.preventDefault();
       let message = document.createElement("p");
       message.innerHTML = "Invalid file upload";
