@@ -27,33 +27,58 @@ function reset(event) {
 }
 function closeBox(event){
     event.preventDefault();
-    blockBox = document.getElementById("coverBox")
+    let blockBox = document.getElementById("coverBox")
     blockBox.remove();
-    infoBox = document.getElementById("infoBox");
+    let infoBox = document.getElementById("infoBox");
     infoBox.remove();
+}
+function submitReview(event){
+    event.preventDefault();
+    let errMessage = document.getElementById("err");
+    let starval = document.querySelector('input[name="rating"]:checked')
+    let reviewText = document.getElementById("reviewText").value
+    let url = window.location.href
+    let id = product.getAttribute("prodid")
+    if (!starval){
+        errMessage.innerText = "Error: Please Provide A Rating"
+    }else{
+        errMessage.innerText = ""
+        //Review should be fine, now submit!
+        let submitForm = document.createElement("form")
+        submitForm.innerHTML = "<input type=\"hidden\" name=\"rating\" value=\""+starval.value.toString()+"\">" +
+        "<input type=\"hidden\" name=\"reviewText\" value=\"" + reviewText + "\">"
+        submitForm.setAttribute("action", "/shop/review/"+id)
+        submitForm.setAttribute("method","POST")
+        main.appendChild(submitForm)
+        submitForm.submit()
+    }
+    
 }
 function newReview(event) {
     event.preventDefault();
-    blockBox = document.createElement("span")
+    let blockBox = document.createElement("span")
     blockBox.setAttribute("class","coverBox");
     blockBox.setAttribute("id","coverBox");
     main.appendChild(blockBox)
 
-    infoBox = document.createElement("div");
+    let infoBox = document.createElement("div");
     infoBox.setAttribute("class","infoBox");
     infoBox.setAttribute("id","infoBox");
     main.appendChild(infoBox)
 
-    xOut = document.createElement("a")
+    let xOut = document.createElement("a")
     xOut.setAttribute("href","/")
     xOut.setAttribute("class","xOut")
     xOut.innerHTML = "X"
     xOut.addEventListener("click",closeBox)
     infoBox.appendChild(xOut)
 
-    title =  document.createElement("h1")
+    let title =  document.createElement("h1")
     title.innerHTML = "Leave A Review!"
     infoBox.appendChild(title)
+    let errmessage = document.createElement("h3")
+    errmessage.setAttribute("id","err")
+    infoBox.appendChild(errmessage)
     reviewForm = document.createElement("form")
     reviewForm.innerHTML = `<p id="ratingTex">Stars:</p>
     <div class="star-rating">
@@ -73,9 +98,8 @@ function newReview(event) {
     <button id="ratingbutton">Submit</button>`
     reviewForm.setAttribute("id","reviewForm")
     infoBox.appendChild(reviewForm)
-    revSub = document.getElementById("reviewForm")
-    console.log(revSub)
-    revSub.addEventListener("submit",closeBox)
+    let revSub = document.getElementById("reviewForm")
+    revSub.addEventListener("submit",submitReview)
 }
 plusButton.addEventListener("click",up)
 minusButton.addEventListener("click",down)

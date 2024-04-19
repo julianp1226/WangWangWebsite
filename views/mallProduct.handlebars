@@ -2,7 +2,7 @@
         <link rel="stylesheet" href="/public/css/product-styles.css"/>
 </head>
 <main id="main">
-    <div id="product" class="product">
+    <div id="product" class="product" prodid={{product._id}}>
         <span class="prod">
         <br>
         <span class="imgCol">
@@ -21,7 +21,7 @@
             <h2>{{product.name}}</h2>
             <span class="ratingInfo">
                 <img class="star" src="/public/media/Star.png">
-                <p class="rating">5</p>
+                <p class="rating" reviews={{product.revstr}}>-</p>
             </span>
             <p class="price">${{product.actualPrice}}</p>
             <form>
@@ -43,30 +43,29 @@
         
     </span>
         <span class="reviews">
+            {{#if product.reviews.[0]}}
+            
             <span class="review1">
-                <h2>Andrew</h2>
+                <h2>{{product.reviews.[0].user}}</h2>
                 <span class="revbar">
                     <img src="/public/media/Star.png">
-                    <h3>5</h3>
-                    <h3 class="postDate">Dec 20</h3>
+                    <h3>{{product.reviews.[0].stars}}</h3>
+                    <h3 class="postDate">{{product.reviews.[0].time}}</h3>
                 </span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget dignissim risus, 
-                    a pulvinar quam. Quisque quis nisl nisl. Proin finibus metus imperdiet arcu lobortis vulputate. 
-                    Suspendisse pulvinar, nulla id feugiat aliquet, lorem nunc efficitur enim, 
-                    a consectetur quam nisi id metus. </p>
+                <p>{{product.reviews.[0].text}}</p>
             </span>
+            {{/if}}
+            {{#if product.reviews.[1]}}
             <span class="review2">
-                <h2>John</h2>
+                <h2>{{product.reviews.[1].user}}</h2>
                 <span class="revbar">
                     <img src="/public/media/Star.png">
-                    <h3>5</h3>
-                    <h3 class="postDate">Nov 20</h3>
+                    <h3>{{product.reviews.[1].stars}}</h3>
+                    <h3 class="postDate">{{product.reviews.[1].time}}</h3>
                 </span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget dignissim risus, 
-                    a pulvinar quam. Quisque quis nisl nisl. Proin finibus metus imperdiet arcu lobortis vulputate. 
-                    Suspendisse pulvinar, nulla id feugiat aliquet, lorem nunc efficitur enim, 
-                    a consectetur quam nisi id metus. </p>
+                <p>{{product.reviews.[1].text}}</p>
             </span>
+            {{/if}}
         </span>
         <span class="readMore">
             <button id="RM">Read More</button>
@@ -84,7 +83,7 @@
                     <p class="prodTitle">{{this.name}}</p>
                     <span class="simRatingInfo">
                         <img class="simStar" src="/public/media/Star.png">
-                        <p class="simRating">5</p>
+                        <p class="simRating" reviews={{this.reviews}}>5</p>
                     </span>
                 </span>
                 <span class="info">
@@ -99,6 +98,7 @@
 
 
     </div>
+    <script src="../public/js/productReviews.js"></script>
     <script src="../public/js/products.js"></script>
     
 </main>

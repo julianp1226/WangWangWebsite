@@ -28,7 +28,6 @@ const images2 = new Array(5).fill("/public/images/GSGImage.png")
 const prod2 = await createProduct("Glossier Super Glow", "Lorem Ipsum", "/public/images/GSGImage.png", images2, 20, 100.00, 80.00, "5", "1234", "1234", "active");
 const images3 = new Array(5).fill("/public/images/TOImage.png")
 const prod3 = await createProduct("The Ordinary", "Lorem Ipsum", "/public/images/TOImage.png", images3, 20, 150.25, 100.00, "5", "1234", "1234", "active");
-
 // CLINICS
 const clinic = await createClinic(
   "sampleAccessToken",
@@ -66,7 +65,6 @@ const clinic = await createClinic(
   false, // isApplyCancelled
   "sampleStripeAccountId" // stripeConnAccId
 );
-
 const clinic2 = await createClinic(
   "sampleAccessToken",
   "example2@example.com",
@@ -103,7 +101,6 @@ const clinic2 = await createClinic(
   false, // isApplyCancelled
   "sampleStripeAccountId" // stripeConnAccId
 );
-
 const clinic3 = await createClinic(
   "sampleAccessToken",
   "example3@example.com",

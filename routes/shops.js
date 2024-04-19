@@ -16,6 +16,12 @@ router.route('/').get(async (req, res) => {
     if (req.session.user) {
         auth = true;
     }
+    allProducts.forEach(product => {
+        product.reviews.forEach(review =>{
+            review.text = ""
+        })
+        product.reviews = JSON.stringify(product.reviews)
+    });
     return res.render("mall", {
         title: "Shop",
         auth: auth,
@@ -30,13 +36,31 @@ let product;
 let allProducts
 try {
     product = await getProductById(req.params.id)
-    product['rating'] = 5
+    product.reviews.forEach(review => {
+        review.time = review.time.toDateString()
+    })
+    product.reviews = product.reviews.reverse()
+    product.revstr = product.reviews.map(review =>{
+        return {stars:review.stars}
+    })
+    console.log(product.revstr)
+    product.revstr = JSON.stringify(product.revstr)
     allProducts = await getAllProducts()
-    allProducts.map((x)=>x["rating"] = 5)
+    allProducts.forEach(product => {
+        product.reviews.forEach(review =>{
+            if(review.text){
+                review.text = "" 
+            }
+            review.time = ""
+            review.user = "" 
+        })
+        product.reviews = JSON.stringify(product.reviews)
+    });
     //Increase product list size for now (for proof of concept)
     allProducts = allProducts.concat(allProducts)
     allProducts = allProducts.concat(allProducts)
     allProducts = allProducts.concat(allProducts)
+    console.log(product)
 } catch (e) {
     return res.status(500).render("error", { error: e, status: 500 });
 }
@@ -58,9 +82,7 @@ let product;
 let allProducts
 try {
     product = await getProductById(req.params.id)
-    product['rating'] = 5
     allProducts = await getAllProducts()
-    allProducts.map((x)=>x["rating"] = 5)
     //Increase product list size for now (for proof of concept)
     allProducts = allProducts.concat(allProducts)
     allProducts = allProducts.concat(allProducts)
@@ -84,6 +106,7 @@ router.route('/review/:id').post(async (req, res) => {
     let text = xss(req.body.reviewText);
     let user = req.session.user
     let productId = req.params.id
+    let starnum;
     if(!user){
         return res.redirect("/"+productId)
     }
@@ -91,13 +114,14 @@ router.route('/review/:id').post(async (req, res) => {
         throw new Error("No stars amount provided")
     }
     try {
-        stars = validNumber(stars,"Stars")
+        starnum = parseInt(stars)
+        starnum = validNumber(starnum,"Stars")
         user = validId(user.id, "Product Id")
         productId = validId(productId,"Product Id")
     } catch (error) {
         throw new Error(error)
     }
-    if (stars < 1 || stars > 5){
+    if (starnum < 1 || starnum > 5){
         throw new Error("Invalid star amount provided")
     }
     if (text){
@@ -109,16 +133,13 @@ router.route('/review/:id').post(async (req, res) => {
     } else {
         text = ""
     }
-    let review = {
-        stars: stars,
-        text: text,
-        userId: user
-    }
+
     try {
-        await addReview(productId,review)
+        await addReview(productId,starnum,text,user)
     } catch (error) {
         throw new Error(error)
     }
+    
     return res.redirect("/"+productId)
   });
 router.route('/viewall/:type').get(async (req, res) => {
@@ -130,7 +151,6 @@ router.route('/viewall/:type').get(async (req, res) => {
             //To be used to retrieve different products (i.e best selling list, recommended list, etc), for now retrieve all products
             case "best":
                 allProducts = await getAllProducts()
-                allProducts.map((x)=>x["rating"] = 5)
                 //Increase product list size for now (for proof of concept)
                 allProducts = allProducts.concat(allProducts)
                 allProducts = allProducts.concat(allProducts)
@@ -139,7 +159,6 @@ router.route('/viewall/:type').get(async (req, res) => {
                 break;
             case "recommended":
                 allProducts = await getAllProducts()
-                allProducts.map((x)=>x["rating"] = 5)
                 //Increase product list size for now (for proof of concept)
                 allProducts = allProducts.concat(allProducts)
                 allProducts = allProducts.concat(allProducts)
@@ -148,7 +167,6 @@ router.route('/viewall/:type').get(async (req, res) => {
                 break;
             case "trending":
                 allProducts = await getAllProducts()
-                allProducts.map((x)=>x["rating"] = 5)
                 //Increase product list size for now (for proof of concept)
                 allProducts = allProducts.concat(allProducts)
                 allProducts = allProducts.concat(allProducts)
@@ -157,7 +175,6 @@ router.route('/viewall/:type').get(async (req, res) => {
                 break;
             case "recent":
                 allProducts = await getAllProducts()
-                allProducts.map((x)=>x["rating"] = 5)
                 //Increase product list size for now (for proof of concept)
                 allProducts = allProducts.concat(allProducts)
                 allProducts = allProducts.concat(allProducts)

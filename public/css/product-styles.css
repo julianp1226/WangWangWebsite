@@ -308,6 +308,14 @@ form{
     border-radius: 10px;
     align-self: center;
 }
+#err {
+    color: #FF3EA5;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+}
 
 
   

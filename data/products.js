@@ -133,24 +133,29 @@ const deleteProductById = async (id) => {
   if(!removalInfo) throw "Could not delete product from DB"
   return "Product deleted!"
 }
-const addReview = async (productId,review) => {
+const addReview = async (productId, stars, text, userId) => {
   let user;
   let product;
-  if(!productId || !review || !review.stars || !review.text || !review.userId){
+  if(!productId || !stars || !userId){
     throw "Error: Necessary inputs not provided"
   }
+  
   try {
-    validId(productId,"Product ID");
-    validNumber(review.stars, "Star Rating");
-    validStr(review.text, "Review Text");
-    validId(review.userId,"User ID")
-    user = await getUserById(review.userId);
+    productId = validId(productId,"Product ID");
+    stars = validNumber(stars, "Star Rating");
+    if(text){
+      text = validStr(text, "Review Text");
+    }else{
+      text = ""
+    }
+    userId = validId(userId,"User ID")
+    user = await getUserById(userId);
     product = await getProductById(productId);
     product.reviews.push(
       {
         user: user.firstName,
-        stars: review.stars,
-        text: review.text,
+        stars: stars,
+        text: text,
         time: new Date()
       }
     )
