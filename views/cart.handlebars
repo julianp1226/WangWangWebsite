@@ -15,7 +15,7 @@
                     <img class="cartIMG" src={{this.product.image}}>
                     <span class="cartProdInfo">
                         <a href="/shop/{{this.product._id}}" ><h2 class="prodTitle">{{this.product.name}}</h2></a>
-                        <p class="cartPrice" cost={{this.product.actualPrice}}>${{this.product.actualPrice}}</p>
+                        <p class="cartPrice" cost={{this.product.actualPrice}} amt={{this.quantity}}>${{this.product.actualPrice}}</p>
                         <span class="extraInfo">
                             <p class="quantity">Quantity: {{this.quantity}}</p>
                             <a class="quantity" href="/cart/delete/{{this.pos}}">Delete</a>
@@ -25,6 +25,7 @@
                 {{/each}}
             </span>
             <hr width="75%">
+            <h2 id="total">Total: -</h2>
         {{/if}}
         
     </div>
@@ -82,4 +83,5 @@
         </span>
     </div>
     <script src="/public/js/productReviews.js"></script>
+    <script src="/public/js/cart.js"></script>
 </main>
