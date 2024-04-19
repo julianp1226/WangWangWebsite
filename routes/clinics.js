@@ -238,7 +238,8 @@ router.route("/:id").get(async (req, res)=> {
         return res.render("clinic", {
             clinic: clinic,
             auth: auth,
-            dates: dates
+            dates: dates,
+            times: displayTimes
         });
     }catch(e){
         return res

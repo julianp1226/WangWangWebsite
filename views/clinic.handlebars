@@ -21,6 +21,10 @@
             {{#each dates}}
             <button>{{this.dayOfWeek}} {{this.day}} {{this.month}}</button>
             {{/each}}
+            <br></br>
+            {{#each times}}
+            <button>{{this}}</button>
+            {{/each}}
         </div>
         <br></br>
         <p>Clinic Location</p>
@@ -33,6 +37,9 @@
         </div>
         <br></br>
         <span>Patient Reviews</span>
+        <div>
+            Placeholder
+        </div>
         <span>GIVE A REVIEW -></span>
         <br></br>
         <span>{{clinic.avgRating}}</span>
