@@ -96,7 +96,8 @@ const createUser = async (
     creationDate: new Date(),
     insertDate: Math.round(new Date() / 1000),
     lastUpdatedAt: Math.round(new Date() / 1000),
-    password: bcrypt.hashSync(password, 10)
+    password: bcrypt.hashSync(password, 10),
+    cart: []
   };
   const usersCollection = await users();
   //check email doesn't exist (only run if email is provided)

@@ -268,7 +268,6 @@ form{
     margin-bottom: 0;
     font-size: 24px;
 }
-  
 .star-rating label {
     float: right;
     padding: 0 2px;
@@ -279,7 +278,7 @@ form{
     content: '\2605';
     font-size: 40px;
 }
-  
+
 .star-rating input:checked ~ label:before {
     color: #FF3EA5;
 }
@@ -317,5 +316,3 @@ form{
     justify-content: center;
 }
 
-
-  

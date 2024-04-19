@@ -4,29 +4,29 @@
 <main>
     <div class="section">
         <h1 class="Shop">Your Cart</h1>
-        <a href="/shop/viewall/recommended" class="viewLink"><p>View All →</p></a>
         <br>
-        <span class="prod">
-            {{#each products}}
-            <div class="product">
-                <a href="/shop/{{this._id}}" >
-                <img class="productIMG" src={{this.image}}>
-                <span class="info">
-                    <p class="prodTitle">{{this.name}}</p>
-                    <span class="ratingInfo">
-                        <img class="star" src="/public/media/Star.png">
-                        <p class="rating">5</p>
-                        
+        {{#if isEmpty}}
+            <p class="emptyText">Your cart is empty! :(</p>
+        {{else}}
+            <span class="cart">
+                {{#each cart}}
+                <div class="cartProd">
+                    
+                    <img class="cartIMG" src={{this.product.image}}>
+                    <span class="cartProdInfo">
+                        <a href="/shop/{{this.product._id}}" ><h2 class="prodTitle">{{this.product.name}}</h2></a>
+                        <p class="cartPrice" cost={{this.product.actualPrice}}>${{this.product.actualPrice}}</p>
+                        <span class="extraInfo">
+                            <p class="quantity">Quantity: {{this.quantity}}</p>
+                            <a class="quantity" href="/cart/delete/{{this.pos}}">Delete</a>
+                        </span>
                     </span>
-                </span>
-                <span class="info">
-                    <p class="price">${{this.actualPrice}}</p>
-                    <img class="bag" src="/public/media/Bag.png">
-                </span>
-                </a>
-            </div>
-            {{/each}}
-        </span>
+                </div>
+                {{/each}}
+            </span>
+            <hr width="75%">
+        {{/if}}
+        
     </div>
     <div class="section">
         <h1>Similar Products</h1>
@@ -42,7 +42,7 @@
                     <p class="prodTitle">{{this.name}}</p>
                     <span class="ratingInfo">
                         <img class="star" src="/public/media/Star.png">
-                        <p class="rating">5</p>
+                        <p class="rating" reviews={{this.reviews}}>5</p>
                         
                     </span>
                 </span>
@@ -68,7 +68,7 @@
                     <p class="prodTitle">{{this.name}}</p>
                     <span class="ratingInfo">
                         <img class="star" src="/public/media/Star.png">
-                        <p class="rating">5</p>
+                        <p class="rating" reviews={{this.reviews}}>5</p>
                         
                     </span>
                 </span>
@@ -81,4 +81,5 @@
             {{/each}}
         </span>
     </div>
+    <script src="/public/js/productReviews.js"></script>
 </main>

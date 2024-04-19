@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 import { ObjectId } from "mongodb";
-import {addReview, createProduct,getAllProducts,getProductById} from '../data/products.js'
+import {addReview, createProduct,getAllProducts,getProductById, addToCart} from '../data/products.js'
 import xss from 'xss';
 import { validStr, validNumber, validId } from "../validation.js";
 router.route('/').get(async (req, res) => {
@@ -9,7 +9,6 @@ router.route('/').get(async (req, res) => {
     let allProducts;
     try {
         allProducts = await getAllProducts()
-        allProducts.map((x)=>x["rating"] = 5)
     } catch (e) {
         return res.status(500).render("error", { error: e, status: 500 });
     }
@@ -72,6 +71,25 @@ return res.render("mallProduct", {
     products: allProducts.slice(0,6)
     //id: req.session.user.id
     });
+}).post(async (req, res) => {
+    try {
+        let product = await getProductById(req.params.id)
+        let quantity = xss(req.body.num);
+        let user = req.session.user
+        if(!quantity){
+            throw "Invalid information given"
+        }
+        if(!user){
+            return res.redirect("/login");
+        }
+        quantity = validNumber(parseInt(quantity), "Quantity")
+        await addToCart(user.id,req.params.id,quantity)
+        
+
+    } catch (e) {
+        return res.status(500).render("error", { error: e, status: 500 });
+    }
+    res.redirect("/cart")
 });
 
 router.route('/viewall/similarto/:id').get(async (req, res) => {

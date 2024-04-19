@@ -79,3 +79,36 @@ main h1 {
 .full-rating {
     float: right;
 }
+.cartProd {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.cartProdInfo {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left:50%;
+}
+.quantity {
+    color: #1E1E1E;
+    float: left;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.cartIMG {
+    border-radius: 2%;
+}
+.cartPrice {
+    color: #1E1E1E;
+    opacity: 50%;
+    float: left;
+}
+.extraInfo {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.emptyText {
+    text-align: center;
+}
