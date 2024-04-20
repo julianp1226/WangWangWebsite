@@ -54,6 +54,8 @@ function submitReview(event){
     }
     
 }
+function CreateList() {
+}
 function newReview(event) {
     event.preventDefault();
     let blockBox = document.createElement("span")
