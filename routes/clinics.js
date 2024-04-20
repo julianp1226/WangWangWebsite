@@ -201,6 +201,14 @@ router.route("/:id").get(async (req, res)=> {
             let minutes = myDate.getMinutes()
             times[timeIndex] = {hours: hours, minutes: minutes}
             let leadingTime = ""
+            let timeSuffix = " A.M."
+            if(hours==0){
+                hours = 12
+            }
+            else if(hours>12){
+                hours -= 12;
+                timeSuffix = " P.M."
+            }
             if(hours<10){
                 leadingTime = "0"
             }
@@ -208,12 +216,12 @@ router.route("/:id").get(async (req, res)=> {
             if(minutes<10){
                 middleDisplayTime =  middleDisplayTime + "0";
             }
-            displayTimes[timeIndex] = leadingTime + hours.toString() + middleDisplayTime + minutes.toString()
+            displayTimes[timeIndex] = leadingTime + hours.toString() + middleDisplayTime + minutes.toString() + timeSuffix
             sameDate = (currentDate == myDate.getDate())
             beforeClosing = (myDate.setMinutes(myDate.getMinutes() + clinic.slotTime)<closingDate)
             timeIndex++
         }
-        console.log(displayTimes)
+        //console.log(displayTimes)
 
 
         let dates = []
@@ -228,6 +236,7 @@ router.route("/:id").get(async (req, res)=> {
                 day: date.getDate(),
                 month: month[date.getMonth()],
                 dayOfWeek: weekday[date.getDay()],
+                dayOfWeekNum: date.getDay(),
                 year: date.getFullYear()}
             
             date.setUTCDate(date.getUTCDate() + 1)
