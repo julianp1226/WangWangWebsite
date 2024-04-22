@@ -15,6 +15,7 @@ import {
     validId,
     validTime
   } from "../validation.js";
+import xss from 'xss';
 
 /*const clinic = await createClinic(
   "sampleAccessToken",
@@ -258,6 +259,16 @@ router.route("/:id").get(async (req, res)=> {
 });
 
 //test for now, not sure how exactly to make the submit event actually work
-router.route("/:id").get(async (req, res)=> {console.log(1)});
+router.route("/:id").post(async (req, res)=> {
+    //console.log(req.body)
+    try{
+        let time = xss(req.body.date)
+        let date = xss(req.body.date)
+    } catch(e) {
+        return res
+        .status(400)
+        .render("error", { error: "Unable to book appointment" + e, status: 400});
+    }
+});
 
 export default router;

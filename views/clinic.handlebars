@@ -63,12 +63,13 @@
           {{#each times}}
             <button onclick="setTime('{{this}}')">{{this}}</button>
           {{/each}}
-          <form id="postform" action="/clinic/{{clinic._id}}" method="POST" onsubmit="return submitForm()" enctype="multipart/form-data">
-                    <button id="post-button" type="submit" style="cursor:pointer">BOOK APPOINTMENT</button>
+          <form id="postform" action="/clinic/{{clinic._id}}" method="POST">
+            <input id="date" name="date" style="display:none;">
+            <input id="time" name="time" style="display:none;">
+            <button id="post-button" type="submit" style="cursor:pointer">BOOK APPOINTMENT</button>
           </form>
           </div>
           <br>
-          <p id="time"></p>
           <div class="error-div" id="error-div"></div>
           </div>
         </div>
