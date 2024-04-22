@@ -255,6 +255,9 @@ router.route("/:id").get(async (req, res)=> {
         .status(404)
         .render("error", { error: "Clinic Not Found" + e, status: 404});
     }
-})
+});
+
+//test for now, not sure how exactly to make the submit event actually work
+router.route("/:id").get(async (req, res)=> {console.log(1)});
 
 export default router;

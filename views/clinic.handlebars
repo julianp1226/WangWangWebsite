@@ -34,7 +34,15 @@
         </div>
         <br></br>
         <span>Patient Reviews</span>
-        
+        <div class="reviews">
+          {{#each clinic.reviews}}
+          <p>{{this.userID}}</p>
+          <br></br>
+          <p>{{this.starRating}}</p>
+          <br></br>
+          <p>{{this.reviewText}}</p>
+          {{/each}}
+        </div>
         <span>GIVE A REVIEW -></span>
         <br></br>
         <span>{{clinic.avgRating}}</span>

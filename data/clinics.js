@@ -188,8 +188,7 @@ const createClinic = async (
   isApplyCancelled: isApplyCancelled,
   stripeConnAccId: stripeConnAccId,
   insertDate: insertDate,
-  reviews: [],
-  appointments: []
+  reviews: []
 };
 
   const clinicsCollection = await clinics();
