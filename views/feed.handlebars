@@ -1,0 +1,136 @@
+<main class="feed">
+    <head>
+        <link rel="stylesheet" href="/public/css/feed.css"/>
+    </head>
+    <div class="page">
+    <div class="searchbar">
+      <div class="search-with-icon">
+        <form id="searchPosts" action="/feed/search" method="POST">
+        <input class="search" id="search" name="search" type="search" placeholder="Search">
+        <button type="submit" style="display: contents; cursor:pointer;">
+        <svg class="magnifyglass"width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6537 21.1936C6.58584 21.1936 2.47754 17.0853 2.47754 12.0174C2.47754 6.9496 6.58584 2.84131 11.6537 2.84131C16.7215 2.84131 20.8298 6.9496 20.8298 12.0174C20.8298 17.0853 16.7215 21.1936 11.6537 21.1936Z" stroke="#5C5C5C" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M21.7961 22.1589L19.8643 20.2271" stroke="#5C5C5C" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        </button>
+        </form>
+      </div>
+
+      <div class="searchbuttons">
+        <button class="following" type="button">Following</button>
+        {{#if auth}}
+        <button class="foryou" type="button" style="cursor:pointer;" onclick="location.href = '/feed/foryou';">For You</button>
+        {{else}}
+        <button class="foryou" type="button" style="cursor:pointer;" onclick="location.href = '/login';">For You</button>
+        {{/if}}
+        <svg class="icons2" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.583 19.25H28.4163" stroke="#292D32" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20.167 33.7884L28.3253 39.2151C29.5353 40.0218 31.167 39.1601 31.167 37.6934V33.7884C36.667 33.7884 40.3337 30.1217 40.3337 24.6217V13.6217C40.3337 8.12174 36.667 4.45508 31.167 4.45508H12.8337C7.33366 4.45508 3.66699 8.12174 3.66699 13.6217V24.6217C3.66699 30.1217 7.33366 33.7884 12.8337 33.7884H20.167Z" stroke="#292D32" stroke-width="1.375" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{#if auth}}
+        <svg onclick="document.getElementById('create-post').style.display='block'" style="cursor: pointer;" class="icons2" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.98347 22.5847C7.3583 23.2502 6.7533 24.561 6.6323 25.4685L5.88614 32.0025C5.62397 34.362 7.31797 35.9754 9.6573 35.572L16.151 34.4629C17.0585 34.3015 18.329 33.636 18.9541 32.9504L35.511 15.4255C38.3746 12.4005 39.6653 8.95203 35.2085 4.7372C30.7718 0.562701 27.404 2.03487 24.5403 5.05987L7.98347 22.5847Z" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.7793 7.98389C22.6465 13.5499 27.1638 17.8051 32.7701 18.3697" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{else}}
+        <svg onclick="location.href = '/login';" style="cursor: pointer;" class="icons2" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.98347 22.5847C7.3583 23.2502 6.7533 24.561 6.6323 25.4685L5.88614 32.0025C5.62397 34.362 7.31797 35.9754 9.6573 35.572L16.151 34.4629C17.0585 34.3015 18.329 33.636 18.9541 32.9504L35.511 15.4255C38.3746 12.4005 39.6653 8.95203 35.2085 4.7372C30.7718 0.562701 27.404 2.03487 24.5403 5.05987L7.98347 22.5847Z" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.7793 7.98389C22.6465 13.5499 27.1638 17.8051 32.7701 18.3697" stroke="#292D32" stroke-width="1.5125" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{/if}}
+      </div>
+    </div>
+    <p id="none-found" style="display:none;">{{none}}</p>
+    <div class="grid" id="grid">
+        {{#each posts}}
+            {{#if this.isImage}}
+            <div class="card" id="{{this._id}}" onclick="get_id(this.id)" style="cursor: pointer;">
+              <div class="med">
+              <img alt="{{this.title}}" src={{this.media}} id="image">
+              </div>
+                <div class="container">
+                  <div class="likes"><svg class="icons" width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7166 20.7296C7.07147 19.4795 1.2793 15.0424 1.2793 8.48682C1.2793 5.14702 3.97976 2.43701 7.30048 2.43701C8.91313 2.43701 10.4208 3.0668 11.5373 4.19279C12.6537 3.0668 14.1614 2.43701 15.774 2.43701C19.0947 2.43701 21.7952 5.15656 21.7952 8.48682C21.7952 15.0519 16.003 19.4795 12.3579 20.7296C12.1193 20.8155 11.8331 20.8536 11.5373 20.8536C11.2414 20.8536 10.9552 20.8155 10.7166 20.7296ZM2.71064 8.48682C2.71064 15.0042 8.97992 18.6303 11.1842 19.3841C11.356 19.4414 11.7281 19.4414 11.8999 19.3841C14.0946 18.6303 20.3734 15.0137 20.3734 8.48682C20.3734 5.93903 18.3123 3.86836 15.7836 3.86836C14.3331 3.86836 12.9877 4.54586 12.1193 5.71956C11.8522 6.08217 11.2414 6.08217 10.9743 5.71956C10.0868 4.53632 8.75091 3.86836 7.30048 3.86836C4.77177 3.86836 2.71064 5.93903 2.71064 8.48682Z" fill="#292D32"/>
+                  </svg>
+                  <p id="outsideLikeNumber-{{this._id}}">{{this.likeCount}}</p></div>
+                  <div class="comments"><svg class="icons" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.26059 10.9289C7.86936 10.9289 7.54492 10.6045 7.54492 10.2132C7.54492 9.822 7.86936 9.49756 8.26059 9.49756H14.9402C15.3314 9.49756 15.6559 9.822 15.6559 10.2132C15.6559 10.6045 15.3314 10.9289 14.9402 10.9289H8.26059Z" fill="#292D32"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M14.4911 21.2157L10.426 18.5056H6.82861C3.54607 18.5056 1.3418 16.3014 1.3418 13.0188V7.29346C1.3418 4.01091 3.54607 1.80664 6.82861 1.80664H16.3709C19.6534 1.80664 21.8577 4.01091 21.8577 7.29346V13.0188C21.8577 16.0533 19.9683 18.1717 17.0866 18.4675V19.8225C17.0866 20.4427 16.7526 21.0057 16.2087 21.292C15.9606 21.4256 15.6839 21.4924 15.4167 21.4924C15.0922 21.4924 14.7678 21.397 14.4911 21.2157ZM2.77314 7.2839V13.0093C2.77314 15.4712 4.3667 17.0647 6.82861 17.0647H10.6455C10.7887 17.0647 10.9223 17.1029 11.0463 17.1888L15.2926 20.0133C15.3976 20.0801 15.493 20.0515 15.5407 20.0229C15.5884 19.9943 15.6648 19.937 15.6648 19.8129V17.7804C15.6648 17.3892 15.9892 17.0647 16.3805 17.0647C18.8424 17.0647 20.4359 15.4712 20.4359 13.0093V7.2839C20.4359 4.82199 18.8424 3.22843 16.3805 3.22843H6.82861C4.3667 3.22843 2.77314 4.82199 2.77314 7.2839Z" fill="#292D32"/>
+                  </svg>
+                  {{this.commentCount}}</div>
+                  <div class="send">
+                    <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.60604 16.2538L8.919 14.1926L6.85787 13.5056C3.07912 12.246 2.28711 10.6524 2.28711 9.52645C2.28711 8.41001 3.07912 6.8069 6.85787 5.53778L14.9593 2.83731C16.9822 2.15981 18.6712 2.36019 19.7113 3.39076C20.7514 4.42133 20.9518 6.11986 20.2743 8.14282L17.5739 16.2442C16.3047 20.0421 14.7112 20.8341 13.5852 20.8341C12.4592 20.8341 10.8656 20.0421 9.60604 16.2538ZM3.70891 9.52645C3.70891 10.2135 4.6536 11.2632 7.30635 12.141L9.71101 12.9426C9.92094 13.0094 10.0927 13.1812 10.1595 13.3911L10.9611 15.7957C11.8389 18.4485 12.8981 19.3932 13.5852 19.3932C14.2722 19.3932 15.3219 18.4485 16.2093 15.7957L18.9098 7.69433C19.3964 6.22482 19.3106 5.02249 18.6903 4.40225C18.0701 3.782 16.8677 3.70566 15.4078 4.19231L7.30635 6.90232C4.6536 7.78976 3.70891 8.83941 3.70891 9.52645Z" fill="#292D32"/>
+                      <path d="M9.15676 13.7248C8.88004 13.4481 8.88004 12.99 9.15676 12.7133L12.5729 9.28762C12.8496 9.0109 13.3077 9.0109 13.5844 9.28762C13.8611 9.56435 13.8611 10.0224 13.5844 10.2991L10.1682 13.7248C10.0347 13.8679 9.84381 13.9347 9.6625 13.9347C9.4812 13.9347 9.2999 13.8679 9.15676 13.7248Z" fill="#292D32"/>
+                    </svg>
+                  </div>
+                </div>
+            </div>
+            {{else}}
+            <div class="card" id="{{this._id}}" onclick="get_id(this.id)" style="cursor: pointer;">
+              <div class="med">
+              <video id="video">
+                  <source src={{this.media}}>
+                  Your browser does not support the video tag.
+                </video>
+                </div>
+                <div class="container">
+                  <div class="likes"><svg class="icons" width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7166 20.7296C7.07147 19.4795 1.2793 15.0424 1.2793 8.48682C1.2793 5.14702 3.97976 2.43701 7.30048 2.43701C8.91313 2.43701 10.4208 3.0668 11.5373 4.19279C12.6537 3.0668 14.1614 2.43701 15.774 2.43701C19.0947 2.43701 21.7952 5.15656 21.7952 8.48682C21.7952 15.0519 16.003 19.4795 12.3579 20.7296C12.1193 20.8155 11.8331 20.8536 11.5373 20.8536C11.2414 20.8536 10.9552 20.8155 10.7166 20.7296ZM2.71064 8.48682C2.71064 15.0042 8.97992 18.6303 11.1842 19.3841C11.356 19.4414 11.7281 19.4414 11.8999 19.3841C14.0946 18.6303 20.3734 15.0137 20.3734 8.48682C20.3734 5.93903 18.3123 3.86836 15.7836 3.86836C14.3331 3.86836 12.9877 4.54586 12.1193 5.71956C11.8522 6.08217 11.2414 6.08217 10.9743 5.71956C10.0868 4.53632 8.75091 3.86836 7.30048 3.86836C4.77177 3.86836 2.71064 5.93903 2.71064 8.48682Z" fill="#292D32"/>
+                  </svg>
+                  <p id="outsideLikeNumber-{{this._id}}">{{this.likeCount}}</p></div>
+                  <div class="comments"><svg class="icons" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.26059 10.9289C7.86936 10.9289 7.54492 10.6045 7.54492 10.2132C7.54492 9.822 7.86936 9.49756 8.26059 9.49756H14.9402C15.3314 9.49756 15.6559 9.822 15.6559 10.2132C15.6559 10.6045 15.3314 10.9289 14.9402 10.9289H8.26059Z" fill="#292D32"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M14.4911 21.2157L10.426 18.5056H6.82861C3.54607 18.5056 1.3418 16.3014 1.3418 13.0188V7.29346C1.3418 4.01091 3.54607 1.80664 6.82861 1.80664H16.3709C19.6534 1.80664 21.8577 4.01091 21.8577 7.29346V13.0188C21.8577 16.0533 19.9683 18.1717 17.0866 18.4675V19.8225C17.0866 20.4427 16.7526 21.0057 16.2087 21.292C15.9606 21.4256 15.6839 21.4924 15.4167 21.4924C15.0922 21.4924 14.7678 21.397 14.4911 21.2157ZM2.77314 7.2839V13.0093C2.77314 15.4712 4.3667 17.0647 6.82861 17.0647H10.6455C10.7887 17.0647 10.9223 17.1029 11.0463 17.1888L15.2926 20.0133C15.3976 20.0801 15.493 20.0515 15.5407 20.0229C15.5884 19.9943 15.6648 19.937 15.6648 19.8129V17.7804C15.6648 17.3892 15.9892 17.0647 16.3805 17.0647C18.8424 17.0647 20.4359 15.4712 20.4359 13.0093V7.2839C20.4359 4.82199 18.8424 3.22843 16.3805 3.22843H6.82861C4.3667 3.22843 2.77314 4.82199 2.77314 7.2839Z" fill="#292D32"/>
+                  </svg>
+                  {{this.commentCount}}</div>
+                  <div class="send">
+                    <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.60604 16.2538L8.919 14.1926L6.85787 13.5056C3.07912 12.246 2.28711 10.6524 2.28711 9.52645C2.28711 8.41001 3.07912 6.8069 6.85787 5.53778L14.9593 2.83731C16.9822 2.15981 18.6712 2.36019 19.7113 3.39076C20.7514 4.42133 20.9518 6.11986 20.2743 8.14282L17.5739 16.2442C16.3047 20.0421 14.7112 20.8341 13.5852 20.8341C12.4592 20.8341 10.8656 20.0421 9.60604 16.2538ZM3.70891 9.52645C3.70891 10.2135 4.6536 11.2632 7.30635 12.141L9.71101 12.9426C9.92094 13.0094 10.0927 13.1812 10.1595 13.3911L10.9611 15.7957C11.8389 18.4485 12.8981 19.3932 13.5852 19.3932C14.2722 19.3932 15.3219 18.4485 16.2093 15.7957L18.9098 7.69433C19.3964 6.22482 19.3106 5.02249 18.6903 4.40225C18.0701 3.782 16.8677 3.70566 15.4078 4.19231L7.30635 6.90232C4.6536 7.78976 3.70891 8.83941 3.70891 9.52645Z" fill="#292D32"/>
+                      <path d="M9.15676 13.7248C8.88004 13.4481 8.88004 12.99 9.15676 12.7133L12.5729 9.28762C12.8496 9.0109 13.3077 9.0109 13.5844 9.28762C13.8611 9.56435 13.8611 10.0224 13.5844 10.2991L10.1682 13.7248C10.0347 13.8679 9.84381 13.9347 9.6625 13.9347C9.4812 13.9347 9.2999 13.8679 9.15676 13.7248Z" fill="#292D32"/>
+                    </svg>
+                  </div>
+                </div>
+            </div>
+            {{/if}}
+        {{/each}}
+      </div>
+    </div>
+    <div id="create-post" class="create-post-modal">
+      <div class="create-post-modal-content">
+
+        <form id="postform" action="/feed" method="POST" onsubmit="return submitForm()" enctype="multipart/form-data">
+        <div class="w3-container">
+          <svg id="exit" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="document.getElementById('create-post').style.display='none'; document.getElementById('postform').reset(); hideFileUpload(); removeAll();" style="cursor: pointer;">
+          <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
+          <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/>
+          </svg>
+          <h1 id="create-post-heading">Create Post</h1>
+          <div id="create-post-body"><p style="margin-bottom: 10px;">Choose Media</p>
+          <button class="create-post-media-select" type="button" style="cursor: pointer;" onclick="showFileUpload()">Photo</button>
+          <button class="create-post-media-select" type="button" style="cursor: pointer;" onclick="showFileUpload()">Video</button>
+          <input type="file" id="postMedia" name="file" style="display: none; margin-top: 2%;">
+          <p style="margin-bottom: 10px;">Tags</p>
+          <ul id='list' style="padding-left: inherit;"></ul>
+          <div class="create-post-tags">
+          <input id="tags-input" type='text'/>
+          <div>
+          <svg id='add' style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="30px" height="30px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"/></svg>
+          </div>
+          </div>
+          <p style="margin-bottom: 10px;">Caption</p>
+          <textarea id="caption-box" name="caption" rows="4" cols="50"  placeholder="What's on your mind?"></textarea>
+          <br>
+          <input type="hidden" id="listValuesInput" name="tags">
+          <div class="error-div" id="error-div"></div>
+          <button id="post-button" type="submit" style="cursor:pointer">POST</button>
+          </div>
+        </div>
+        </form>
+
+      </div>
+    </div>
+    <div class="post-modal"></div>
+    <script src="../public/js/feed.js"></script>
+    <script src="../public/js/addPost.js"></script>
+</main>

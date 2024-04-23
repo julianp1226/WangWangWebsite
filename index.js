@@ -5,6 +5,7 @@ import configRoutes from "./routes/index.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import exphbs from "express-handlebars";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -53,17 +54,31 @@ app.use("/", (req, res, next) => {
     req.originalUrl.substring(0, 6) != "/login" &&
     req.originalUrl.substring(0, 9) != "/register" &&
     req.originalUrl.substring(0, 9) != "/" &&
+    req.originalUrl.substring(0, 5) != "/feed" &&
+    req.originalUrl.substring(0, 9) != "/payments" &&
+    req.originalUrl.substring(0, 5) != "/shop" &&
+    req.originalUrl.substring(0, 8) != "/aboutus" &&
+    req.originalUrl.substring(0, 7) != "/clinic" &&
     (!req.session || !req.session.user)
   )
     return res.redirect("/");
   next();
 });
 
-app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs.engine({
+  defaultLayout: "main", helpers: {
+    math: function (lvalue, operator, rvalue) {
+      lvalue = parseFloat(lvalue);
+      rvalue = parseFloat(rvalue);
+      return {
+        "+": lvalue + rvalue,
+      }[operator];
+    }
+  }
+}));
 app.set("view engine", "handlebars");
 
 configRoutes(app);
-
 app.listen(3000, () => {
   console.log("We've now got a server!");
   console.log("Your routes will be running on http://localhost:3000");

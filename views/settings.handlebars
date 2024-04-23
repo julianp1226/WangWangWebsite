@@ -1,0 +1,667 @@
+<main>
+    <head>
+        <link rel="stylesheet" href="/public/css/settings-style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <script type="text/javascript" src="/public/js/settings.js"></script>
+    </head>
+
+    <div id="flex_container">
+
+        <div id="sidebar">
+            <button type="button" class="nav_btns" id="account_btn" style="color: #1E1E1E; background-color: rgb(224, 224, 224)" onclick="select('your_account', 'account_btn')">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 14C15.3924 14 16.7277 13.4469 17.7123 12.4623C18.6969 11.4777 19.25 10.1424 19.25 8.75C19.25 7.35761 18.6969 6.02226 17.7123 5.03769C16.7277 4.05312 15.3924 3.5 14 3.5C12.6076 3.5 11.2723 4.05312 10.2877 5.03769C9.30312 6.02226 8.75 7.35761 8.75 8.75C8.75 10.1424 9.30312 11.4777 10.2877 12.4623C11.2723 13.4469 12.6076 14 14 14ZM17.5 8.75C17.5 9.67826 17.1313 10.5685 16.4749 11.2249C15.8185 11.8813 14.9283 12.25 14 12.25C13.0717 12.25 12.1815 11.8813 11.5251 11.2249C10.8687 10.5685 10.5 9.67826 10.5 8.75C10.5 7.82174 10.8687 6.9315 11.5251 6.27513C12.1815 5.61875 13.0717 5.25 14 5.25C14.9283 5.25 15.8185 5.61875 16.4749 6.27513C17.1313 6.9315 17.5 7.82174 17.5 8.75ZM24.5 22.75C24.5 24.5 22.75 24.5 22.75 24.5H5.25C5.25 24.5 3.5 24.5 3.5 22.75C3.5 21 5.25 15.75 14 15.75C22.75 15.75 24.5 21 24.5 22.75ZM22.75 22.743C22.7482 22.3125 22.4805 21.0175 21.294 19.831C20.153 18.69 18.0057 17.5 14 17.5C9.9925 17.5 7.847 18.69 6.706 19.831C5.5195 21.0175 5.2535 22.3125 5.25 22.743H22.75Z" fill="#1E1E1E"/>
+                </svg>                 
+                Your Account
+            </button>
+            <button type="button" class="nav_btns" id="address_btn" onclick="select('address_book', 'address_btn')">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.9994 15.6687C11.9891 15.6687 10.3594 14.039 10.3594 12.0287C10.3594 10.0184 11.9891 8.38867 13.9994 8.38867C16.0097 8.38867 17.6394 10.0184 17.6394 12.0287C17.6394 14.039 16.0097 15.6687 13.9994 15.6687Z" stroke="#1E1E1E" stroke-width="1.5"/>
+                    <path d="M23.776 9.91634C25.1177 15.843 21.431 20.8597 18.1993 23.963C15.8543 26.2263 12.1443 26.2263 9.78767 23.963C6.56767 20.8597 2.881 15.8313 4.22267 9.90468C6.521 -0.198656 21.4893 -0.186989 23.776 9.91634Z" stroke="#1E1E1E" stroke-width="1.5"/>
+                </svg>
+                Address Book
+            </button>
+            <button type="button" class="nav_btns" id="payment_btn" onclick="select('payment_details', 'payment_btn')">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.33301 14.7119H22.1663" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22.1663 20.3349C22.1313 23.6599 21.2213 24.4999 17.7563 24.4999H6.74304C3.21971 24.4999 2.33301 23.6249 2.33301 20.1483V11.9933C2.33301 8.84327 3.06801 7.82827 5.83301 7.66494C6.11301 7.65327 6.41638 7.6416 6.74304 7.6416H17.7563C21.2796 7.6416 22.1663 8.5166 22.1663 11.9933V20.3349Z" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M25.6663 16.0067C25.6663 19.1567 24.9313 20.1717 22.1663 20.335V11.9933C22.1663 8.51667 21.2796 7.64167 17.7563 7.64167H6.74304C6.41638 7.64167 6.11301 7.65333 5.83301 7.665C5.86801 4.34 6.77804 3.5 10.243 3.5H21.2563C24.7796 3.5 25.6663 4.375 25.6663 7.85167V16.0067Z" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.125 20.7783H8.13163" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.6279 20.7783H14.6413" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Payment Details
+            </button>
+            <button type="button" class="nav_btns" id="appearance_btn" onclick="select('appearance', 'appearance_btn')">
+                <svg width="27" height="17" viewBox="0 0 27 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 8.80219C5.57815 2.35115 15.3587 -4.93323 25.3474 8.80219C21.6017 14.421 11.4881 22.2874 1 8.80219Z" stroke="#1E1E1E" stroke-width="1.5"/>
+                    <path d="M13.5735 15.0439C10.4041 12.4614 6.82524 6.94414 13.5735 1.30949C16.3341 3.42248 20.1989 9.12757 13.5735 15.0439Z" stroke="#1E1E1E" stroke-width="1.5"/>
+                </svg>
+                Appearance
+            </button>
+            <button type="button" class="nav_btns" id="privacy_btn" onclick="select('privacy_policy', 'privacy_btn')">
+                <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.35449 22.7187L4.87533 19.375C3.68783 18.4896 2.76074 16.6458 2.76074 15.1667V7.41667C2.76074 5.8125 3.93783 4.10417 5.44824 3.54167L10.6462 1.59375C11.6774 1.20833 13.3024 1.20833 14.3337 1.59375L19.542 3.54167C21.0524 4.10417 22.2295 5.8125 22.2295 7.41667V15.1562C22.2295 16.6354 21.3024 18.4792 20.1149 19.3646L15.6357 22.7083C14.7607 23.375 13.6357 23.7083 12.5003 23.7083C11.3649 23.7083 10.2399 23.375 9.35449 22.7187ZM6.00033 5.01042C5.10449 5.34375 4.32324 6.46875 4.32324 7.42708V15.1667C4.32324 16.1562 5.02116 17.5417 5.80241 18.125L10.2816 21.4688C11.4795 22.3646 13.5107 22.3646 14.7087 21.4688L19.1878 18.125C19.9795 17.5312 20.667 16.1458 20.667 15.1667V7.41667C20.667 6.46875 19.8857 5.34375 18.9899 5L13.792 3.05208C13.1045 2.80208 11.8962 2.80208 11.1982 3.0625L6.00033 5.01042Z" fill="#1E1E1E"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.63574 10.9378C9.63574 9.35449 10.917 8.07324 12.5003 8.07324C14.0837 8.07324 15.3649 9.35449 15.3649 10.9378C15.3649 12.5212 14.0837 13.8024 12.5003 13.8024C10.917 13.8024 9.63574 12.5212 9.63574 10.9378ZM11.1982 10.9378C11.1982 11.6566 11.7816 12.2399 12.5003 12.2399C13.2191 12.2399 13.8024 11.6566 13.8024 10.9378C13.8024 10.2191 13.2191 9.63574 12.5003 9.63574C11.7816 9.63574 11.1982 10.2191 11.1982 10.9378Z" fill="#1E1E1E"/>
+                    <path d="M11.7188 16.1455V13.0205C11.7188 12.5934 12.0729 12.2393 12.5 12.2393C12.9271 12.2393 13.2812 12.5934 13.2812 13.0205V16.1455C13.2812 16.5726 12.9271 16.9268 12.5 16.9268C12.0729 16.9268 11.7188 16.5726 11.7188 16.1455Z" fill="#1E1E1E"/>
+                </svg>
+                Privacy Policy
+            </button>
+            <button type="button" class="nav_btns" id="terms_btn" onclick="select('terms_conditions', 'terms_btn')">
+                <svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.4997 26.5413C4.16467 26.5413 1.45801 23.8347 1.45801 17.4997V10.4997C1.45801 4.16467 4.16467 1.45801 10.4997 1.45801H17.4997C23.8347 1.45801 26.5413 4.16467 26.5413 10.4997V17.4997C26.5413 23.8347 23.8347 26.5413 17.4997 26.5413H10.4997ZM3.20801 10.4997V17.4997C3.20801 22.878 5.12134 24.7913 10.4997 24.7913H17.4997C22.878 24.7913 24.7913 22.878 24.7913 17.4997V10.4997C24.7913 5.12134 22.878 3.20801 17.4997 3.20801H10.4997C5.12134 3.20801 3.20801 5.12134 3.20801 10.4997Z" fill="#1E1E1E"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.021 21.268L8.63271 21.0814C7.79271 20.9647 7.05771 20.2414 6.92938 19.378L6.73104 17.9664C6.64938 17.4064 6.88271 16.6947 7.29104 16.2747L9.95104 13.6147C9.55438 11.7247 10.126 9.76471 11.5144 8.38805C13.7427 6.15971 17.3827 6.15971 19.611 8.38805C20.696 9.47305 21.291 10.908 21.291 12.4364C21.291 13.9647 20.696 15.4114 19.611 16.4847C18.2227 17.8614 16.2627 18.433 14.3844 18.0364L11.7127 20.6964C11.3744 21.058 10.8027 21.2914 10.2777 21.2914C10.196 21.2914 10.1027 21.2914 10.021 21.268ZM12.751 9.62471C11.701 10.6747 11.3277 12.203 11.7594 13.6264C11.8527 13.9414 11.771 14.268 11.5377 14.5014L8.52771 17.5114C8.50438 17.5464 8.45771 17.6747 8.45771 17.7214L8.65604 19.1214C8.66771 19.1914 8.79604 19.3197 8.86604 19.3314L10.266 19.5297C10.3244 19.518 10.441 19.4947 10.476 19.4597L13.4977 16.438C13.731 16.2047 14.0694 16.1347 14.3727 16.228C15.7844 16.6714 17.3127 16.298 18.3627 15.248C19.1094 14.5014 19.5294 13.498 19.5294 12.4364C19.5294 11.3747 19.121 10.3714 18.3627 9.62471C17.6044 8.85471 16.5777 8.45805 15.5627 8.45805C14.5477 8.45805 13.521 8.84305 12.751 9.62471Z" fill="#1E1E1E"/>
+                    <path d="M11.5725 19.6119L10.5692 18.6086C10.2308 18.2702 10.2308 17.7102 10.5692 17.3719C10.9075 17.0336 11.4675 17.0336 11.8058 17.3719L12.8092 18.3752C13.1475 18.7136 13.1475 19.2736 12.8092 19.6119C12.6458 19.7869 12.4242 19.8686 12.1908 19.8686C11.9692 19.8686 11.7475 19.7869 11.5725 19.6119Z" fill="#1E1E1E"/>
+                    <path d="M15.154 13.6852C15.014 13.6269 14.8857 13.5336 14.7807 13.4286C14.559 13.2069 14.4307 12.9152 14.4307 12.6002C14.4307 12.2969 14.559 11.9936 14.7807 11.7836C15.049 11.5036 15.4573 11.3752 15.8307 11.4569C15.9007 11.4802 15.9823 11.4919 16.0523 11.5269C16.1223 11.5619 16.1923 11.5969 16.2507 11.6319C16.309 11.6786 16.379 11.7252 16.4257 11.7836C16.6473 11.9936 16.7757 12.2969 16.7757 12.6002C16.7757 12.7636 16.7407 12.9036 16.6823 13.0552C16.624 13.1952 16.5423 13.3236 16.4257 13.4286C16.204 13.6502 15.9123 13.7669 15.609 13.7669C15.4457 13.7669 15.294 13.7436 15.154 13.6852Z" fill="#1E1E1E"/>
+                </svg>
+                Terms & Conditions
+            </button>
+            <button type="button" class="nav_btns" id="faq_btn" onclick="select('faq', 'faq_btn')">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M0 14C0 6.2615 6.26232 0 14 0C21.7385 0 28 6.26232 28 14C28 21.7385 21.7377 28 14 28C6.2615 28 0 21.7377 0 14ZM1.95337 14C1.95337 20.6425 7.35742 26.0465 13.9999 26.0465C20.6423 26.0465 26.0464 20.6425 26.0464 14C26.0464 7.35757 20.6423 1.95351 13.9999 1.95351C7.35742 1.95351 1.95337 7.35757 1.95337 14Z" fill="#1E1E1E"/>
+                    <path id="Path" d="M13.9135 11.0615C13.3885 11.0615 12.9629 11.5016 12.9629 12.0443V20.1034C12.9629 20.6462 13.3885 21.0862 13.9135 21.0862C14.4385 21.0862 14.8641 20.6462 14.8641 20.1034V12.0444C14.8641 11.5016 14.4385 11.0615 13.9135 11.0615Z" fill="#1E1E1E"/>
+                    <path id="Path_2" d="M13.9135 6.91309C13.3885 6.91309 12.9629 7.3484 12.9629 7.88529V9.05199C12.9629 9.58894 13.3885 10.0242 13.9135 10.0242C14.4385 10.0242 14.8641 9.58888 14.8641 9.05199V7.88529C14.8641 7.3484 14.4385 6.91309 13.9135 6.91309Z" fill="#1E1E1E"/>
+                </svg>    
+                FAQ
+            </button>
+            <button type="button" class="nav_btns" id="contact_btn" onclick="select('contact_us', 'contact_btn')">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2163 25.6197C14.8163 25.0247 13.4047 24.208 12.028 23.2163C10.663 22.213 9.34467 21.093 8.09634 19.868C6.85967 18.6197 5.73967 17.3013 4.74801 15.948C3.74467 14.548 2.93967 13.148 2.36801 11.7947C1.76134 10.348 1.45801 8.94801 1.45801 7.62967C1.45801 6.71968 1.62134 5.85634 1.93634 5.05134C2.26301 4.22301 2.78801 3.45301 3.49967 2.78801C4.39801 1.90134 5.42467 1.45801 6.52134 1.45801C6.97634 1.45801 7.44301 1.56301 7.83967 1.74967C8.29467 1.95967 8.67967 2.27467 8.95967 2.69467L11.6663 6.50967C11.9113 6.84801 12.098 7.17467 12.2263 7.50134C12.378 7.85134 12.4597 8.20134 12.4597 8.53968C12.4597 8.98301 12.3313 9.41468 12.0863 9.82301C11.9113 10.138 11.643 10.4763 11.3047 10.8147L10.5113 11.643C10.523 11.678 10.5347 11.7013 10.5463 11.7247C10.6863 11.9697 10.9663 12.3897 11.503 13.0197C12.0747 13.673 12.6113 14.268 13.148 14.8163C13.8363 15.493 14.408 16.0297 14.9447 16.473C15.6097 17.033 16.0413 17.313 16.298 17.4413L16.2747 17.4997L17.1263 16.6597C17.488 16.298 17.838 16.0297 18.1763 15.8547C18.818 15.458 19.6347 15.388 20.4513 15.7263C20.7547 15.8547 21.0813 16.0297 21.4313 16.2747L25.3047 19.028C25.7363 19.3197 26.0513 19.693 26.238 20.1363C26.413 20.5797 26.4947 20.988 26.4947 21.3963C26.4947 21.9563 26.3663 22.5163 26.1213 23.0413C25.8763 23.5663 25.573 24.0213 25.188 24.4413C24.523 25.1763 23.7997 25.7013 22.9597 26.0397C22.1547 26.3663 21.2797 26.5413 20.358 26.5413C19.0397 26.5413 17.6513 26.2263 16.2163 25.6197ZM4.71301 4.04801C4.17634 4.54967 3.80301 5.09801 3.56967 5.69301C3.32467 6.29967 3.20801 6.94134 3.20801 7.62967C3.20801 8.71467 3.46467 9.89301 3.97801 11.1063C4.50301 12.343 5.23801 13.6263 6.17134 14.9097C7.10467 16.193 8.16634 17.4413 9.33301 18.6197C10.4997 19.7747 11.7597 20.848 13.0547 21.793C14.3147 22.7147 15.6097 23.4613 16.893 23.998C18.888 24.8497 20.7547 25.048 22.2947 24.4063C22.8897 24.1613 23.4147 23.788 23.893 23.2513C24.1613 22.9597 24.3713 22.6447 24.5463 22.2713C24.6863 21.9797 24.7563 21.6763 24.7563 21.373C24.7563 21.1863 24.7213 20.9997 24.628 20.7897C24.593 20.7197 24.523 20.5913 24.3013 20.4397L20.428 17.6863C20.1947 17.523 19.9847 17.4063 19.7863 17.3247C19.5297 17.2197 19.4247 17.1147 19.028 17.3597C18.7947 17.4763 18.5847 17.6513 18.3513 17.8847L17.4647 18.7597C17.0097 19.203 16.3097 19.308 15.773 19.1097L15.458 18.9697C14.9797 18.713 14.4197 18.3163 13.8013 17.7913C13.2413 17.313 12.6347 16.753 11.8997 16.0297C11.328 15.4463 10.7563 14.828 10.1613 14.1397C9.61301 13.498 9.21634 12.9497 8.97134 12.4947L8.83134 12.1447C8.76134 11.8763 8.73801 11.7247 8.73801 11.5613C8.73801 11.1413 8.88967 10.768 9.18134 10.4763L10.0563 9.56634C10.2897 9.33301 10.4647 9.11134 10.5813 8.91301C10.6747 8.76134 10.7097 8.63301 10.7097 8.51634C10.7097 8.42301 10.6747 8.28301 10.6163 8.14301C10.5347 7.95634 10.4063 7.74634 10.243 7.52467L7.53634 3.69801C7.41967 3.53467 7.27967 3.41801 7.10467 3.33634C6.91801 3.25467 6.71967 3.20801 6.52134 3.20801C5.87967 3.20801 5.28467 3.48801 4.71301 4.04801ZM16.088 18.3047L16.403 17.488C16.3447 17.4763 16.298 17.488 16.2747 17.5113L16.088 18.3047Z" fill="#1E1E1E"/>
+                </svg>
+                Contact Us
+            </button>
+            <button type="button" class="nav_btns">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.3828 8.82027C10.7445 4.62027 12.9028 2.90527 17.6278 2.90527H17.7795C22.9945 2.90527 25.0828 4.99361 25.0828 10.2086V17.8153C25.0828 23.0303 22.9945 25.1186 17.7795 25.1186H17.6278C12.9378 25.1186 10.7795 23.4269 10.3945 19.2969" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.5003 14H4.22363" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.82533 10.0918L2.91699 14.0001L6.82533 17.9085" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Logout
+            </button>
+            <button type="button" class="nav_btns" id='delete_btn' style="color: red">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_240_1363)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M28 14C28 21.7385 21.7377 28 14 28C6.2615 28 5.47469e-07 21.7377 1.22392e-06 14C1.90044e-06 6.2615 6.26232 -1.90037e-06 14 -1.22392e-06C21.7385 -5.47398e-07 28 6.26232 28 14ZM26.0466 14C26.0466 7.35753 20.6426 1.95347 14.0001 1.95347C7.35767 1.95347 1.95362 7.35753 1.95362 14C1.95362 20.6424 7.35767 26.0465 14.0001 26.0465C20.6426 26.0465 26.0466 20.6424 26.0466 14Z" fill="#FF0000"/>
+                        <path d="M14 16.5459C14.5523 16.5459 15 16.083 15 15.5121L15 7.03429C15 6.4633 14.5522 6.00044 14 6.00044C13.4478 6.00044 13 6.46336 13 7.03429L13 15.512C13 16.083 13.4477 16.5459 14 16.5459Z" fill="#FF0000"/>
+                        <path d="M14 21.2725C14.5523 21.2725 15 20.8145 15 20.2498L15 19.0224C15 18.4576 14.5522 17.9997 14 17.9997C13.4478 17.9997 13 18.4577 13 19.0224L13 20.2498C13 20.8145 13.4477 21.2725 14 21.2725Z" fill="#FF0000"/>
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_240_1363">
+                            <rect width="28" height="28" fill="white"/>
+                        </clipPath>
+                    </defs>
+                </svg>
+                Delete Account
+            </button>
+        </div>
+
+        <div class="pages" id="your_account">
+
+            <h1 style="font-weight: 750">YOUR ACCOUNT</h1>
+            <br>
+
+            <div id="basic_info">
+
+                <div id="pfp_btn_container">
+                    <div id="pfp">
+                        <svg width="110" height="110" viewBox="0 0 135 145" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M69.5 69.5C78.6002 69.5 87.3278 65.8849 93.7626 59.4501C100.197 53.0153 103.812 44.2877 103.812 35.1875C103.812 26.0873 100.197 17.3597 93.7626 10.9249C87.3278 4.49006 78.6002 0.875 69.5 0.875C60.3998 0.875 51.6722 4.49006 45.2374 10.9249C38.8026 17.3597 35.1875 26.0873 35.1875 35.1875C35.1875 44.2877 38.8026 53.0153 45.2374 59.4501C51.6722 65.8849 60.3998 69.5 69.5 69.5ZM92.375 35.1875C92.375 41.2543 89.965 47.0727 85.6751 51.3626C81.3852 55.6525 75.5668 58.0625 69.5 58.0625C63.4332 58.0625 57.6148 55.6525 53.3249 51.3626C49.035 47.0727 46.625 41.2543 46.625 35.1875C46.625 29.1207 49.035 23.3023 53.3249 19.0124C57.6148 14.7225 63.4332 12.3125 69.5 12.3125C75.5668 12.3125 81.3852 14.7225 85.6751 19.0124C89.965 23.3023 92.375 29.1207 92.375 35.1875ZM138.125 126.688C138.125 138.125 126.688 138.125 126.688 138.125H12.3125C12.3125 138.125 0.875 138.125 0.875 126.688C0.875 115.25 12.3125 80.9375 69.5 80.9375C126.688 80.9375 138.125 115.25 138.125 126.688ZM126.688 126.642C126.676 123.828 124.926 115.364 117.172 107.61C109.714 100.152 95.6804 92.375 69.5 92.375C43.3081 92.375 29.2857 100.152 21.8285 107.61C14.0739 115.364 12.3354 123.828 12.3125 126.642H126.688Z" fill="#1E1E1E"/>
+                        </svg>     
+                    </div>
+                    <br>
+                    <button type="button">Upload Image</button>
+                    <br><br>
+                    <button type="button" onclick="popup('my_account_popup')">Edit Profile</button>
+                </div>
+
+                <div id="info_container">
+                    <div id="name_info">
+                        <div>
+                            <p>First Name</p>
+                            <div class="name_boxes"></div>
+                        </div>
+                        <div style="margin-left: 10px">
+                            <p>Last Name</p>
+                            <div class="name_boxes"></div>
+                        </div>
+                        <div style="margin-left: 10px">
+                            <p>Username</p>
+                            <div class="name_boxes"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <p style="font-size: large; line-height: 0.2">Biography</p>
+                    <div id="bio_box"></div>
+                </div>
+
+                <div class="popup" id="my_account_popup">
+                    <div class="popup_content" style="height: 440px; width: 575px">
+                        <form id="my_account_form">
+        
+                            <div class="form_container_row">
+                                <div class="form_container_column">
+                                    <label for="fname">First Name</label><br>
+                                    <input type="text" id="fname">
+                                </div>
+                                <div class="form_container_column">
+                                    <label for="lname">Last Name</label><br>
+                                    <input type="text" id="lname">
+                                </div>
+                                <div class="form_container_column">
+                                    <label for="uname">Username</label><br>
+                                    <input type="text" id="uname">
+                                </div>
+                            </div><br>
+        
+                            <label for="bio">Biography</label><br>
+                            <textarea id="bio"></textarea><br><br>
+        
+                            <div class="form_container_row" style="margin: auto">
+                                <button type="button" onclick="cancel('my_account_popup')" style="margin-right: 50px">Cancel</button>
+                                <input type="submit" value="Save Info">
+                            </div>
+        
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <br><hr>
+            <p style="font-size: 25px; font-weight: 600">Contact Information</p>
+
+            <div class="other_info">
+                <div>
+                    <p>Email</p>
+                    <div class="info_boxes"></div>
+                </div>
+                <div style="margin-left: 30px">
+                    <p>Phone Number</p>
+                    <div class="info_boxes"></div>
+                </div>
+                <button type="button" onclick="popup('contact_info_popup')">Edit Contact Info</button>
+            </div>
+
+            <div class="popup" id="contact_info_popup">
+                <div class="popup_content" style="height: 275px; width: 400px">
+                    <form id="contact_info_form" class="form_container_column">
+                        <label for="email">Email</label><br>
+                        <input type="email" id="email"><br>
+                        <label for="phone_num">Phone Number</label><br>
+                        <input type="tel" id="phone_num" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"><br><br><br>
+                        
+                        <div class="form_container_row" style="margin: auto">
+                            <button type="button" onclick="cancel('contact_info_popup')" style="margin-right: 20px">Cancel</button>
+                            <input type="submit" value="Save Info">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <br><hr>
+            <p style="font-size: 25px; font-weight: 600">Change Password</p>
+
+            <form class="form_container_row">
+                <div class="form_container_column">
+                    <label for="old_pass" style="margin-bottom: 10px">Old Password</label>
+                    <input type="password" id="old_pass" class="info_boxes">
+                </div>
+                <div class="form_container_column" style="margin-left: 30px">
+                    <label for="new_pass" style="margin-bottom: 10px">New Password</label>
+                    <input type="password" id="new_pass" class="info_boxes">
+                </div>
+                <input type="submit" value="Save Password" style="margin: 28px 0 0 30px">
+            </form>
+
+            <br><br>
+
+        </div>
+
+        <div class="pages" id="address_book">
+
+            <h1 style="font-weight: 750; margin-right: 700px">ADDRESS BOOK</h1>
+
+            <button type="button" onclick="popup('address_book_popup')">Add New Address</button>
+
+        </div>
+
+        <div class="popup" id="address_book_popup">
+            <div class="popup_content" style="height: 435px; width: 500px">
+                <form id="address_book_form" class="form_container_column">
+
+                    <label for="address_name">Save Address As</label><br>
+                    <input type="text" id="address_name"><br>
+
+                    <label for="country">Country</label><br>
+                    <select name="country" style="width: 100%">
+                        <option value="">Country...</option>
+                        <option value="AF">Afghanistan</option>
+                        <option value="AL">Albania</option>
+                        <option value="DZ">Algeria</option>
+                        <option value="AS">American Samoa</option>
+                        <option value="AD">Andorra</option>
+                        <option value="AG">Angola</option>
+                        <option value="AI">Anguilla</option>
+                        <option value="AG">Antigua &amp; Barbuda</option>
+                        <option value="AR">Argentina</option>
+                        <option value="AA">Armenia</option>
+                        <option value="AW">Aruba</option>
+                        <option value="AU">Australia</option>
+                        <option value="AT">Austria</option>
+                        <option value="AZ">Azerbaijan</option>
+                        <option value="BS">Bahamas</option>
+                        <option value="BH">Bahrain</option>
+                        <option value="BD">Bangladesh</option>
+                        <option value="BB">Barbados</option>
+                        <option value="BY">Belarus</option>
+                        <option value="BE">Belgium</option>
+                        <option value="BZ">Belize</option>
+                        <option value="BJ">Benin</option>
+                        <option value="BM">Bermuda</option>
+                        <option value="BT">Bhutan</option>
+                        <option value="BO">Bolivia</option>
+                        <option value="BL">Bonaire</option>
+                        <option value="BA">Bosnia &amp; Herzegovina</option>
+                        <option value="BW">Botswana</option>
+                        <option value="BR">Brazil</option>
+                        <option value="BC">British Indian Ocean Ter</option>
+                        <option value="BN">Brunei</option>
+                        <option value="BG">Bulgaria</option>
+                        <option value="BF">Burkina Faso</option>
+                        <option value="BI">Burundi</option>
+                        <option value="KH">Cambodia</option>
+                        <option value="CM">Cameroon</option>
+                        <option value="CA">Canada</option>
+                        <option value="IC">Canary Islands</option>
+                        <option value="CV">Cape Verde</option>
+                        <option value="KY">Cayman Islands</option>
+                        <option value="CF">Central African Republic</option>
+                        <option value="TD">Chad</option>
+                        <option value="CD">Channel Islands</option>
+                        <option value="CL">Chile</option>
+                        <option value="CN">China</option>
+                        <option value="CI">Christmas Island</option>
+                        <option value="CS">Cocos Island</option>
+                        <option value="CO">Colombia</option>
+                        <option value="CC">Comoros</option>
+                        <option value="CG">Congo</option>
+                        <option value="CK">Cook Islands</option>
+                        <option value="CR">Costa Rica</option>
+                        <option value="CT">Cote D'Ivoire</option>
+                        <option value="HR">Croatia</option>
+                        <option value="CU">Cuba</option>
+                        <option value="CB">Curacao</option>
+                        <option value="CY">Cyprus</option>
+                        <option value="CZ">Czech Republic</option>
+                        <option value="DK">Denmark</option>
+                        <option value="DJ">Djibouti</option>
+                        <option value="DM">Dominica</option>
+                        <option value="DO">Dominican Republic</option>
+                        <option value="TM">East Timor</option>
+                        <option value="EC">Ecuador</option>
+                        <option value="EG">Egypt</option>
+                        <option value="SV">El Salvador</option>
+                        <option value="GQ">Equatorial Guinea</option>
+                        <option value="ER">Eritrea</option>
+                        <option value="EE">Estonia</option>
+                        <option value="ET">Ethiopia</option>
+                        <option value="FA">Falkland Islands</option>
+                        <option value="FO">Faroe Islands</option>
+                        <option value="FJ">Fiji</option>
+                        <option value="FI">Finland</option>
+                        <option value="FR">France</option>
+                        <option value="GF">French Guiana</option>
+                        <option value="PF">French Polynesia</option>
+                        <option value="FS">French Southern Ter</option>
+                        <option value="GA">Gabon</option>
+                        <option value="GM">Gambia</option>
+                        <option value="GE">Georgia</option>
+                        <option value="DE">Germany</option>
+                        <option value="GH">Ghana</option>
+                        <option value="GI">Gibraltar</option>
+                        <option value="GB">Great Britain</option>
+                        <option value="GR">Greece</option>
+                        <option value="GL">Greenland</option>
+                        <option value="GD">Grenada</option>
+                        <option value="GP">Guadeloupe</option>
+                        <option value="GU">Guam</option>
+                        <option value="GT">Guatemala</option>
+                        <option value="GN">Guinea</option>
+                        <option value="GY">Guyana</option>
+                        <option value="HT">Haiti</option>
+                        <option value="HW">Hawaii</option>
+                        <option value="HN">Honduras</option>
+                        <option value="HK">Hong Kong</option>
+                        <option value="HU">Hungary</option>
+                        <option value="IS">Iceland</option>
+                        <option value="IN">India</option>
+                        <option value="ID">Indonesia</option>
+                        <option value="IA">Iran</option>
+                        <option value="IQ">Iraq</option>
+                        <option value="IR">Ireland</option>
+                        <option value="IM">Isle of Man</option>
+                        <option value="IL">Israel</option>
+                        <option value="IT">Italy</option>
+                        <option value="JM">Jamaica</option>
+                        <option value="JP">Japan</option>
+                        <option value="JO">Jordan</option>
+                        <option value="KZ">Kazakhstan</option>
+                        <option value="KE">Kenya</option>
+                        <option value="KI">Kiribati</option>
+                        <option value="NK">Korea North</option>
+                        <option value="KS">Korea South</option>
+                        <option value="KW">Kuwait</option>
+                        <option value="KG">Kyrgyzstan</option>
+                        <option value="LA">Laos</option>
+                        <option value="LV">Latvia</option>
+                        <option value="LB">Lebanon</option>
+                        <option value="LS">Lesotho</option>
+                        <option value="LR">Liberia</option>
+                        <option value="LY">Libya</option>
+                        <option value="LI">Liechtenstein</option>
+                        <option value="LT">Lithuania</option>
+                        <option value="LU">Luxembourg</option>
+                        <option value="MO">Macau</option>
+                        <option value="MK">Macedonia</option>
+                        <option value="MG">Madagascar</option>
+                        <option value="MY">Malaysia</option>
+                        <option value="MW">Malawi</option>
+                        <option value="MV">Maldives</option>
+                        <option value="ML">Mali</option>
+                        <option value="MT">Malta</option>
+                        <option value="MH">Marshall Islands</option>
+                        <option value="MQ">Martinique</option>
+                        <option value="MR">Mauritania</option>
+                        <option value="MU">Mauritius</option>
+                        <option value="ME">Mayotte</option>
+                        <option value="MX">Mexico</option>
+                        <option value="MI">Midway Islands</option>
+                        <option value="MD">Moldova</option>
+                        <option value="MC">Monaco</option>
+                        <option value="MN">Mongolia</option>
+                        <option value="MS">Montserrat</option>
+                        <option value="MA">Morocco</option>
+                        <option value="MZ">Mozambique</option>
+                        <option value="MM">Myanmar</option>
+                        <option value="NA">Nambia</option>
+                        <option value="NU">Nauru</option>
+                        <option value="NP">Nepal</option>
+                        <option value="AN">Netherland Antilles</option>
+                        <option value="NL">Netherlands (Holland, Europe)</option>
+                        <option value="NV">Nevis</option>
+                        <option value="NC">New Caledonia</option>
+                        <option value="NZ">New Zealand</option>
+                        <option value="NI">Nicaragua</option>
+                        <option value="NE">Niger</option>
+                        <option value="NG">Nigeria</option>
+                        <option value="NW">Niue</option>
+                        <option value="NF">Norfolk Island</option>
+                        <option value="NO">Norway</option>
+                        <option value="OM">Oman</option>
+                        <option value="PK">Pakistan</option>
+                        <option value="PW">Palau Island</option>
+                        <option value="PS">Palestine</option>
+                        <option value="PA">Panama</option>
+                        <option value="PG">Papua New Guinea</option>
+                        <option value="PY">Paraguay</option>
+                        <option value="PE">Peru</option>
+                        <option value="PH">Philippines</option>
+                        <option value="PO">Pitcairn Island</option>
+                        <option value="PL">Poland</option>
+                        <option value="PT">Portugal</option>
+                        <option value="PR">Puerto Rico</option>
+                        <option value="QA">Qatar</option>
+                        <option value="ME">Republic of Montenegro</option>
+                        <option value="RS">Republic of Serbia</option>
+                        <option value="RE">Reunion</option>
+                        <option value="RO">Romania</option>
+                        <option value="RU">Russia</option>
+                        <option value="RW">Rwanda</option>
+                        <option value="NT">St Barthelemy</option>
+                        <option value="EU">St Eustatius</option>
+                        <option value="HE">St Helena</option>
+                        <option value="KN">St Kitts-Nevis</option>
+                        <option value="LC">St Lucia</option>
+                        <option value="MB">St Maarten</option>
+                        <option value="PM">St Pierre &amp; Miquelon</option>
+                        <option value="VC">St Vincent &amp; Grenadines</option>
+                        <option value="SP">Saipan</option>
+                        <option value="SO">Samoa</option>
+                        <option value="AS">Samoa American</option>
+                        <option value="SM">San Marino</option>
+                        <option value="ST">Sao Tome &amp; Principe</option>
+                        <option value="SA">Saudi Arabia</option>
+                        <option value="SN">Senegal</option>
+                        <option value="RS">Serbia</option>
+                        <option value="SC">Seychelles</option>
+                        <option value="SL">Sierra Leone</option>
+                        <option value="SG">Singapore</option>
+                        <option value="SK">Slovakia</option>
+                        <option value="SI">Slovenia</option>
+                        <option value="SB">Solomon Islands</option>
+                        <option value="OI">Somalia</option>
+                        <option value="ZA">South Africa</option>
+                        <option value="ES">Spain</option>
+                        <option value="LK">Sri Lanka</option>
+                        <option value="SD">Sudan</option>
+                        <option value="SR">Suriname</option>
+                        <option value="SZ">Swaziland</option>
+                        <option value="SE">Sweden</option>
+                        <option value="CH">Switzerland</option>
+                        <option value="SY">Syria</option>
+                        <option value="TA">Tahiti</option>
+                        <option value="TW">Taiwan</option>
+                        <option value="TJ">Tajikistan</option>
+                        <option value="TZ">Tanzania</option>
+                        <option value="TH">Thailand</option>
+                        <option value="TG">Togo</option>
+                        <option value="TK">Tokelau</option>
+                        <option value="TO">Tonga</option>
+                        <option value="TT">Trinidad &amp; Tobago</option>
+                        <option value="TN">Tunisia</option>
+                        <option value="TR">Turkey</option>
+                        <option value="TU">Turkmenistan</option>
+                        <option value="TC">Turks &amp; Caicos Is</option>
+                        <option value="TV">Tuvalu</option>
+                        <option value="UG">Uganda</option>
+                        <option value="UA">Ukraine</option>
+                        <option value="AE">United Arab Emirates</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="US">United States of America</option>
+                        <option value="UY">Uruguay</option>
+                        <option value="UZ">Uzbekistan</option>
+                        <option value="VU">Vanuatu</option>
+                        <option value="VS">Vatican City State</option>
+                        <option value="VE">Venezuela</option>
+                        <option value="VN">Vietnam</option>
+                        <option value="VB">Virgin Islands (Brit)</option>
+                        <option value="VA">Virgin Islands (USA)</option>
+                        <option value="WK">Wake Island</option>
+                        <option value="WF">Wallis &amp; Futana Is</option>
+                        <option value="YE">Yemen</option>
+                        <option value="ZR">Zaire</option>
+                        <option value="ZM">Zambia</option>
+                        <option value="ZW">Zimbabwe</option>
+                    </select><br>
+
+                    <label for="street_address">Street Address</label><br>
+                    <input type="text" id="street_address"><br>
+
+                    <div class="form_container_row">
+                        <div class="form_container_column" style="margin-right: 25px">
+                            <label for="city">City</label><br>
+                            <input type="text" id="city">
+                        </div>
+                        <div class="form_container_column">
+                            <label for="state">State</label><br>
+                            <select>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="CT">Connecticut</option>
+                                <option value="DE">Delaware</option>
+                                <option value="DC">District Of Columbia</option>
+                                <option value="FL">Florida</option>
+                                <option value="GA">Georgia</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="ID">Idaho</option>
+                                <option value="IL">Illinois</option>
+                                <option value="IN">Indiana</option>
+                                <option value="IA">Iowa</option>
+                                <option value="KS">Kansas</option>
+                                <option value="KY">Kentucky</option>
+                                <option value="LA">Louisiana</option>
+                                <option value="ME">Maine</option>
+                                <option value="MD">Maryland</option>
+                                <option value="MA">Massachusetts</option>
+                                <option value="MI">Michigan</option>
+                                <option value="MN">Minnesota</option>
+                                <option value="MS">Mississippi</option>
+                                <option value="MO">Missouri</option>
+                                <option value="MT">Montana</option>
+                                <option value="NE">Nebraska</option>
+                                <option value="NV">Nevada</option>
+                                <option value="NH">New Hampshire</option>
+                                <option value="NJ">New Jersey</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="NY">New York</option>
+                                <option value="NC">North Carolina</option>
+                                <option value="ND">North Dakota</option>
+                                <option value="OH">Ohio</option>
+                                <option value="OK">Oklahoma</option>
+                                <option value="OR">Oregon</option>
+                                <option value="PA">Pennsylvania</option>
+                                <option value="RI">Rhode Island</option>
+                                <option value="SC">South Carolina</option>
+                                <option value="SD">South Dakota</option>
+                                <option value="TN">Tennessee</option>
+                                <option value="TX">Texas</option>
+                                <option value="UT">Utah</option>
+                                <option value="VT">Vermont</option>
+                                <option value="VA">Virginia</option>
+                                <option value="WA">Washington</option>
+                                <option value="WV">West Virginia</option>
+                                <option value="WI">Wisconsin</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
+                        </div>
+                        <div class="form_container_column">
+                            <label for="zip_code">Zip Code</label><br>
+                            <input type="text" id="zip_code">
+                        </div>
+                    </div><br><br>
+
+                    <div class="form_container_row" style="margin: auto">
+                        <button type="button" onclick="cancel('address_book_popup')" style="margin-right: 50px">Cancel</button>
+                        <input type="submit" value="Add Address">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="pages" id="payment_details">
+
+            <h1 style="font-weight: 750; margin-right: 700px">PAYMENT DETAILS</h1>
+
+            <button type="button" onclick="popup('payment_details_popup')">Add New Card</button>
+
+        </div>
+
+        <div class="popup" id="payment_details_popup">
+            <div class="popup_content" style="height: 345px; width: 450px">
+                <form id="payment_details_form" class="form_container_column">
+                    <label for="name">Name on Card</label><br>
+                    <input type="text" id="name"><br>
+                    <label for="card_number">Card Number</label><br>
+                    <input type="text" id="card_number"><br>
+
+                    <div class="form_container_row">
+                        <div class="form_container_column">
+                            <label for="expiration">Expiration</label><br>
+                            <input type="text" id="expiration" style="width: 100px">
+                        </div>
+                        <input type="text" id="expiration" style="width: 100px; margin-top: 38px">
+
+                        <div class="form_container_column">
+                            <label for="cvc">CVC</label><br>
+                            <input type="text" id="cvc">
+                        </div>
+                    </div><br><br>
+
+                    <div class="form_container_row" style="margin: auto">
+                        <button type="button" onclick="cancel('payment_details_popup')" style="margin-right: 50px">Cancel</button>
+                        <input type="submit" value="Add Card">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="pages" id="appearance">
+
+            <h1 style="font-weight: 750">APPEARANCE</h1>
+
+            <label for="dark_mode" style="font-size: 20px;">
+                Dark Mode 
+                <input type="checkbox" id="dark_mode" onclick="darkMode()">
+            </label>
+
+        </div>
+
+        <div class="pages" id="privacy_policy">
+
+            <h1 style="font-weight: 750">PRIVACY POLICY</h1>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ex ex, dapibus ac vulputate at, sodales sit amet nulla. Maecenas sit amet nunc sed arcu ultrices maximus ac ut odio. Quisque at tempus justo. Vestibulum at ligula vel felis pretium bibendum. Pellentesque lobortis orci libero, eu dictum mauris tincidunt et. Nulla non nulla nisi. Nunc libero ante, euismod eget gravida in, efficitur non odio. Nullam et tristique lacus, et blandit libero. In facilisis vitae massa id fringilla. Nam ultrices, mi vitae venenatis tempor, ex nisl interdum lacus, vel blandit magna odio ut eros. Praesent vestibulum hendrerit leo vitae consequat. Nam vitae lacinia mauris.</p>
+            <p>Phasellus ornare augue nec tortor porta, nec accumsan justo placerat. Sed nibh leo, semper at orci id, sodales laoreet nisl. In at libero ipsum. Maecenas ullamcorper libero ac eros auctor tincidunt. Integer convallis quis nunc sed volutpat. Aenean quis tempus libero. Mauris at accumsan nunc. Aenean vehicula nibh nec orci elementum convallis.</p>  
+            <p>Integer et dictum lacus. Donec at magna non lectus ultricies hendrerit. Sed pellentesque porta dolor, quis sollicitudin ante placerat eu. Nunc in mi eros. Duis dictum ipsum erat. Curabitur lobortis augue eu lectus lobortis commodo. Donec vitae cursus tellus, nec dapibus nisi. Sed libero odio, eleifend vel tellus a, accumsan sollicitudin erat.</p>
+            <p>Vestibulum pretium cursus nibh, vitae mollis est auctor eget. Suspendisse potenti. Pellentesque fermentum tristique fringilla. Morbi fermentum ligula ut finibus tincidunt. Morbi sollicitudin orci venenatis magna porttitor blandit. Donec eu sem et libero sodales condimentum eu ac nulla. Praesent libero odio, posuere at scelerisque laoreet, pellentesque mattis dui. Nullam finibus urna id nunc egestas, in luctus tellus ornare. Vivamus sollicitudin ligula vitae laoreet fermentum. Nulla auctor mi non neque malesuada dignissim.</p>
+            <p>In et sem tortor. Vestibulum sollicitudin fringilla leo sed scelerisque. Ut mi nisl, gravida non quam et, gravida luctus ante. Etiam fringilla nec justo in vestibulum. Pellentesque semper tincidunt leo, sed lobortis lorem vestibulum vitae. Donec interdum erat vitae leo maximus aliquam. Aenean nisl tortor, fermentum sit amet tincidunt at, faucibus quis quam. Phasellus sapien metus, rhoncus sed tristique et, vulputate vel nulla. Nullam elementum molestie augue sed imperdiet. Donec quis enim nisl. Donec condimentum commodo justo sit amet consequat. Pellentesque ut massa eleifend, consectetur ligula sed, tristique turpis. Fusce scelerisque luctus venenatis. Curabitur ultrices finibus sapien sed laoreet.</p>
+
+        </div>
+
+        <div class="pages" id="terms_conditions">
+
+            <h1 style="font-weight: 750">TERMS & CONDITIONS</h1>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ex ex, dapibus ac vulputate at, sodales sit amet nulla. Maecenas sit amet nunc sed arcu ultrices maximus ac ut odio. Quisque at tempus justo. Vestibulum at ligula vel felis pretium bibendum. Pellentesque lobortis orci libero, eu dictum mauris tincidunt et. Nulla non nulla nisi. Nunc libero ante, euismod eget gravida in, efficitur non odio. Nullam et tristique lacus, et blandit libero. In facilisis vitae massa id fringilla. Nam ultrices, mi vitae venenatis tempor, ex nisl interdum lacus, vel blandit magna odio ut eros. Praesent vestibulum hendrerit leo vitae consequat. Nam vitae lacinia mauris.</p>
+            <p>Phasellus ornare augue nec tortor porta, nec accumsan justo placerat. Sed nibh leo, semper at orci id, sodales laoreet nisl. In at libero ipsum. Maecenas ullamcorper libero ac eros auctor tincidunt. Integer convallis quis nunc sed volutpat. Aenean quis tempus libero. Mauris at accumsan nunc. Aenean vehicula nibh nec orci elementum convallis.</p>  
+            <p>Integer et dictum lacus. Donec at magna non lectus ultricies hendrerit. Sed pellentesque porta dolor, quis sollicitudin ante placerat eu. Nunc in mi eros. Duis dictum ipsum erat. Curabitur lobortis augue eu lectus lobortis commodo. Donec vitae cursus tellus, nec dapibus nisi. Sed libero odio, eleifend vel tellus a, accumsan sollicitudin erat.</p>
+            <p>Vestibulum pretium cursus nibh, vitae mollis est auctor eget. Suspendisse potenti. Pellentesque fermentum tristique fringilla. Morbi fermentum ligula ut finibus tincidunt. Morbi sollicitudin orci venenatis magna porttitor blandit. Donec eu sem et libero sodales condimentum eu ac nulla. Praesent libero odio, posuere at scelerisque laoreet, pellentesque mattis dui. Nullam finibus urna id nunc egestas, in luctus tellus ornare. Vivamus sollicitudin ligula vitae laoreet fermentum. Nulla auctor mi non neque malesuada dignissim.</p>
+            <p>In et sem tortor. Vestibulum sollicitudin fringilla leo sed scelerisque. Ut mi nisl, gravida non quam et, gravida luctus ante. Etiam fringilla nec justo in vestibulum. Pellentesque semper tincidunt leo, sed lobortis lorem vestibulum vitae. Donec interdum erat vitae leo maximus aliquam. Aenean nisl tortor, fermentum sit amet tincidunt at, faucibus quis quam. Phasellus sapien metus, rhoncus sed tristique et, vulputate vel nulla. Nullam elementum molestie augue sed imperdiet. Donec quis enim nisl. Donec condimentum commodo justo sit amet consequat. Pellentesque ut massa eleifend, consectetur ligula sed, tristique turpis. Fusce scelerisque luctus venenatis. Curabitur ultrices finibus sapien sed laoreet.</p>
+
+        </div>
+
+        <div class="pages" id="faq">
+
+            <h1 style="font-weight: 750">FREQUENTLY ASKED QUESTIONS</h1>
+
+            <p><b>Q: Lorem ipsum dolor sit amet?</b></p>
+            <p>A: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ex ex, dapibus ac vulputate at, sodales sit amet nulla. Maecenas sit amet nunc sed arcu ultrices maximus ac ut odio. Quisque at tempus justo. Vestibulum at ligula vel felis pretium bibendum. Pellentesque lobortis orci libero, eu dictum mauris tincidunt et. Nulla non nulla nisi. Nunc libero ante, euismod eget gravida in, efficitur non odio. Nullam et tristique lacus, et blandit libero. In facilisis vitae massa id fringilla. Nam ultrices, mi vitae venenatis tempor, ex nisl interdum lacus, vel blandit magna odio ut eros. Praesent vestibulum hendrerit leo vitae consequat. Nam vitae lacinia mauris.</p>
+            
+            <hr>
+
+            <p><b>Q: Lorem ipsum dolor sit amet?</b></p>
+            <p>A: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ex ex, dapibus ac vulputate at, sodales sit amet nulla. Maecenas sit amet nunc sed arcu ultrices maximus ac ut odio. Quisque at tempus justo. Vestibulum at ligula vel felis pretium bibendum. Pellentesque lobortis orci libero, eu dictum mauris tincidunt et. Nulla non nulla nisi. Nunc libero ante, euismod eget gravida in, efficitur non odio. Nullam et tristique lacus, et blandit libero. In facilisis vitae massa id fringilla. Nam ultrices, mi vitae venenatis tempor, ex nisl interdum lacus, vel blandit magna odio ut eros. Praesent vestibulum hendrerit leo vitae consequat. Nam vitae lacinia mauris.</p>
+            
+            <hr>
+
+            <p><b>Q: Lorem ipsum dolor sit amet?</b></p>
+            <p>A: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ex ex, dapibus ac vulputate at, sodales sit amet nulla. Maecenas sit amet nunc sed arcu ultrices maximus ac ut odio. Quisque at tempus justo. Vestibulum at ligula vel felis pretium bibendum. Pellentesque lobortis orci libero, eu dictum mauris tincidunt et. Nulla non nulla nisi. Nunc libero ante, euismod eget gravida in, efficitur non odio. Nullam et tristique lacus, et blandit libero. In facilisis vitae massa id fringilla. Nam ultrices, mi vitae venenatis tempor, ex nisl interdum lacus, vel blandit magna odio ut eros. Praesent vestibulum hendrerit leo vitae consequat. Nam vitae lacinia mauris.</p>
+
+        </div>
+
+        <div class="pages" id="contact_us">
+
+            <h1 style="font-weight: 750">CONTACT US</h1>
+            <p><b>Phone Number: </b>(123) 456-7890</p>
+            <p><b>Email: </b>customer_service@wangwang.com</p>
+            
+        </div>
+    </div>
+</main>

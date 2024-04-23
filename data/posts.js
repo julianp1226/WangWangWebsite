@@ -17,7 +17,9 @@ import {
   validCountryCode,
   validInterests,
   validStrArr,
-  validNumber
+  validNumber,
+  validVideoUrl,
+  isValidImage
 } from "../validation.js";
 
 
@@ -25,23 +27,21 @@ const createPost = async (
   userId,
   title,
   media,
-  type,
   tags,
-  likeCount,
-  commentCount
+  caption
 ) => {
   if (
     !userId ||
     !title ||
     !media ||
-    !type ||
-    !tags ||
-    !likeCount ||
-    !commentCount
+    !tags
   ) {
     throw "Error: Missing required input";
   }
- 
+  let type;
+  let likeCount = 0
+  let commentCount = 0;
+
   try {
     userId = validId(userId);
   } catch (e) {
@@ -53,12 +53,21 @@ const createPost = async (
     throw e;
   }
   try {
-    type = validStr(type);
+    media = validStr(media);
   } catch (e) {
     throw e;
   }
-  if (type != "image" && type != "video") {
-    throw "Error: Media must be of type image or video.";
+  if (validVideoUrl(media)) {
+    type = "video"
+  } else if (isValidImage(media)) {
+    type = "image"
+  } else {
+    throw "Invalid file format."
+  }
+  try {
+    type = validStr(type);
+  } catch (e) {
+    throw e;
   }
   try {
     tags = validStrArr(tags);
@@ -75,6 +84,12 @@ const createPost = async (
   } catch (e) {
     throw e;
   }
+  try {
+    caption = validStr(caption);
+  } catch (e) {
+    throw e;
+  }
+
 
   let addPost = {
     userId: userId,
@@ -83,8 +98,10 @@ const createPost = async (
     type: type,
     tags: tags,
     likeCount: likeCount,
-    commentCount:commentCount,
-    insertDate: Math.round(new Date()/1000),
+    commentCount: commentCount,
+    caption: caption,
+    comments: [],
+    insertDate: new Date().toJSON().slice(0, 10)
   };
   const postsCollection = await posts();
  
@@ -116,7 +133,10 @@ const getPostById = async (id) => {
   return post;
 };
 
-//console.log(await createPost("65c2e409a47ef78ffeb8f335", "Fun thing", "insert thing here", "image", ["#fun", "#skincare", "#selfcare"], 67, 2));
+/*console.log(await createPost("65fd11a1a0f40b80482efaca", "post 1", "/public/media/venice.mp4", ["#fun", "#selfcare", "#facial"],"This product is great!"));
+console.log(await createPost("65fd11a1a0f40b80482efaca", "post 2", "/public/media/boldandbrash.jpg", ["#selfcare", "#facial", "product"], "This product is great too"));
+*/
+
 const getAllPosts = async () => {
   let allPosts;
   try {
@@ -129,8 +149,25 @@ const getAllPosts = async () => {
   return allPosts;
 };
 
+const deletePostById = async (id) => {
+  try {
+    id = validId(id, "postId");
+  } catch (e) {
+    throw "Error (data/posts.js :: deletePostById(id)):" + e;
+  }
+
+  const postsCollection = await posts();
+  const deletionInfo = await postsCollection.deleteOne({ _id: new ObjectId(id) });
+
+  if (deletionInfo.deletedCount === 0)
+    throw "Error (data/posts.js :: deletePostById(id)): No post found with the given ID";
+
+  return { deletedCount: deletionInfo.deletedCount };
+};
+
 export {
   createPost,
   getPostById,
-  getAllPosts
+  getAllPosts,
+  deletePostById
 }

@@ -1,18 +1,18 @@
 <main>
   <div class="profile-page">
     <h1>{{user.firstName}} {{user.lastName}}</h1>
-    <img alt="{{user.username}}" width="200" height="200" src={{user.image}} >
+    <img alt="{{user.username}}" width="200" height="200" src={{user.profilePic}} >
     <p id="p-username">{{user.username}}</p>
-    <p id="p-age">Age {{user.age}}</p>
-    <p id="p-address">{{user.city}}, {{user.state}}</p>
-    {{#if user.overallRating}}
-      <p id="p-rating">Player Rating: {{user.overallRating}}</p>
-    {{/if}}
     {{#if ownPage}}
       <button
         id="editProfile"
         onclick="window.location.href='/user/id/{{user._id}}/editProfile';"
       >Edit Profile!</button>
+      <br>
+      <button
+        id="editProfile"
+        onclick="window.location.href='/payments/id/{{user._id}}';"
+      >Payment Methods</button>
     {{/if}}
     <p id="currentUsername" hidden>{{currentUsername}}</p>
           

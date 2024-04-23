@@ -1,0 +1,104 @@
+<main class="post-main">
+  <head>
+        <link rel="stylesheet" href="/public/css/post.css"/>
+  </head>
+  <div class="post-page">
+    <div class="indiv-post" id="onepost">
+      <div class="top-of-post">
+        <div id="top-profile-pic">
+        <img id="profilepic" alt="{{name}}" src={{profilePic}}>
+        </div>
+         <h1 id="profile-name">{{name}}</h1>
+         <button class="follow" id="follow">FOLLOW</button>
+         <svg id="x" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="get_out()" style="cursor: pointer;">
+          <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
+          <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/>
+      </svg>
+      </div>
+      {{#if post.isImage}}
+      <img id="media" alt="{{post.title}}" src={{post.media}}> 
+      {{else}}
+       <video id="video" autoplay loop>
+                  <source src={{post.media}}>
+                  Your browser does not support the video tag.
+                </video>
+      {{/if}}
+      <p class="caption">{{post.caption}}</p>
+      <div id="likes-and-icons">
+        <div id="like-icon" onclick="likePost(window.location.href)" style="cursor:pointer;">
+          <svg class="icons" width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path id="postLike-{{post._id}}" fill-rule="evenodd" clip-rule="evenodd" d="M10.7166 20.7296C7.07147 19.4795 1.2793 15.0424 1.2793 8.48682C1.2793 5.14702 3.97976 2.43701 7.30048 2.43701C8.91313 2.43701 10.4208 3.0668 11.5373 4.19279C12.6537 3.0668 14.1614 2.43701 15.774 2.43701C19.0947 2.43701 21.7952 5.15656 21.7952 8.48682C21.7952 15.0519 16.003 19.4795 12.3579 20.7296C12.1193 20.8155 11.8331 20.8536 11.5373 20.8536C11.2414 20.8536 10.9552 20.8155 10.7166 20.7296ZM2.71064 8.48682C2.71064 15.0042 8.97992 18.6303 11.1842 19.3841C11.356 19.4414 11.7281 19.4414 11.8999 19.3841C14.0946 18.6303 20.3734 15.0137 20.3734 8.48682C20.3734 5.93903 18.3123 3.86836 15.7836 3.86836C14.3331 3.86836 12.9877 4.54586 12.1193 5.71956C11.8522 6.08217 11.2414 6.08217 10.9743 5.71956C10.0868 4.53632 8.75091 3.86836 7.30048 3.86836C4.77177 3.86836 2.71064 5.93903 2.71064 8.48682Z" fill="#292D32"/>
+                  </svg>
+        </div>
+        <div class="likes" id="like-{{post._id}}">
+          {{post.likeCount}}
+        </div>
+        <div class="send">
+                    <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.60604 16.2538L8.919 14.1926L6.85787 13.5056C3.07912 12.246 2.28711 10.6524 2.28711 9.52645C2.28711 8.41001 3.07912 6.8069 6.85787 5.53778L14.9593 2.83731C16.9822 2.15981 18.6712 2.36019 19.7113 3.39076C20.7514 4.42133 20.9518 6.11986 20.2743 8.14282L17.5739 16.2442C16.3047 20.0421 14.7112 20.8341 13.5852 20.8341C12.4592 20.8341 10.8656 20.0421 9.60604 16.2538ZM3.70891 9.52645C3.70891 10.2135 4.6536 11.2632 7.30635 12.141L9.71101 12.9426C9.92094 13.0094 10.0927 13.1812 10.1595 13.3911L10.9611 15.7957C11.8389 18.4485 12.8981 19.3932 13.5852 19.3932C14.2722 19.3932 15.3219 18.4485 16.2093 15.7957L18.9098 7.69433C19.3964 6.22482 19.3106 5.02249 18.6903 4.40225C18.0701 3.782 16.8677 3.70566 15.4078 4.19231L7.30635 6.90232C4.6536 7.78976 3.70891 8.83941 3.70891 9.52645Z" fill="#292D32"/>
+                      <path d="M9.15676 13.7248C8.88004 13.4481 8.88004 12.99 9.15676 12.7133L12.5729 9.28762C12.8496 9.0109 13.3077 9.0109 13.5844 9.28762C13.8611 9.56435 13.8611 10.0224 13.5844 10.2991L10.1682 13.7248C10.0347 13.8679 9.84381 13.9347 9.6625 13.9347C9.4812 13.9347 9.2999 13.8679 9.15676 13.7248Z" fill="#292D32"/>
+                    </svg>
+        </div>
+        <div id="post-date">{{post.insertDate}}</div>
+      </div>
+      <div class="tags">
+        <div id="tag-label">
+          Tags:
+        </div>
+        {{#each post.tags}}
+        <div class="tags-box">
+          <p class="tag-name">
+          {{this}}
+          </p>
+        </div>
+        {{/each}}
+      </div>
+      <div class="comments-heading">
+        {{post.commentCount}} Comments
+      </div>
+      <div class="comments-section">
+        {{#each post.comments}}
+        <div class="individual-comment">
+        <div class="comment-profile-pic">
+          <img id="comment-prof-pic" alt="profile-picture" src="{{this.commenterProfilePic}}">
+        </div>
+          <div class="name-comment-time">
+            <div id="commenter-name">
+            {{this.commenterFirstname}}
+            </div>
+            <div id="actual-comment">
+            {{this.comment}}
+            </div>
+            <div id="date-posted">
+            {{this.date}}
+            </div>
+          </div>
+          <div id="comment-like-button-div">
+          <svg id='comment-like-button' width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#FF3EA5" fill-rule="evenodd" clip-rule="evenodd" d="M10.7166 20.7296C7.07147 19.4795 1.2793 15.0424 1.2793 8.48682C1.2793 5.14702 3.97976 2.43701 7.30048 2.43701C8.91313 2.43701 10.4208 3.0668 11.5373 4.19279C12.6537 3.0668 14.1614 2.43701 15.774 2.43701C19.0947 2.43701 21.7952 5.15656 21.7952 8.48682C21.7952 15.0519 16.003 19.4795 12.3579 20.7296C12.1193 20.8155 11.8331 20.8536 11.5373 20.8536C11.2414 20.8536 10.9552 20.8155 10.7166 20.7296ZM2.71064 8.48682C2.71064 15.0042 8.97992 18.6303 11.1842 19.3841C11.356 19.4414 11.7281 19.4414 11.8999 19.3841C14.0946 18.6303 20.3734 15.0137 20.3734 8.48682C20.3734 5.93903 18.3123 3.86836 15.7836 3.86836C14.3331 3.86836 12.9877 4.54586 12.1193 5.71956C11.8522 6.08217 11.2414 6.08217 10.9743 5.71956C10.0868 4.53632 8.75091 3.86836 7.30048 3.86836C4.77177 3.86836 2.71064 5.93903 2.71064 8.48682Z" fill="#292D32"/>
+                  </svg>
+          <div style="font-size:smaller;">{{this.likes}}</div>
+          </div>
+          </div>
+           {{/each}}
+      </div>
+      <div class="error-div" id="error-div"></div>
+      <form id="commentForm" action="/feed/id/{{post._id}}/comment" method="POST" onsubmit="event.preventDefault(); validateMyForm();">
+      <div class="add-comment">
+        <input id="commentInput" name="commentInput" class="type-comment" type="text" placeholder="Write something...">
+        <button id="postCommentButton" type="submit">
+        <svg id="submitButton" width="30" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0.546875" y="0.308105" width="42.1984" height="42.1984" rx="21.0992" fill="#CDAA89"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M19.648 26.3613L18.9096 24.1459L16.6941 23.4074C12.6325 22.0536 11.7812 20.3407 11.7812 19.1304C11.7812 17.9304 12.6325 16.2073 16.6941 14.8432L25.402 11.9406C27.5763 11.2124 29.3918 11.4278 30.5097 12.5355C31.6277 13.6432 31.8431 15.4689 31.1149 17.6432L28.2123 26.3511C26.8481 30.4332 25.1353 31.2845 23.925 31.2845C22.7147 31.2845 21.0019 30.4332 19.648 26.3613ZM13.3095 19.1304C13.3095 19.8689 14.3249 20.9971 17.1762 21.9407L19.7609 22.8023C19.9865 22.8741 20.1711 23.0587 20.2429 23.2844L21.1045 25.869C22.0481 28.7203 23.1865 29.7357 23.925 29.7357C24.6635 29.7357 25.7917 28.7203 26.7456 25.869L29.6482 17.1612C30.1713 15.5817 30.0789 14.2894 29.4123 13.6227C28.7456 12.956 27.4533 12.8739 25.884 13.397L17.1762 16.3099C14.3249 17.2638 13.3095 18.392 13.3095 19.1304Z" fill="white"/>
+          <path d="M19.1664 23.6428C18.869 23.3453 18.869 22.853 19.1664 22.5556L22.8383 18.8735C23.1357 18.576 23.628 18.576 23.9255 18.8735C24.2229 19.1709 24.2229 19.6632 23.9255 19.9607L20.2536 23.6428C20.11 23.7966 19.9049 23.8684 19.71 23.8684C19.5152 23.8684 19.3203 23.7966 19.1664 23.6428Z" fill="white"/>
+          <path opacity="0.01" fill-rule="evenodd" clip-rule="evenodd" d="M33.9546 9.09912V33.7149H9.33887V9.09912H33.9546Z" fill="white"/>
+        </svg>
+        </button>
+        </div>
+      </form>
+      <div class="bottom-spacer">
+      </div>
+
+    </div>      
+  </div>
+  </main>

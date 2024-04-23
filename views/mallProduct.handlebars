@@ -1,0 +1,105 @@
+<head>
+        <link rel="stylesheet" href="/public/css/product-styles.css"/>
+</head>
+<main id="main">
+    <div id="product" class="product" prodid={{product._id}}>
+        <span class="prod">
+        <br>
+        <span class="imgCol">
+            <img class = "prodIMG" src={{product.image}} />
+            <span  class="imgGal">
+                {{#each product.images}}
+                    <img class="galIMG" src={{this}} >     
+                {{/each}}
+            </span>
+            <span class="revBox">
+                <h1>Reviews</h1>
+                <a class="link" id="giveReview" href="/no-javascript.html">GIVE A REVIEW →</a> <!--TODO REVIEW STUFF-->
+            </span>
+        </span>
+        <span class="infoCol">
+            <h2>{{product.name}}</h2>
+            <span class="ratingInfo">
+                <img class="star" src="/public/media/Star.png">
+                <p class="rating" reviews={{product.revstr}}>-</p>
+            </span>
+            <p class="price">${{product.actualPrice}}</p>
+            <form method="POST">
+                <span class="quantity">
+                    <label class="important" for="num">Quantity</label>
+                    <span class="quantityIn">
+                        <button id="down" type="menu">-</button>
+                        <input type="text" id="num" name="num" value="1">
+                        <button id="up" type="menu">+</button>
+                    </span>
+                </span>
+                <br>
+                <button id="ATC" type="submit">Add to Cart</button> <!-- TODO: Add Cart Feature-->
+            </form>
+            <a class="link" href="/">Save to Wish List</a> <!-- TODO: Add Link to save to wishlist once implemented -->
+            <p class="important">Description</p>
+            <p>{{product.description}}</p>
+        </span>
+        
+    </span>
+        <span class="reviews">
+            {{#if product.reviews.[0]}}
+            
+            <span class="review1">
+                <h2>{{product.reviews.[0].user}}</h2>
+                <span class="revbar">
+                    <img src="/public/media/Star.png">
+                    <h3>{{product.reviews.[0].stars}}</h3>
+                    <h3 class="postDate">{{product.reviews.[0].time}}</h3>
+                </span>
+                <p>{{product.reviews.[0].text}}</p>
+            </span>
+            {{/if}}
+            {{#if product.reviews.[1]}}
+            <span class="review2">
+                <h2>{{product.reviews.[1].user}}</h2>
+                <span class="revbar">
+                    <img src="/public/media/Star.png">
+                    <h3>{{product.reviews.[1].stars}}</h3>
+                    <h3 class="postDate">{{product.reviews.[1].time}}</h3>
+                </span>
+                <p>{{product.reviews.[1].text}}</p>
+            </span>
+            {{/if}}
+        </span>
+        <span class="readMore">
+            <button id="RM" onclick="CreateList()">Read More</button>
+        </span>
+        <span class="similarProds">
+            <h1>Similar Products</h1>
+            <a href="/shop/viewall/similarto/{{product._id}}" class="link"><p>View All →</p></a>
+        </span>
+        <span class="simProd">
+            {{#each products}}
+            <div class="simProduct">
+                <a href="/shop/{{this._id}}" >
+                <img class="productIMG" src={{this.image}}>
+                <span class="info">
+                    <p class="prodTitle">{{this.name}}</p>
+                    <span class="simRatingInfo">
+                        <img class="simStar" src="/public/media/Star.png">
+                        <p class="simRating" reviews={{this.reviews}}>5</p>
+                    </span>
+                </span>
+                <span class="info">
+                    <p class="price">${{this.actualPrice}}</p>
+                    <img class="bag" src="/public/media/Bag.png">
+                </span>
+                </a>
+            </div>
+            {{/each}}
+        </span>
+        
+
+
+    </div>
+    <script src="../public/js/productReviews.js"></script>
+    <script src="../public/js/products.js"></script>
+    
+    
+</main>

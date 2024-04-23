@@ -1,0 +1,246 @@
+#media {
+  width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+}
+
+.post-main{
+      width: fit-content;
+    margin: auto;
+}
+
+video {
+  width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+}
+
+
+h1 {
+  display: block;
+  text-align: center;
+  z-index: 3;
+}
+
+.post-page {
+  margin-left:auto;
+    margin-top: 15%;
+}
+
+footer {
+  display:none;
+}
+
+.indiv-post {
+  border-radius: 12px;
+  background-color: white;
+}
+
+.top-of-post {
+  display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+#profilepic {
+  height:60px;
+  width: 60px;
+}
+
+.follow {
+  background-color: #CDAA89;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-family: "Lato";
+  border-radius: 10px;
+}
+
+#profile-name {
+  font-family: "Lato";
+}
+
+#x {
+    margin-left: 12%;
+    margin-right: 12px;
+    margin-bottom: 7%;
+}
+
+.caption {
+  font-family: "Lato";
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#likes-and-icons {
+  display: flex;
+  margin-left: 5%;
+    margin-right: 5%;
+    margin-top:2%;
+        align-items: flex-start;
+}
+
+.likes {
+  font-family: 'Lato';
+}
+
+.send {
+  padding-left: 6%;
+}
+
+#post-date {
+  margin-left: auto;
+  font-family: 'Lato';
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.tags {
+    display: flex;
+    align-items: center;
+    gap: 1%;
+    margin: 5%;
+        border-bottom: 2px solid #0000002e;
+    padding-bottom: 5%;
+}
+
+#tag-label {
+  font-size: small;
+}
+
+.tags-box {
+  border: 2px solid #00000017;
+    border-radius: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.tag-name {
+  font-family: 'Lato';
+  font-size: small;
+}
+
+.comments-heading {
+  display:flex;
+  font-family: 'Lato';
+  justify-content: center;
+  font-size: x-large;
+  padding-bottom: 5%;
+}
+
+.name-comment-time {
+  display: flex;
+    margin-left: 4%;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.comment-profile-pic {
+  height: 60px;
+    width: 60px;
+  border-radius:50%;
+}
+
+#comment-prof-pic {
+ height: 60px;
+    width: 60px;
+}
+
+#top-profile-pic {
+  border-radius: 50%;
+}
+
+.comments-section {
+  display: flex;
+  flex-direction: column;
+    margin-left: 5%;
+    margin-right: 5%;
+        font-family: 'Lato';
+    padding-bottom: 5%;
+    gap:30px;
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+#commenter-name {
+  font-weight: bold;
+}
+
+#actual-comment {
+  font-size:15px;
+   color: rgba(0, 0, 0, 0.5);
+}
+
+#date-posted {
+  font-size:12px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#comment-like-button-div {
+  display: flex;
+      flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+}
+
+.add-comment {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 38%);
+    transition: 0.3s;
+    margin: 8px;
+    border-radius: 20px;
+    display: flex;
+    padding-bottom: 2.5%;
+    justify-content: center;
+    padding-top: 2.5%;
+    width: 90%;
+    margin-left: 5%;
+        gap: 2%;
+}
+
+.bottom-spacer {
+  padding-bottom: 5%;
+}
+
+.type-comment {
+      background: #EFF3F7;
+    border-radius: 15.5px;
+    padding-top: 2%;
+        width: 85%;
+    padding-bottom: 2%;
+    border: none;
+    text-indent: 5%;
+    font-family: 'Lato';
+    font-size: initial;
+}
+
+#postCommentButton {
+      border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.error-div {
+     font-family: 'Lato';
+    display: flex;
+    color: red;
+    justify-content: center;
+}
+
+.individual-comment {
+  display:flex;
+  align-items: center;
+}

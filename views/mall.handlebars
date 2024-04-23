@@ -1,0 +1,112 @@
+<head>
+        <link rel="stylesheet" href="/public/css/shop-styles.css"/>
+</head>
+<main>
+    <div class="section">
+        <h1 class="Shop">Recommended For You</h1>
+        <a href="/shop/viewall/recommended" class="viewLink"><p>View All →</p></a>
+        <br>
+        <span class="prod">
+            {{#each products}}
+            <div class="product">
+                <a href="/shop/{{this._id}}" >
+                <img class="productIMG" src={{this.image}}>
+                <span class="info">
+                    <p class="prodTitle">{{this.name}}</p>
+                    <span class="ratingInfo">
+                        <img class="star" src="/public/media/Star.png">
+                        <p class="rating" reviews={{this.reviews}}>-</p>
+                        
+                    </span>
+                </span>
+                <span class="info">
+                    <p class="price">${{this.actualPrice}}</p>
+                    <img class="bag" src="/public/media/Bag.png">
+                </span>
+                </a>
+            </div>
+            {{/each}}
+        </span>
+    </div>
+    <div class="section">
+        <h1>Best Selling</h1>
+        <a href="/shop/viewall/best" class="viewLink"><p>View All →</p></a>
+        <br>
+        <span class="prod">
+            {{#each products}}
+            <div class="product">
+                <a href="/shop/{{this._id}}" >
+                <img class="productIMG" src={{this.image}}>
+                <span class="info">
+                    <p class="prodTitle">{{this.name}}</p>
+                    <span class="ratingInfo">
+                        <img class="star" src="/public/media/Star.png">
+                        <p class="rating" reviews={{this.reviews}}>-</p>
+                        
+                    </span>
+                </span>
+                <span class="info">
+                    <p class="price">${{this.actualPrice}}</p>
+                    <img class="bag" src="/public/media/Bag.png">
+                </span>
+                </a>
+            </div>
+            {{/each}}
+        </span>
+    </div>
+    <br>
+    <div class="section">
+        <h1>Trending</h1>
+        
+        <a href="/shop/viewall/trending" class="viewLink"><p>View All →</p></a>
+        <br>
+        <span class="prod">
+            {{#each products}}
+            <div class="product">
+                <a href="/shop/{{this._id}}" >
+                <img class="productIMG" src={{this.image}}>
+                <span class="info">
+                    <p class="prodTitle">{{this.name}}</p>
+                    <span class="ratingInfo">
+                        <img class="star" src="/public/media/Star.png">
+                        <p class="rating" reviews={{this.reviews}}>-</p>
+                        
+                    </span>
+                </span>
+                <span class="info">
+                    <p class="price">${{this.actualPrice}}</p>
+                    <img class="bag" src="/public/media/Bag.png">
+                </span>
+                </a>
+            </div>
+            {{/each}}
+        </span>    
+    </div>
+    <div class="section">
+        <h1>Recently Viewed</h1>
+        <a href="/shop/viewall/recent" class="viewLink"><p>View All →</p></a>
+        <br>
+        <span class="prod">
+            {{#each products}}
+            <div class="product">
+                <a href="/shop/{{this._id}}" >
+                <img class="productIMG" src={{this.image}}>
+                <span class="info">
+                    <p class="prodTitle">{{this.name}}</p>
+                    <span class="ratingInfo">
+                        <img class="star" src="/public/media/Star.png">
+                        <p class="rating" reviews={{this.reviews}}>-</p>
+                        
+                    </span>
+                </span>
+                <span class="info">
+                    <p class="price">${{this.actualPrice}}</p>
+                    <img class="bag" src="/public/media/Bag.png">
+                </span>
+                </a>
+            </div>
+            {{/each}}
+        </span>
+    </div>
+    <script src="/public/js/productReviews.js" ></script>
+</main>

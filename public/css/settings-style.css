@@ -1,0 +1,258 @@
+body {
+    font-family: Lato, sans-serif;
+    color: #1E1E1E;
+}
+
+hr {
+    width: 100%;
+}
+
+#flex_container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+#sidebar {
+    margin-top: 20px;
+    margin-left: 50px;
+    width: 230px;
+    height: 480px;
+    border-radius: 50px;
+    box-shadow: 0 10px 10px 4px lightgray;
+    padding-top: 45px;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.nav_btns {
+    height: 45px;
+    background-color: white;
+    color: #8E8E8E;
+    border-width: 1px 0px 1px 0px;
+    border-color: rgba(211, 211, 211, 0.293);
+    padding-left: 20px;
+    font-family: Lato, sans-serif;
+    font-size: medium;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.nav_btns svg {
+    margin-right: 15px;
+}
+
+#your_account {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 100px;
+}
+
+#basic_info {
+    display: flex;
+    flex-direction: row;
+}
+
+#pfp_btn_container {
+    display: flex;
+    flex-direction: column;
+}
+
+#pfp_btn_container button, form button, input[type="submit"] {
+    background-color: #FF3EA5;
+    color: white;
+    font-family: Lato, sans-serif;
+    font-size: medium;
+    width: 175px;
+    height: 32px;
+    border-width: 0px;
+    border-radius: 8px;
+}
+
+#pfp {
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    box-shadow: 0 10px 10px 4px lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#info_container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
+
+#name_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: large;
+    line-height: 0.2;
+}
+
+.name_boxes {
+    width: 200px;
+    height: 30px;
+    box-shadow: 0 2px 10px 2px lightgray;
+    border: 1px solid #1e1e1e80;
+    border-radius: 5px;
+}
+
+#bio_box {
+    width: 620px;
+    height: 200px;
+    box-shadow: 0 2px 10px 2px lightgray;
+    border: 1px solid #1e1e1e80;
+    border-radius: 5px;
+}
+
+.other_info {
+    display: flex;
+    flex-direction: row;
+    line-height: 0.2;
+}
+
+.info_boxes {
+    width: 300px;
+    height: 30px;
+    box-shadow: 0 2px 10px 2px lightgray;
+    border: 1px solid #1e1e1e80;
+    border-radius: 5px;
+}
+
+.other_info button {
+    background-color: #FF3EA5;
+    color: white;
+    font-family: Lato, sans-serif;
+    font-size: medium;
+    border-width: 0px;
+    border-radius: 8px;
+    margin-left: 30px;
+    margin-top: 35px;
+    width: 175px;
+    height: 32px;
+}
+
+#address_book, #payment_details {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 100px;
+}
+
+#address_book button, #payment_details button {
+    background-color: #FF3EA5;
+    color: white;
+    font-family: Lat, sans-serif;
+    font-size: medium;
+    border-width: 0px;
+    border-radius: 8px;
+    width: 500px;
+    height: 30px;
+}
+
+#address_book button:hover, #payment_details button:hover, #pfp_btn_container button:hover, .other_info button:hover, form button:hover, input[type="submit"]:hover {
+    background-color: #d33489;
+    transition-duration: 0.3s;
+}
+
+#appearance {
+    display: none;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 100px;
+}
+
+input[type='checkbox'] {
+    accent-color: #FF3EAF;
+    height: 20px;
+    width: 20px;
+}
+
+#privacy_policy, #terms_conditions, #faq, #contact_us {
+    display: none;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 100px;
+    width: 1000px;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgb(0, 0, 0, 0.4);
+}
+
+.popup label {
+    color: #718096;
+}
+
+.popup_content {
+    display: block;
+    background-color: white;
+    margin: auto;
+    margin-top: 100px;
+    padding: 40px;
+    border-radius: 8px;
+}
+
+#my_account_form {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.form_container_row {
+    display: flex;
+    flex-direction: row;
+}
+
+.form_container_column {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup input[type="text"], select, input[type='email'], input[type='tel'] {
+    background-color: #E2E8F0;
+    border: 0px;
+    border-radius: 8px;
+    height: 40px;
+    width: 156px;
+    font-family: Lato, sans-serif;
+    margin-right: 32px;
+    padding: 10px;
+}
+
+textarea {
+    resize: none;
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    background-color: #E2E8F0;
+    border: 0px;
+    font-family: Lato, sans-serif;
+    padding: 10px;
+}
+
+#contact_info_popup_form label {
+    margin: 5px 5px 0 0;
+}
+
+#contact_info_form input[type='text'], #address_book_form input[type='text'], #payment_details_form input[type='text'], input[type='email'], input[type='tel'] {
+    width: 100%;
+}

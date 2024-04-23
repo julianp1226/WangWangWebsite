@@ -1,0 +1,67 @@
+<main>
+  <head>
+      <link rel="stylesheet" href="/public/css/payment.css">
+  </head>
+  <script>
+    function toggle() {
+      var ele = document.getElementById("payment-add");
+      if(ele.style.display == "block") {
+          ele.style.display = "none";
+      }
+      else {
+          ele.style.display = "block";
+      }
+    }; 
+  </script>
+  <div class = "payment-main">
+    <h1 class="payment-title">PAYMENT DETAILS</h1>
+    <h2 class="payment-subtitle">Saved Cards</h2>
+    {{#if ownPage}}
+      {{#each all_cards}}
+      <div class="payment-ctn">
+          <p>{{this.cardScheme}}</p>
+          <p class="payment-details">Ending in: {{this.last4Digits}}</p>
+          <div>
+            <p class="payment-details">Expiry: {{this.expiry}}</p>
+          {{!-- ToDo: Warning Message --}}
+            <form action="/payments/id/{{../id}}" method="POST" onsubmit="return confirm('Are you sure to delete card ending in {{this.last4Digits}}?');">     
+              <input type="hidden" name="_method" value="DELETE">
+              <input type="hidden" name = "first6Digits" value = "{{this.first6Digits}}">
+              <input type="hidden" name = "last4Digits" value = "{{this.last4Digits}}">
+              <input type="submit" value="Remove Card" class="delete-button">
+            </form>
+          </div>
+          <br><br>
+          <hr width="100%" size="2">
+      </div>
+      {{/each}}
+      <div class="add-button"><button onclick="toggle()" id = "add-button">Add New Card</button></div>
+      <div id="payment-add">
+        <form action="/payments/id/{{id}}" method="POST" class="add-form">
+          <label for = "nameOnCard">Name on Card: </label>
+          <input type = 'text' id = 'nameOnCard' name="nameOnCard" class="input"> <br><br>
+
+          <label for = "CardNumber">Card Number: </label> 
+          <input type = 'text' pattern="^([0-9]+){4}\s([0-9]+){4}\s([0-9]+){4}\s([0-9]+){4}$" id = 'CardNumber' name="CardNumber" maxlength="19" placeholder="xxxx xxxx xxxx xxxx" class = "input"> <br><br>
+
+          <label for = "CVV">CVV Code:</label>
+          <input type = 'text' pattern="[0-9]{3,4}" id = 'CVV' name="CVV" class="input" maxlength="4"> <br><br>
+
+          <label for = "expiryM">Expiry MM:</label>
+          <input type = 'text' pattern="[0-9]{2}" id = 'expiryM' name="expiryM" placeholder="MM" class="input" maxlength="2"> <br><br>
+
+          <label for = "expiryY">Expiry YY:</label>
+          <input type = 'text' pattern="[0-9]{2}" id = 'expiryY' name="expiryY" placeholder="YY" class="input" maxlength="2"> <br><br>
+
+          <label for = "email">Email:</label>
+          <input type = 'email' id = 'email' name="email" class="input"> <br><br>
+          <input type ="submit" value="Add Card" id="submit-button">
+        </form>
+        <button onclick="toggle()" id="cancel-button">Cancel</button>
+      </div>
+    {{/if}}
+  
+  </div>
+  <script>
+  </script>
+</main>

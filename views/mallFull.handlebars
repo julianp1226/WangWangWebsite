@@ -1,0 +1,31 @@
+<head>
+        <link rel="stylesheet" href="/public/css/shop-styles.css"/>
+</head>
+<main>
+    <div class="section">
+        <h1 class="Shop">{{titleWord}}</h1>
+        <br>
+        <span class="prod">
+            {{#each products}}
+            <div class="product">
+                <a href="/shop/{{this._id}}" >
+                <img class="productIMG" src={{this.image}}>
+                <span class="info">
+                    <p class="prodTitle">{{this.name}}</p>
+                    <span class="ratingInfo">
+                        <img class="star" src="/public/media/Star.png">
+                        <p class="rating" reviews={{this.reviews}}>-</p>
+                        
+                    </span>
+                </span>
+                <span class="info">
+                    <p class="price">${{this.actualPrice}}</p>
+                    <img class="bag" src="/public/media/Bag.png">
+                </span>
+                </a>
+            </div>
+            {{/each}}
+        </span>
+    </div>
+    <script src="/public/js/productReviews.js"></script>
+</main>
