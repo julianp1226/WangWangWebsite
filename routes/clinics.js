@@ -260,10 +260,43 @@ router.route("/:id").get(async (req, res)=> {
 
 //test for now, not sure how exactly to make the submit event actually work
 router.route("/:id").post(async (req, res)=> {
-    //console.log(req.body)
+    //console.log(req.body.time)
     try{
-        let time = xss(req.body.date)
+        let clinicId = validId(req.params.id);
+        let clinic = await getClinicById(clinicId)        
+        let time = xss(req.body.time)
         let date = xss(req.body.date)
+
+        let hour = parseInt(time.substring(0, 2))
+
+        if(hour === 12 && time.substring(time.length-4)==="A.M."){
+            hour = 0
+        }
+        else if(hour !== 12 && time.substring(time.length-4)==="P.M."){
+            hour +=12
+        }
+        let minute = parseInt(time.substring(time.indexOf(":")+1, time.indexOf(":")+3));
+
+        let firstSpaceDate = date.indexOf(" ")
+
+        const months = ["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];
+        let month = date.substring(0, firstSpaceDate);
+        let monthNum = months.findIndex(currMonth => month == currMonth)
+        //console.log(monthNum)
+
+        let day = parseInt(date.substring(firstSpaceDate+1, firstSpaceDate+3))
+
+        let year = parseInt(date.substring(firstSpaceDate+3))
+
+        let startDate = new Date(year, monthNum, day, hour, minute)
+
+        let endDate = new Date(startDate.getTime() + clinic.slotTime*60000); //60 seconds per minute * 1000 ms per second
+
+        //console.log(date)
+        //console.log(time)
+        //console.log(startDate);
+        //console.log(endDate)
+        
     } catch(e) {
         return res
         .status(400)

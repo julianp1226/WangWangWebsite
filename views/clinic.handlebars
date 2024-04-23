@@ -19,7 +19,7 @@
         <div>
             <p>Schedule Your Appointment</p>
             {{#each dates}}
-            <button onclick="setDate({{this.dayOfWeekNum}}, '{{this.month}}', {{this.day}}); document.getElementById('create-booking').style.display='block';">{{this.dayOfWeek}} {{this.day}} {{this.month}}</button>
+            <button onclick="setDate({{this.dayOfWeekNum}}, '{{this.month}}', {{this.day}}, {{this.year}}); document.getElementById('create-booking').style.display='block';">{{this.dayOfWeek}} {{this.day}} {{this.month}}</button>
             {{/each}}
             <br></br>
         </div>
@@ -64,8 +64,8 @@
             <button onclick="setTime('{{this}}')">{{this}}</button>
           {{/each}}
           <form id="postform" action="/clinic/{{clinic._id}}" method="POST">
-            <input id="date" name="date" style="display:none;">
-            <input id="time" name="time" style="display:none;">
+            <input id="date" name="date" style="display:none;" readonly>
+            <input id="time" name="time" style="display:none;" readonly>
             <button id="post-button" type="submit" style="cursor:pointer">BOOK APPOINTMENT</button>
           </form>
           </div>
