@@ -43,11 +43,10 @@ router.route("/id/:userId").get(async (req, res) => {
   try {
     currentUser = await getUserById(req.session.user.id);
   }
-  catch (e)
-  {
+  catch (e) {
     return res
-    .status(404)
-    .render("error", { error: "Current user not found", auth: true, status: 404 });
+      .status(404)
+      .render("error", { error: "Current user not found", auth: true, status: 404 });
   }
   try {
     let user = await getUserById(req.params.userId);
@@ -128,18 +127,18 @@ router
       bio = validStrOptional(bio, "Bio")
       email = xss(updatedUser.emailAddressInput)
       //if(email !== thisUser.email){
-        email = validEmailOptional(email)
+      email = validEmailOptional(email)
       //}
       mobile = xss(updatedUser.mobileInput)
       //Check if valid phone number if not blank or if authType is "app" (phone number required)
-      if(typeof mobile !== "string" || mobile.trim() !== "" || thisUser.authType === "app"){
+      if (typeof mobile !== "string" || mobile.trim() !== "" || thisUser.authType === "app") {
         mobile = validMobile(mobile)
       }
       countryCode = xss(updatedUser.countryCodeInput)
-      if(typeof countryCode !== "string" || countryCode.trim() !== "" || thisUser.authType === "app"){
+      if (typeof countryCode !== "string" || countryCode.trim() !== "" || thisUser.authType === "app") {
         countryCode = validCountryCode(countryCode)
       }
-      if((countryCode !== "" && mobile === "") || (countryCode === "" && mobile !== "")){
+      if ((countryCode !== "" && mobile === "") || (countryCode === "" && mobile !== "")) {
         throw "Error: Country code & phone number must both be provided or both be blank"
       }
       /*if(profilePic !== "string" || profilePic.trim()!== ""){
@@ -152,7 +151,7 @@ router
     } catch (e) {
       return res.render("editProfile", {
         auth: isAuth,
-       // owner: req.session.user.owner,
+        // owner: req.session.user.owner,
         id: req.session.user.id,
         email: thisUser.email,
         firstName: thisUser.firstName,
@@ -233,6 +232,6 @@ router
         bad: e,
       });
     }
-  });  
+  });
 
 export default router;

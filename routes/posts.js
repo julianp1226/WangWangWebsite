@@ -228,4 +228,65 @@ router.route("/search").post(async (req, res) => {
 
 });
 
+router.route("/foryou").get(async (req, res) => {
+  let auth = false;
+  let allPosts;
+  try {
+    allPosts = await getAllPosts();
+  } catch (e) {
+    return res.status(500).render("error", { error: e, status: 500 });
+  }
+  if (req.session.user) {
+    auth = true;
+  } else {
+    return res.status(500).render("error", { error: "You must be authorized to view this page.", status: 500 });
+  }
+  let user;
+  try {
+    user = await getUserById(req.session.user.id);
+  } catch (e) {
+    return res.status(500).render("error", { error: e, status: 500 });
+  }
+
+  let forYouPosts = [];
+
+  allPosts.forEach(element => {
+    // Iterate through each tag in the tags array of the current object
+    element.tags.forEach(tag => {
+      // Check if the current tag includes the specified word as a substring
+      for (let i = 0; i < user.interests.length; i++) {
+        if (tag.includes(user.interests[i])) {
+          // If the word is present in the tag, add the object to the for you posts array
+          forYouPosts.push(element);
+        }
+      }
+    });
+  });
+
+
+  forYouPosts.forEach(element => {
+    if (element.type === 'image') {
+      element.isImage = true;
+    } else {
+      element.isImage = false
+    }
+  });
+  if (forYouPosts.length === 0) {
+    return res.render("feed", {
+      title: "Feed",
+      none: "Sorry, no results found for your interests!",
+      styles: "font-size: xxx-large;",
+      auth: auth,
+      //id: req.session.user.id
+    });
+  } else {
+    return res.render("feed", {
+      title: "Feed",
+      posts: forYouPosts,
+      auth: auth,
+      //id: req.session.user.id
+    });
+  }
+});
+
 export default router;
