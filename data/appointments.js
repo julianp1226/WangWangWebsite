@@ -2,8 +2,8 @@ import { appointments, clinics } from "../config/mongoCollections.js";
 //import {getClinicSpecialisationById} from "../data/clinicSpecialisations.js" - not sure if this one is needed for appointments
 import { ObjectId } from "mongodb";
 import bcrypt from "bcryptjs";
-import { getClinicById } from "clinics.js";
-import { getUserById } from "users.js";
+import { getClinicById } from "./clinics.js";
+import { getUserById } from "./users.js";
 
 import {
   validId,
@@ -79,6 +79,8 @@ const addBooking = async (
   is24hrSent = false
 ) => {
   if(!userId || !clinicId || !startDate || !endDate || !amount || !taxesAndFees || !grandTotal || !paymentType) throw "Not all necessary fields provided";
+  let clinicData;
+  let userData;
   try {
     userId = validId(userId, "User ID");
     clinicId = validId(clinicId, "Clinic ID");
@@ -131,8 +133,8 @@ const addBooking = async (
     is1hrSent: is1hrSent,
     is24hrSent: is24hrSent
   };
-  const insertInfo = await bookings.insertOne(createClinic);
-  if(!bookings.acknowledged || !bookings.insertedId) throw "Could not add appointment";
+  const insertInfo = await bookings.insertOne(appointmentObj);
+  if(!insertInfo.acknowledged || !insertInfo.insertedId) throw "Could not add appointment";
 
   const newId = insertInfo.insertedId.toString();
 
@@ -191,6 +193,9 @@ const updateBooking = async (
   is24hrSent = false
 ) => {
   if(!appointmentId || !userId || !clinicId || !startDate || !endDate || !amount || !taxesAndFees || !grandTotal || !paymentType) throw "Not all necessary fields provided";
+  let clinicData;
+  let userData;
+  let appointmentData;
   try {
     appointmentId = validId(appointmentId, "Appointment ID");
     userId = validId(userId, "User ID");

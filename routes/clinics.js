@@ -8,6 +8,9 @@ import {
     getClinicById
 } from "../data/clinics.js";
 import {
+    addBooking
+} from "../data/appointments.js";
+import {
     createClinicSpecialisation,
     updateClinicSpecialisation
 } from "../data/clinicSpecialisations.js";
@@ -296,6 +299,8 @@ router.route("/:id").post(async (req, res)=> {
         //console.log(time)
         //console.log(startDate);
         //console.log(endDate)
+        let booking = await addBooking(req.session.user.id, clinicId, startDate.getTime(), endDate.getTime(), 0, 0, "", -1, -1, -1, "POD", "pending", "", {}, "scheduled", false, false)
+
         
     } catch(e) {
         return res
