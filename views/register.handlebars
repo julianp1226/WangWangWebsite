@@ -1,52 +1,38 @@
-<main>
+<main class="register-main">
     <head>
         <link rel="stylesheet" href="/public/css/register-styles.css"/>
     </head>
     <form action="/register" method="POST" id="registration-form" class="centered">
+        <h1>Register</h1>
+        <a href="/login" class="light-link">Already have an account? Click here to log-in</a>
+        <br>
 
-    <h1>Register</h1>
-    <a href="/login" class="light-link">Already have an account? Click here to log-in</a>
-    <br>
-
-    <div class="reg-parent">
-        <div class="reg-left">
-            <label for="firstNameInput">
-                First Name
+        <div class="reg-parent">
+            <div class="reg-left">
+                <label for="firstNameInput">First Name</label>
                 <input type="text" name="firstNameInput" id="firstNameInput" placeholder="Enter first name">
-            </label>
-            
-            <label for="lastNameInput">
-                Last Name
-                <input type="text" name="lastNameInput" id="lastNameInput" placeholder="Enter last name">
-            </label>
-        
-            <label for="countryCodeInput">
-                Country Code (+_)
+                
+                <label for="countryCodeInput">Country Code (+_)</label>
                 <input type="text" name="countryCodeInput" id="countryCodeInput" placeholder="Enter country code">
-            </label>
-        </div>
+            </div>
             <div class="reg-right">
-                <label for="mobileInput">
-                Phone Number
+                <label for="lastNameInput">Last Name</label>
+                <input type="text" name="lastNameInput" id="lastNameInput" placeholder="Enter last name">
+
+                <label for="mobileInput">Phone Number</label>
                 <input type="text" name="mobileInput" id="mobileInput" placeholder="Enter phone number">
-                </label>
+            </div>
         </div>
-    </div>
 
         <div class="row">
-            <label for="emailAddressInput">
-                Email (Optional)
-                <input type="email" name="emailAddressInput" id="emailAddressInput" placeholder="Enter email address">
-            </label>
-            <label for="passwordInput">
-                Password
-                <input type="password" name="passwordInput" id="passwordInput" placeholder="Create password">
-            </label>
+            <label for="emailAddressInput">Email (Optional)</label>
+            <input type="email" name="emailAddressInput" id="emailAddressInput" placeholder="Enter email address">
+
+            <label for="passwordInput">Password</label>
+            <input type="password" name="passwordInput" id="passwordInput" placeholder="Create password">
             
-            <label for="confirmPasswordInput">
-                Confirm Password
-                <input type="password" name="confirmPasswordInput" id="confirmPasswordInput" placeholder="Confirm Password">
-            </label>
+            <label for="confirmPasswordInput">Confirm Password</label>
+            <input type="password" name="confirmPasswordInput" id="confirmPasswordInput" placeholder="Confirm Password">
         </div>
         <p class="extra-info">Minimum 8 characters, must contain at least one uppercase letter, number, and special character</p>
 
