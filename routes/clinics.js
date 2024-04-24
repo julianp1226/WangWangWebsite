@@ -263,44 +263,147 @@ router.route("/:id").get(async (req, res)=> {
 
 //test for now, not sure how exactly to make the submit event actually work
 router.route("/:id").post(async (req, res)=> {
+    let auth = false;
     //console.log(req.body.time)
     try{
+        //Should be same as get route
         let clinicId = validId(req.params.id);
-        let clinic = await getClinicById(clinicId)        
-        let time = xss(req.body.time)
-        let date = xss(req.body.date)
-
-        let hour = parseInt(time.substring(0, 2))
-
-        if(hour === 12 && time.substring(time.length-4)==="A.M."){
-            hour = 0
+        let clinic = await getClinicById(clinicId)
+        if (req.session.user) {
+            auth = true;
         }
-        else if(hour !== 12 && time.substring(time.length-4)==="P.M."){
-            hour +=12
+
+        //Given schema says openingTime & closingTime can be "", but we can't work with that directly
+        let openingTime = clinic.openingTime;
+        if(openingTime === ""){
+            openingTime = "12:00 AM"
         }
-        let minute = parseInt(time.substring(time.indexOf(":")+1, time.indexOf(":")+3));
 
-        let firstSpaceDate = date.indexOf(" ")
+        let closingTime = clinic.closingTime;
+        if(closingTime === ""){
+            closingTime = "11:59 PM"
+        }
 
-        const months = ["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];
-        let month = date.substring(0, firstSpaceDate);
-        let monthNum = months.findIndex(currMonth => month == currMonth)
+        //Extract hours & minutes from time string as military time
+        let openingHour = parseInt(openingTime.substring(0, openingTime.indexOf(":")));
+        if(openingHour === 12 && openingTime.substring(openingTime.length-2)==="AM"){
+            openingHour = 0
+        }
+        else if(openingHour !== 12 && openingTime.substring(openingTime.length-2)==="PM"){
+            openingHour +=12
+        }
+        let openingMinute = parseInt(openingTime.substring(openingTime.indexOf(":")+1, openingTime.indexOf(":")+3));
+        let closingHour = parseInt(closingTime.substring(0, closingTime.indexOf(":")));
+        if(closingHour === 12 && closingTime.substring(closingTime.length-2)==="AM"){
+            closingHour = 0
+        }
+        else if(closingHour !== 12 && closingTime.substring(closingTime.length-2)==="PM"){
+            closingHour +=12
+        }
+        let closingMinute = parseInt(closingTime.substring(closingTime.indexOf(":")+1, closingTime.indexOf(":")+3));
+
+
+        let times = [] //Stores times as object of hours & minutes as military time (closer to how Date stores it by default & makes some calculations easier)
+        let displayTimes = [] //To store time as "normal" & be used on buttons (TODO: Fix this, currently just stores military time)
+        let timeIndex = 0
+        let currentDate = (new Date()).getDate()
+        let sameDate = true;
+        let beforeClosing = true;
+        let closingDate = (new Date())
+        closingDate.setHours(closingHour)
+        closingDate.setMinutes(closingMinute)
+
+        while(sameDate && beforeClosing){ //Loop goes until we've hit closing time or we roll over until midnight.
+            let myDate = new Date()
+            myDate.setHours(openingHour)
+            myDate.setMinutes(openingMinute + timeIndex*(clinic.slotBreak))
+            //myDate.setMinutes(openingMinute + timeIndex*(clinic.slotTime))
+            let hours = myDate.getHours()
+            let minutes = myDate.getMinutes()
+            times[timeIndex] = {hours: hours, minutes: minutes}
+            let leadingTime = ""
+            let timeSuffix = " A.M."
+            if(hours==0){
+                hours = 12
+            }
+            else if(hours>12){
+                hours -= 12;
+                timeSuffix = " P.M."
+            }
+            if(hours<10){
+                leadingTime = "0"
+            }
+            let middleDisplayTime = ":"
+            if(minutes<10){
+                middleDisplayTime =  middleDisplayTime + "0";
+            }
+            displayTimes[timeIndex] = leadingTime + hours.toString() + middleDisplayTime + minutes.toString() + timeSuffix
+            sameDate = (currentDate == myDate.getDate())
+            beforeClosing = (myDate.setMinutes(myDate.getMinutes() + clinic.slotTime)<closingDate)
+            timeIndex++
+        }
+        //console.log(displayTimes)
+
+
+        let dates = []
+        let date = new Date()
+        const weekday = ["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
+        const month = ["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];
+
+        let currentDay = date.getDate()
+
+        for(let i = 0; i<14; i++){
+            dates[i] = {
+                day: date.getDate(),
+                month: month[date.getMonth()],
+                dayOfWeek: weekday[date.getDay()],
+                dayOfWeekNum: date.getDay(),
+                year: date.getFullYear()}
+            
+            date.setUTCDate(date.getUTCDate() + 1)
+        }
+        //End of Same code     
+        let bookingTime = xss(req.body.time)
+        let bookingDate = xss(req.body.date)
+
+        let bookingHour = parseInt(bookingTime.substring(0, 2))
+
+        if(bookingHour === 12 && bookingTime.substring(bookingTime.length-4)==="A.M."){
+            bookingHour = 0
+        }
+        else if(bookingHour !== 12 && bookingTime.substring(bookingTime.length-4)==="P.M."){
+            bookingHour +=12
+        }
+        let bookingMinute = parseInt(bookingTime.substring(bookingTime.indexOf(":")+1, bookingTime.indexOf(":")+3));
+
+        let firstSpaceDate = bookingDate.indexOf(" ")
+
+        let bookingMonth = bookingDate.substring(0, firstSpaceDate);
+        let bookingMonthNum = month.findIndex(currMonth => bookingMonth == currMonth)
         //console.log(monthNum)
 
-        let day = parseInt(date.substring(firstSpaceDate+1, firstSpaceDate+3))
+        let bookingDay = parseInt(bookingDate.substring(firstSpaceDate+1, firstSpaceDate+3))
 
-        let year = parseInt(date.substring(firstSpaceDate+3))
+        let bookingYear = parseInt(bookingDate.substring(firstSpaceDate+3))
 
-        let startDate = new Date(year, monthNum, day, hour, minute)
+        let bookingStartDate = new Date(bookingYear, bookingMonthNum, bookingDay, bookingHour, bookingMinute)
 
-        let endDate = new Date(startDate.getTime() + clinic.slotTime*60000); //60 seconds per minute * 1000 ms per second
+        let bookingEndDate = new Date(bookingStartDate.getTime() + clinic.slotTime*60000); //60 seconds per minute * 1000 ms per second
 
-        //console.log(date)
-        //console.log(time)
-        //console.log(startDate);
-        //console.log(endDate)
-        let booking = await addBooking(req.session.user.id, clinicId, startDate.getTime(), endDate.getTime(), 0, 0, "", -1, -1, -1, "POD", "pending", "", {}, "scheduled", false, false)
+        console.log(bookingDate);
+        console.log(bookingDay)
+        console.log(bookingYear)
+        console.log(bookingStartDate)
+        console.log(bookingStartDate.getTime())
+        let booking = await addBooking(req.session.user.id, clinicId, bookingStartDate.getTime(), bookingEndDate.getTime(), 0, 0, "", -1, -1, -1, "POD", "pending", "", {}, "scheduled", false, false)
 
+        return res.render("clinic", {
+            clinic: clinic,
+            auth: auth,
+            dates: dates,
+            times: displayTimes,
+            completedBooking: true
+        });
         
     } catch(e) {
         return res
