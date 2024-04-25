@@ -1,0 +1,72 @@
+<head>
+        <link rel="stylesheet" href="/public/css/shop-styles.css"/>
+</head>
+<main>
+    <div class="section">
+        <h1 class="Shop">Your Order</h1>
+        <br>
+        {{#if isEmpty}}
+            <p class="emptyText">Your cart is empty! :(</p> <!-- This shouldn't happen since this is checked in the route itself, but just in case!-->
+        {{else}}
+            <span class="cart">
+                {{#each cart}}
+                <div class="orderItem">
+                    <img class="cartIMG" src={{this.product.image}}>
+                    <a href="/shop/{{this.product._id}}" ><h2 class="prodTitle">{{this.product.name}}</h2></a>
+                    <p class="quantity">{{this.quantity}}</p>
+                    <p class="cartPrice" cost={{this.product.actualPrice}} amt={{this.quantity}}>${{this.product.actualPrice}}</p>
+                </div>
+                {{/each}}
+            </span>
+            <hr width="75%">
+            <span class="column">
+                <h3>Bill Summary</h3>
+                <span class="row">
+                    <p>Subtotal</p>
+                    <p id="subtotal">-</p>
+                </span>
+                <span class="row">
+                    <p>Taxes & Fees</p>
+                    <p id="tax">-</p>
+                </span>
+                <span class="row">
+                    <p>Delivery Fee</p>
+                    <p id="delivery">-</p>
+                </span>
+                <hr width="30%">
+                <span class="row">
+                    <p>Total</p>
+                    <p id="total">-</p>
+                </span>
+                
+            </span>
+            <form method="POST" action="/checkout">
+                <hr width="75%">
+                <span class="column">
+                    <h3>Payment Method</h3>
+                    <fieldset value="card">
+                        {{#each cards}}
+                            <div>
+                                <input type="radio" id="{{this.id}}" name="card" value="{{this.id}}" >
+                                <label for="{{this.id}}">**** **** **** {{this.last4Digits}}</label>
+                            </div>
+                        {{/each}}
+                    </fieldset>
+                    <a href="/payments/id/{{id}}" class="viewLink">Manage Cards</a>
+                </span>
+                <hr width="75%">
+                <span class="column">
+                    <h3>Shipping Address</h3>
+                    <p>123 Street Ave, Hoboken NJ</p>
+                    <a href="" class="viewLink">Manage Shipping Addresses</a>
+                </span>
+                <span class="column">
+                    <button class="mainButton" type="submit">Place Order</button> <!-- In use real use, add post request to complete and check before redirect. In this case, automatically redirecting-->
+                </span>
+            </form>
+            
+        {{/if}}
+        
+    </div>
+    <script src="/public/js/checkout.js"></script>
+</main>

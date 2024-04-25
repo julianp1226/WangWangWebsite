@@ -29,6 +29,24 @@ main h1 {
     margin-top: 0;
     flex-wrap: wrap;
 }
+.mainButton {
+    background-color: #FF3EA5;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 10%;
+    font-size: 16px;
+    font-family: "Lato";
+    border-radius: 10px;
+    margin-inline-end: 3%;
+}
+.buttonSpan{
+    display: flex;
+    flex-direction: row;
+}
 .product {
     padding-inline: 1%;
     height: fit-content;
@@ -111,4 +129,42 @@ main h1 {
 }
 .emptyText {
     text-align: center;
+}
+.orderItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-right: 15%;
+}
+.orderItem img{
+    height: 200px;
+}
+.orderItem h2{
+    margin-top: 0
+}
+.orderItem p{
+    opacity: 1;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15%;
+}
+.column hr {
+    margin-left: 0;
+}
+.row {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+fieldset {
+    border: 0
+}
+fieldset div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

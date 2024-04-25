@@ -1,0 +1,27 @@
+<head>
+        <link rel="stylesheet" href="/public/css/shop-styles.css"/>
+</head>
+<main>
+    <div class="section">
+        <h1 class="Shop">Order Complete!</h1>
+        <br>
+        {{#if isEmpty}}
+            <p class="emptyText">Your cart is empty! :(</p> <!-- This shouldn't happen since this is checked in the route itself, but just in case!-->
+        {{else}}
+            <span class="cart">
+                {{#each cart}}
+                <div class="orderItem">
+                    <img class="cartIMG" src={{this.product.image}}>
+                    <a href="/shop/{{this.product._id}}" ><h2 class="prodTitle">{{this.product.name}}</h2></a>
+                    <p class="quantity">{{this.quantity}}</p>
+                    <p class="cartPrice" cost={{this.product.actualPrice}} amt={{this.quantity}}>${{this.product.actualPrice}}</p>
+                </div>
+                {{/each}}
+            
+            <button class="mainButton" onclick="window.location.href='/shop'">Go Back to Shop</button>
+            
+        {{/if}}
+        
+    </div>
+    <script src="/public/js/checkout.js"></script>
+</main>

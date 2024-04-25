@@ -133,6 +133,32 @@ const deleteProductById = async (id) => {
   if(!removalInfo) throw "Could not delete product from DB"
   return "Product deleted!"
 }
+const clearCart = async(userId) => {
+  let user;
+  try{
+    if(!userId){
+      throw "Error: Necessary inputs not provided"
+    }
+    userId = validId(userId, "User ID")
+    user = await getUserById(userId)
+    const usersCollection = await users()
+    if(user.cart){
+      user.cart = []
+    }
+    delete user._id
+    const updateInfo = await usersCollection.findOneAndUpdate(
+      { _id: new ObjectId(userId) },
+      { $set: user },
+      { returnDocument: "after" }
+    );
+    if (updateInfo.lastErrorObject.n === 0) throw "Error: Update failed";
+    let finalUser = await updateInfo.value;
+    finalUser._id = finalUser._id.toString();
+    return finalUser;
+  }catch(e){
+    throw e
+  }
+}
 const addToCart = async (userId,productId,quantity) => {
   let user;
   let product;
@@ -185,7 +211,7 @@ const removeFromCart = async (userId,pos) => {
     console.log(userId,pos)
     user.cart.splice(pos,1)
     for(let i = 0; i < user.cart.length; i++){
-      user.cart.pos = i + 1
+      user.cart[i].pos = i
     }
     delete user._id
     const updateInfo = await usersCollection.findOneAndUpdate(
@@ -310,4 +336,4 @@ const updateProduct = async (
   if(!updateInfo) throw "Could not update product in DB"
   return "Success!"
 }
-export {createProduct, getAllProducts, getProductById, deleteProductById,  addReview, addToCart, removeFromCart};
+export {createProduct, getAllProducts, getProductById, deleteProductById,  addReview, addToCart, removeFromCart, clearCart};

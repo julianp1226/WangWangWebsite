@@ -6,6 +6,7 @@ import shopRoutes from './shops.js'
 import paymentRoutes from './payment.js'
 import cartRoutes from './cart.js'
 import aboutusRoute from './aboutus.js'
+import checkoutRoute from './checkout.js'
 
 const constructor = (app) => {
   app.use("/", authRoutes);
@@ -16,6 +17,7 @@ const constructor = (app) => {
   app.use("/payments", paymentRoutes);
   app.use("/cart", cartRoutes);
   app.use("/aboutus", aboutusRoute);
+  app.use("/checkout",checkoutRoute)
   app.get("/", async (req, res) => {
     if (!req.session || !req.session.user || !req.session.user.id) {
       return res.render("homepage", { auth: false, title: "Home" });
