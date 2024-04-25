@@ -18,7 +18,8 @@ import {
   checkPassword,
   validAddress,
   validClinicStatus,
-  validBool
+  validBool,
+  validDate
 } from "../validation.js";
 
 const createClinic = async (
@@ -285,7 +286,7 @@ const addReview = async (clinicId, review) => {
     throw "Error: Necessary inputs not provided"
   }
   try {
-    validId(productId,"Clinic ID");
+    validId(clinicId,"Clinic ID");
     validNumber(review.stars, "Star Rating");
     validStr(review.text, "Review Text");
     validId(review.userId,"User ID")

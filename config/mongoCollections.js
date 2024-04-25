@@ -19,3 +19,4 @@ export const clinics = getCollectionFn("clinics");
 export const clinicsSpecialisations = getCollectionFn("clinicsSpecialisations")
 export const posts = getCollectionFn("posts");
 export const cards  = getCollectionFn("cards");
+export const appointments = getCollectionFn("appointments");

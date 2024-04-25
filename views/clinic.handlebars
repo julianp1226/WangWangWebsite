@@ -2,24 +2,28 @@
     <head>
         <link rel="stylesheet" href="/public/css/clinic-style.css"/>
     </head>
-        <br></br>
+        <br>
         <img src={{clinic.image}}>
-        <br></br>
+        <br>
         <span>{{clinic.name}} </span>
         <span>{{clinic.avgRating}}</span>
         <span>({{clinic.ratingCount}} Reviews)</span>
         <span>{{clinic.price}}</span>
-        <br></br>
+        <br>
         <span>{{clinic.address}}</span>
-        <br></br>
+        <br>
         <div>
             About
             <p>{{clinic.description}}</p>
         </div>
         <div>
-            Schedule Your Appointment
+            <p>Schedule Your Appointment</p>
+            {{#each dates}}
+            <button onclick="setDate({{this.dayOfWeekNum}}, '{{this.month}}', {{this.day}}, {{this.year}}); document.getElementById('create-booking').style.display='block';">{{this.dayOfWeek}} {{this.day}} {{this.month}}</button>
+            {{/each}}
+        <br>
         </div>
-        <br></br>
+        <br>
         <p>Clinic Location</p>
         <div>
             Map Placeholder
@@ -28,10 +32,54 @@
             <p>{{clinic.name}}</p>
             <p>{{clinic.address}}</p>
         </div>
-        <br></br>
+        <br>
         <span>Patient Reviews</span>
+        <div class="reviews">
+          {{#each clinic.reviews}}
+          <p>{{this.userID}}</p>
+          <br>
+          <p>{{this.starRating}}</p>
+          <br>
+          <p>{{this.reviewText}}</p>
+          {{/each}}
+        </div>
         <span>GIVE A REVIEW -></span>
-        <br></br>
+        <br>
         <span>{{clinic.avgRating}}</span>
         <span>Overall Rating ({{clinc.ratingCount}} Reviews)</span>
+        <br>
+
+        <div id="create-booking" class="create-post-modal">
+            <div class="create-post-modal-content">
+
+                        
+                <div class="w3-container">
+                    <svg id="exit" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="document.getElementById('create-booking').style.display='none'; document.getElementById('postform').reset(); hideFileUpload(); removeAll();" style="cursor: pointer;">
+                    <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
+                    <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/>
+                    </svg>
+                    <h1 id="create-post-heading">Book Your Appointment with {{clinic.name}}</h1>
+                    <p id="booking-date" style="margin-bottom: 10px;"></p>
+                    {{#each times}}
+                        <button onclick="setTime('{{this}}')">{{this}}</button>
+                    {{/each}}
+                    <form id="postform" action="/clinic/{{clinic._id}}" method="POST">
+                        <input id="date" name="date" style="display:none;" readonly>
+                        <input id="time" name="time" style="display:none;" readonly>
+                        <button id="post-button" type="submit" style="cursor:pointer">BOOK APPOINTMENT</button>
+                    </form>
+                    </div>
+                    <br>
+                <div class="error-div" id="error-div"></div>
+            </div>
+        </div>
+
+        {{#if completedBooking}}
+        <div id="booking-completed">
+            <p>Appointment Scheduled</p>
+            <p>Successfully</p>
+            <button onclick="location.href = '/';">GO TO HOME</button>
+        </div>
+        {{/if}}
+    <script src="../public/js/clinic.js"></script>
 </main>
