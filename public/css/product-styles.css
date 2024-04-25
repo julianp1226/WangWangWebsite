@@ -67,7 +67,7 @@ h2 {
     align-items: center;
     text-align: left;
     background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 20%;
+    border-radius: 5px;
 }
 .important {
     font-weight: bold;
@@ -225,3 +225,94 @@ form{
 .postDate {
     padding-left: 3%;
 }
+.coverBox {
+    position:fixed;
+    margin-top: -89px;
+    width:100vw;
+    height:120vh;
+    background-color:#1E1E1E;
+    opacity: 40%;
+}
+.infoBox {
+    position:fixed;
+    width: 60vw;
+    height: 80vh;
+    background-color: #FFFFFF;
+    opacity: 100%;
+    border-radius: 10px;
+}
+.xOut {
+    font-size: 40px;
+    font-weight: 2;
+    color:rgb(124, 124, 124);
+    float: right;
+    padding-right: 1%;
+}
+.infoBox h1 {
+    padding-top: 3%;
+    font-size: 42px;
+    text-align: center;
+}
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-left:10%;
+    justify-content: left;
+}
+  
+.star-rating input {
+    display: none;
+}
+#ratingTex {
+    padding-left:10%;
+    margin-bottom: 0;
+    font-size: 24px;
+}
+.star-rating label {
+    float: right;
+    padding: 0 2px;
+    cursor: pointer;
+}
+  
+.star-rating label:before {
+    content: '\2605';
+    font-size: 40px;
+}
+
+.star-rating input:checked ~ label:before {
+    color: #FF3EA5;
+}
+#moreText {
+    padding-left: 10%;
+    font-size: 24px;
+}
+#reviewText{
+    align-self: center;
+    width: 80%;
+    height:40vh;
+}
+#ratingbutton {
+    display: flex;
+    background-color: #FF3EA5;
+    border: none;
+    color: white;
+    margin-top:2%;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 60%;
+    font-size: 16px;
+    font-family: "Lato";
+    border-radius: 10px;
+    align-self: center;
+}
+#err {
+    color: #FF3EA5;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+}
+

@@ -57,6 +57,7 @@ app.use("/", (req, res, next) => {
     req.originalUrl.substring(0, 5) != "/feed" &&
     req.originalUrl.substring(0, 9) != "/payments" &&
     req.originalUrl.substring(0, 5) != "/shop" &&
+    req.originalUrl.substring(0, 8) != "/aboutus" &&
     req.originalUrl.substring(0, 7) != "/clinic" &&
     (!req.session || !req.session.user)
   )
@@ -64,15 +65,17 @@ app.use("/", (req, res, next) => {
   next();
 });
 
-app.engine("handlebars", exphbs.engine({ defaultLayout: "main", helpers:{
-  math: function(lvalue, operator, rvalue) {
+app.engine("handlebars", exphbs.engine({
+  defaultLayout: "main", helpers: {
+    math: function (lvalue, operator, rvalue) {
       lvalue = parseFloat(lvalue);
       rvalue = parseFloat(rvalue);
       return {
-          "+": lvalue + rvalue,
+        "+": lvalue + rvalue,
       }[operator];
     }
-  }}));
+  }
+}));
 app.set("view engine", "handlebars");
 
 configRoutes(app);

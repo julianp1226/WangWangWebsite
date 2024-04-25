@@ -1,6 +1,6 @@
 //man i dont know js
 
-import { products } from "../config/mongoCollections.js";
+import { products, users } from "../config/mongoCollections.js";
 import { ObjectId } from "mongodb";
 import bcrypt from "bcryptjs";
 
@@ -133,24 +133,125 @@ const deleteProductById = async (id) => {
   if(!removalInfo) throw "Could not delete product from DB"
   return "Product deleted!"
 }
-const addReview = async (productId,review) => {
+const clearCart = async(userId) => {
+  let user;
+  try{
+    if(!userId){
+      throw "Error: Necessary inputs not provided"
+    }
+    userId = validId(userId, "User ID")
+    user = await getUserById(userId)
+    const usersCollection = await users()
+    if(user.cart){
+      user.cart = []
+    }
+    delete user._id
+    const updateInfo = await usersCollection.findOneAndUpdate(
+      { _id: new ObjectId(userId) },
+      { $set: user },
+      { returnDocument: "after" }
+    );
+    if (updateInfo.lastErrorObject.n === 0) throw "Error: Update failed";
+    let finalUser = await updateInfo.value;
+    finalUser._id = finalUser._id.toString();
+    return finalUser;
+  }catch(e){
+    throw e
+  }
+}
+const addToCart = async (userId,productId,quantity) => {
   let user;
   let product;
-  if(!productId || !review || !review.stars || !review.text || !review.userId){
-    throw "Error: Necessary inputs not provided"
+  
+  try{
+    if(!userId || !productId || !quantity){
+      throw "Error: Necessary inputs not provided"
+    }
+    userId = validId(userId, "User ID")
+    productId = validId(productId, "Product ID")
+    quantity = validNumber(quantity, "Quantity")
+    user = await getUserById(userId);
+    product = await getProductById(productId);
+    const usersCollection = await users()
+    if(!user.cart){
+
+      user.cart = [{product:product,quantity:quantity, pos:1}]
+    }else{
+      user.cart = [...user.cart,{product:product,quantity:quantity, pos:user.cart.length}]
+    }
+    delete user._id
+    const updateInfo = await usersCollection.findOneAndUpdate(
+      { _id: new ObjectId(userId) },
+      { $set: user },
+      { returnDocument: "after" }
+    );
+    if (updateInfo.lastErrorObject.n === 0) throw "Error: Update failed";
+    let finalUser = await updateInfo.value;
+    finalUser._id = finalUser._id.toString();
+    return finalUser;
+  }catch(e){
+    throw e
   }
+}
+const removeFromCart = async (userId,pos) => {
+  let user;
+  console.log(userId,pos)
+  
   try {
-    validId(productId,"Product ID");
-    validNumber(review.stars, "Star Rating");
-    validStr(review.text, "Review Text");
-    validId(review.userId,"User ID")
-    user = await getUserById(review.userId);
+    if(userId == undefined || pos == undefined){
+      throw "Error: Necessary inputs not provided"
+    }
+    userId = validId(userId, "User ID")
+    pos = validNumber(pos, "Position")
+    user = await getUserById(userId)
+    const usersCollection = await users()
+    if(pos > user.cart.length){
+      throw "Position not within range"
+    }
+    console.log(userId,pos)
+    user.cart.splice(pos,1)
+    for(let i = 0; i < user.cart.length; i++){
+      user.cart[i].pos = i
+    }
+    delete user._id
+    const updateInfo = await usersCollection.findOneAndUpdate(
+      { _id: new ObjectId(userId) },
+      { $set: user },
+      { returnDocument: "after" }
+    );
+    if (updateInfo.lastErrorObject.n === 0) throw "Error: Update failed";
+    let finalUser = await updateInfo.value;
+    finalUser._id = finalUser._id.toString();
+    return finalUser;
+
+  } catch (error) {
+    throw error
+  }
+}
+const addReview = async (productId, stars, text, userId) => {
+  let user;
+  let product;
+  
+  
+  try {
+    if(!productId || !stars || !userId){
+      throw "Error: Necessary inputs not provided"
+    }
+    productId = validId(productId,"Product ID");
+    stars = validNumber(stars, "Star Rating");
+    if(text){
+      text = validStr(text, "Review Text");
+    }else{
+      text = ""
+    }
+    userId = validId(userId,"User ID")
+    user = await getUserById(userId);
     product = await getProductById(productId);
     product.reviews.push(
       {
         user: user.firstName,
-        stars: review.stars,
-        text: review.text,
+        stars: stars,
+        text: text,
         time: new Date()
       }
     )
@@ -235,4 +336,4 @@ const updateProduct = async (
   if(!updateInfo) throw "Could not update product in DB"
   return "Success!"
 }
-export {createProduct, getAllProducts, getProductById, deleteProductById,  addReview};
+export {createProduct, getAllProducts, getProductById, deleteProductById,  addReview, addToCart, removeFromCart, clearCart};
