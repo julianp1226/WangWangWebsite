@@ -289,7 +289,7 @@ form{
 #reviewText{
     align-self: center;
     width: 80%;
-    height:40vh;
+    height:25vh;
 }
 #ratingbutton {
     display: flex;
