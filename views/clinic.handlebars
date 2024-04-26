@@ -3,37 +3,43 @@
         <link rel="stylesheet" href="/public/css/clinic-style.css"/>
     </head>
         <br>
-        <img src={{clinic.image}}>
+        <img class="clinic-img" src={{clinic.image}}>
         <br>
-        <span>{{clinic.name}} </span>
-        <span>{{clinic.avgRating}}</span>
+        <span class="name">{{clinic.name}} </span>
+        <span>{{clinic.avgRating}} Average Rating</span>
         <span>({{clinic.ratingCount}} Reviews)</span>
-        <span>{{clinic.price}}</span>
+        <span class="price">${{clinic.price}}/hr</span>
         <br>
         <span>{{clinic.address}}</span>
         <br>
+        <hr style="color: lightslategray;">
         <div>
-            About
+            <p class="header">About</p>
             <p>{{clinic.description}}</p>
         </div>
-        <div>
-            <p>Schedule Your Appointment</p>
+        <span class="header">Schedule Your Appointment</span>
+        <div class="dates">
             {{#each dates}}
-            <button onclick="setDate({{this.dayOfWeekNum}}, '{{this.month}}', {{this.day}}, {{this.year}}); document.getElementById('create-booking').style.display='block';">{{this.dayOfWeek}} {{this.day}} {{this.month}}</button>
+                <button class="date-button" onclick="setDate({{this.dayOfWeekNum}}, '{{this.month}}', {{this.day}}, {{this.year}}); document.getElementById('create-booking').style.display='block';">
+                    <p class="date">{{this.dayOfWeek}}</p> {{this.day}} {{this.month}}
+                </button>
             {{/each}}
         <br>
         </div>
         <br>
-        <p>Clinic Location</p>
-        <div>
-            Map Placeholder
-        </div>
+        <span class="header">Clinic Location</span>
+        <br>
         <div>
             <p>{{clinic.name}}</p>
             <p>{{clinic.address}}</p>
         </div>
         <br>
-        <span>Patient Reviews</span>
+        <br>
+        <br>
+        <br>
+        <br>
+        <span class="header">Patient Reviews</span>
+        <span class="give-review">GIVE A REVIEW -></span>
         <div class="reviews">
           {{#each clinic.reviews}}
           <p>{{this.userID}}</p>
@@ -43,30 +49,30 @@
           <p>{{this.reviewText}}</p>
           {{/each}}
         </div>
-        <span>GIVE A REVIEW -></span>
         <br>
-        <span>{{clinic.avgRating}}</span>
-        <span>Overall Rating ({{clinc.ratingCount}} Reviews)</span>
+        <span class="review-score">{{clinic.avgRating}}</span>
+        <span>Overall Rating ({{clinic.ratingCount}} Reviews)</span>
         <br>
 
-        <div id="create-booking" class="create-post-modal">
-            <div class="create-post-modal-content">
+        <div id="create-booking" class="create-booking">
+            <div class="create-booking-content">
 
                         
                 <div class="w3-container">
-                    <svg id="exit" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="document.getElementById('create-booking').style.display='none'; document.getElementById('postform').reset(); hideFileUpload(); removeAll();" style="cursor: pointer;">
+                    <svg id="exit" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="document.getElementById('create-booking').style.display='none';" style="cursor: pointer;">
                     <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
                     <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/>
                     </svg>
                     <h1 id="create-post-heading">Book Your Appointment with {{clinic.name}}</h1>
                     <p id="booking-date" style="margin-bottom: 10px;"></p>
                     {{#each times}}
-                        <button onclick="setTime('{{this}}')">{{this}}</button>
+                        <button class="appointment-button" onclick="setTime('{{this}}')">{{this}}</button>
                     {{/each}}
                     <form id="postform" action="/clinic/{{clinic._id}}" method="POST">
                         <input id="date" name="date" style="display:none;" readonly>
                         <input id="time" name="time" style="display:none;" readonly>
-                        <button id="post-button" type="submit" style="cursor:pointer">BOOK APPOINTMENT</button>
+                        <br>
+                        <button id="book-button" class="book-button" type="submit" style="cursor:pointer">BOOK APPOINTMENT</button>
                     </form>
                     </div>
                     <br>
@@ -75,11 +81,23 @@
         </div>
 
         {{#if completedBooking}}
-        <div id="booking-completed">
-            <p>Appointment Scheduled</p>
-            <p>Successfully</p>
-            <button onclick="location.href = '/';">GO TO HOME</button>
+        <div id="booking-confirmed" class="booking-confirmed">
+            <div class="booking-confirmed-content">
+                <svg id="exit" width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="document.getElementById('booking-confirmed').style.display='none';" style="cursor: pointer;">
+                <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 -0.704607 0.709598 0.704607 4.36328 38.3999)" stroke="#BABABA" stroke-width="6"/>
+                <line y1="-3" x2="47.4022" y2="-3" transform="matrix(0.709598 0.704607 -0.709598 0.704607 1 5.23633)" stroke="#BABABA" stroke-width="6"/>
+                </svg>
+                <p style="text-align:center;">Appointment Scheduled</p>
+                <svg width="156" height="148" viewBox="0 0 156 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="77.6738" cy="74" rx="77.6738" ry="74" fill="#CDAA89"/>
+                    <path d="M71.1235 99.1599C69.1954 99.1565 67.3471 98.4318 65.9817 97.1441L44.1638 76.5048C42.2732 74.7774 41.515 72.2195 42.1806 69.8142C42.8461 67.4088 44.8319 65.5303 47.3746 64.9007C49.9173 64.2711 52.6213 64.9883 54.4473 66.7768L70.8762 82.3113L102.112 49.8181C103.827 47.8844 106.524 46.9943 109.138 47.499C111.752 48.0036 113.865 49.822 114.641 52.2367C115.418 54.6514 114.735 57.2746 112.861 59.0714L76.498 96.9102C75.1598 98.3013 73.2784 99.1141 71.2907 99.1599H71.1235Z" fill="white"/>
+                </svg>
+
+                <p style="text-align:center;">Successfully</p>
+                <button class="book-button" onclick="location.href = '/';">GO TO HOME</button>
+            </div>
         </div>
         {{/if}}
+        </div>
     <script src="../public/js/clinic.js"></script>
 </main>
